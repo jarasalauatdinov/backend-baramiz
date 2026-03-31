@@ -1,0 +1,32 @@
+[
+  {
+    "id": "history",
+    "name": "History",
+    "description": "Ancient fortresses, memorial sites, and stories from the region."
+  },
+  {
+    "id": "culture",
+    "name": "Culture",
+    "description": "Local traditions, performance venues, and creative spaces."
+  },
+  {
+    "id": "museum",
+    "name": "Museum",
+    "description": "Collections that explain Karakalpakstan through art and heritage."
+  },
+  {
+    "id": "nature",
+    "name": "Nature",
+    "description": "Open landscapes, viewpoints, and nature-driven experiences."
+  },
+  {
+    "id": "adventure",
+    "name": "Adventure",
+    "description": "Desert road trips and active exploration around remote landmarks."
+  },
+  {
+    "id": "food",
+    "name": "Food",
+    "description": "Markets and local flavors that make a trip feel complete."
+  }
+]
