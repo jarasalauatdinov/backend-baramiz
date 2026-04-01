@@ -1,5 +1,11 @@
 import { z } from "zod";
-import { booleanQuerySchema, categoryIdSchema, idParamSchema, optionalQueryStringSchema } from "./common.schema";
+import {
+  booleanQuerySchema,
+  categoryIdSchema,
+  idParamSchema,
+  languageSchema,
+  optionalQueryStringSchema,
+} from "./common.schema";
 
 export const getPlacesQuerySchema = z.object({
   city: optionalQueryStringSchema,
@@ -12,6 +18,10 @@ export const getPlacesQuerySchema = z.object({
     return trimmedValue.length > 0 ? trimmedValue : undefined;
   }, categoryIdSchema.optional()),
   featured: booleanQuerySchema,
+  language: languageSchema.optional(),
 });
 
 export const getPlaceByIdParamsSchema = idParamSchema;
+export const getPlaceByIdQuerySchema = z.object({
+  language: languageSchema.optional(),
+});

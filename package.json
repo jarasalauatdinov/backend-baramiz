@@ -4,9 +4,9 @@
   "description": "MVP backend for the Baramiz AI tourism mini app focused on Karakalpakstan.",
   "main": "dist/server.js",
   "scripts": {
-    "dev": "tsx watch src/server.ts",
-    "build": "tsc",
-    "start": "node dist/server.js"
+    "dev": "node -e \"const path=require('node:path'); const root=path.dirname(process.env.npm_package_json); require(path.join(root,'scripts','npm-runner.cjs')).run('dev');\"",
+    "build": "node -e \"const path=require('node:path'); const root=path.dirname(process.env.npm_package_json); require(path.join(root,'scripts','npm-runner.cjs')).run('build');\"",
+    "start": "node -e \"const path=require('node:path'); const root=path.dirname(process.env.npm_package_json); require(path.join(root,'scripts','npm-runner.cjs')).run('start');\""
   },
   "keywords": [
     "baramiz",

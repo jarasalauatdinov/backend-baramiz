@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { getPlacesQuerySchema } from "./places.schema";
 import { categoryIdSchema, idParamSchema } from "./common.schema";
+import { coordinatesSchema } from "./tourism-data.schema";
 
 const optionalLocalizedTextSchema = z.preprocess((value) => {
   if (typeof value !== "string") {
@@ -10,11 +11,6 @@ const optionalLocalizedTextSchema = z.preprocess((value) => {
   const trimmedValue = value.trim();
   return trimmedValue.length > 0 ? trimmedValue : undefined;
 }, z.string().min(1).optional());
-
-const coordinatesSchema = z.object({
-  lat: z.number().min(-90).max(90),
-  lng: z.number().min(-180).max(180),
-});
 
 export const adminPlaceBodySchema = z.object({
   name_kaa: z.string().trim().min(1, "name_kaa is required"),

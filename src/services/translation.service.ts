@@ -1,18 +1,18 @@
 import type { TranslationResult } from "../types/tourism.types";
 import { AppError } from "../utils/app-error";
-import { openAIService } from "./openai.service";
+import { aiProviderService } from "./ai-provider.service";
 
 class TranslationService {
   async translatePlaceFromUz(nameUz: string, descriptionUz: string): Promise<TranslationResult> {
-    if (!openAIService.isEnabled()) {
+    if (!aiProviderService.isEnabled()) {
       throw new AppError(
         503,
-        "Auto-translation is not configured. Add OPENAI_API_KEY or save ru/en content manually.",
+        "Auto-translation is not configured. Add PROVIDER_API_KEY or OPENAI_API_KEY, or save ru/en content manually.",
       );
     }
 
     try {
-      const translatedContent = await openAIService.translatePlaceFromUz({
+      const translatedContent = await aiProviderService.translatePlaceFromUz({
         nameUz,
         descriptionUz,
       });
