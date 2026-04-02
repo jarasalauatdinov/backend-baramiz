@@ -10,6 +10,10 @@ Lightweight MVP backend for a tourism platform focused on Karakalpakstan. The pr
 - `GET /api/places/:id`
 - `POST /api/routes/generate`
 - `POST /api/chat`
+- `POST /api/auth/register`
+- `POST /api/auth/login`
+- `GET /api/auth/me`
+- `POST /api/auth/logout`
 - `GET /api/admin/places`
 - `POST /api/admin/places`
 - `PUT /api/admin/places/:id`
@@ -75,6 +79,7 @@ PROVIDER_BASE_URL=
 OPENAI_API_KEY=
 OPENAI_MODEL=
 OPENAI_BASE_URL=
+AUTH_TOKEN_TTL_DAYS=30
 ```
 
 - `PORT`: server port
@@ -86,6 +91,7 @@ OPENAI_BASE_URL=
 - `OPENAI_API_KEY`: fallback server-side API key for direct OpenAI usage
 - `OPENAI_MODEL`: fallback model override when `PROVIDER_MODEL` is not set
 - `OPENAI_BASE_URL`: optional fallback base URL for OpenAI-compatible OpenAI SDK usage
+- `AUTH_TOKEN_TTL_DAYS`: session token TTL in days (default 30)
 
 Provider precedence:
 
@@ -134,6 +140,22 @@ The backend never exposes these values to the frontend. Chat and translation are
   - uses the same optional server-side provider configuration
   - returns a clean error if translation is not configured or provider requests fail
 
+- `POST /api/auth/register`:
+  - body: `{ "name": string, "email": string, "password": string }`
+  - response: `{ "user": { id, name, email, createdAt }, "token": string, "expiresAt": string }`
+
+- `POST /api/auth/login`:
+  - body: `{ "email": string, "password": string }`
+  - response: `{ "user": { id, name, email, createdAt }, "token": string, "expiresAt": string }`
+
+- `GET /api/auth/me`:
+  - requires `Authorization: Bearer <token>`
+  - response: `{ "user": { id, name, email, createdAt } }`
+
+- `POST /api/auth/logout`:
+  - requires `Authorization: Bearer <token>`
+  - response: `{ "message": "Logged out" }`
+
 ## Static Assets
 
 - `GET /assets/*` maps to `public/assets/*`
@@ -158,7 +180,7 @@ curl -X POST "http://localhost:3000/api/routes/generate" \
 ## MVP Scope
 
 - No database
-- No authentication
+- Token-based traveler authentication for protected actions and profile access
 - No payments
 - No Docker requirement
 - No enterprise-style abstractions
@@ -171,3 +193,10 @@ The goal is a clean, demo-practical backend that is easy to understand and easy 
 - If no provider key is configured, `/api/chat` still works through local fallback responses.
 - If provider chat requests fail at runtime, `/api/chat` degrades to fallback instead of crashing the API.
 - If translation is not configured, admin users can still save manual `ru` and `en` content.
+
+## Auth Notes
+
+- Auth is optional at app startup. Only protected actions should require it.
+- Tokens are stored in `src/data/sessions.json` for the MVP.
+- Use the `Authorization: Bearer <token>` header from the frontend for protected calls.
+- This is file-based and not intended for production scale.

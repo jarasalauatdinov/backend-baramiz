@@ -18,7 +18,7 @@ const corsOptions: CorsOptions = {
     callback(null, allowedOrigins.has(origin));
   },
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type"],
+  allowedHeaders: ["Content-Type", "Authorization"],
   optionsSuccessStatus: 204,
 };
 const assetsDirectoryPath = path.join(process.cwd(), "public", "assets");

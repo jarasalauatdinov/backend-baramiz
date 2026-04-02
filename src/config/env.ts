@@ -43,6 +43,7 @@ const envSchema = z.object({
   OPENAI_API_KEY: z.preprocess(emptyToUndefined, z.string().optional()),
   OPENAI_MODEL: z.preprocess(emptyToUndefined, z.string().optional()),
   OPENAI_BASE_URL: z.preprocess(emptyToUndefined, z.string().url().optional()),
+  AUTH_TOKEN_TTL_DAYS: z.coerce.number().int().positive().default(30),
 });
 
 const parsedEnv = envSchema.parse({
@@ -57,6 +58,7 @@ const parsedEnv = envSchema.parse({
   OPENAI_API_KEY: process.env.OPENAI_API_KEY,
   OPENAI_MODEL: process.env.OPENAI_MODEL,
   OPENAI_BASE_URL: process.env.OPENAI_BASE_URL,
+  AUTH_TOKEN_TTL_DAYS: process.env.AUTH_TOKEN_TTL_DAYS ?? "30",
 });
 
 const defaultDevelopmentOrigins = parsedEnv.NODE_ENV === "production"
@@ -94,4 +96,5 @@ export const env = {
   AI_PROVIDER_MODE: parsedEnv.PROVIDER_API_KEY || parsedEnv.PROVIDER_BASE_URL || parsedEnv.OPENAI_BASE_URL
     ? "provider"
     : "openai",
+  AUTH_TOKEN_TTL_DAYS: parsedEnv.AUTH_TOKEN_TTL_DAYS,
 } as const;
