@@ -1,6 +1,8 @@
 import type { Request, Response } from "express";
-import { categoriesService } from "../services/categories.service";
+import { getCategoriesQuerySchema } from "../schemas/categories.schema";
+import { getCategories } from "../services/categories.service";
 
-export const getCategories = (_request: Request, response: Response): void => {
-  response.json(categoriesService.getCategories());
+export const listCategories = (request: Request, response: Response): void => {
+  const query = getCategoriesQuerySchema.parse(request.query);
+  response.json({ items: getCategories(query.language) });
 };

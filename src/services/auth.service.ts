@@ -1,192 +1,194 @@
-import { promises as fs } from "node:fs";
+import crypto from "node:crypto";
 import path from "node:path";
-import { createHash, randomBytes, randomUUID, scrypt, timingSafeEqual } from "node:crypto";
-import { promisify } from "node:util";
 import { env } from "../config/env";
-import type { AuthPublicUser, AuthSessionRecord, AuthSuccessResponse, AuthUserRecord } from "../types/auth.types";
+import { authSessionsDataSchema, authUsersDataSchema } from "../schemas/tourism-data.schema";
+import type { AuthPayload, AuthSession, AuthUser, StoredAuthUser } from "../types/tourism.types";
 import { AppError } from "../utils/app-error";
+import { readJsonFile, writeJsonFile } from "../utils/json-storage";
 
-const scryptAsync = promisify(scrypt);
 const usersFilePath = path.join(process.cwd(), "src", "data", "auth-users.json");
-const sessionsFilePath = path.join(process.cwd(), "src", "data", "sessions.json");
-const sessionTtlMs = env.AUTH_TOKEN_TTL_DAYS * 24 * 60 * 60 * 1000;
+const sessionsFilePath = path.join(process.cwd(), "src", "data", "auth-sessions.json");
 
-const sha256 = (value: string): string =>
-  createHash("sha256").update(value).digest("hex");
+let usersCache: StoredAuthUser[] | null = null;
+let sessionsCache: AuthSession[] | null = null;
 
-const ensureJsonFile = async <T>(filePath: string, fallbackValue: T): Promise<void> => {
-  await fs.mkdir(path.dirname(filePath), { recursive: true });
+const normalizeEmail = (email: string): string => email.trim().toLowerCase();
+const now = (): Date => new Date();
 
-  try {
-    await fs.access(filePath);
-  } catch {
-    await fs.writeFile(filePath, JSON.stringify(fallbackValue, null, 2));
+const hashPassword = (password: string): string => {
+  const salt = crypto.randomBytes(16).toString("hex");
+  const derivedKey = crypto.scryptSync(password, salt, 64).toString("hex");
+  return `${salt}:${derivedKey}`;
+};
+
+const verifyPassword = (password: string, passwordHash: string): boolean => {
+  const [salt, storedHash] = passwordHash.split(":");
+
+  if (!salt || !storedHash) {
+    return false;
   }
-};
 
-const readJsonFile = async <T>(filePath: string, fallbackValue: T): Promise<T> => {
-  await ensureJsonFile(filePath, fallbackValue);
-  const raw = await fs.readFile(filePath, "utf-8");
+  const derivedKey = crypto.scryptSync(password, salt, 64);
+  const storedKey = Buffer.from(storedHash, "hex");
 
-  try {
-    return JSON.parse(raw) as T;
-  } catch {
-    await fs.writeFile(filePath, JSON.stringify(fallbackValue, null, 2));
-    return fallbackValue;
+  if (derivedKey.length !== storedKey.length) {
+    return false;
   }
+
+  return crypto.timingSafeEqual(derivedKey, storedKey);
 };
 
-const writeJsonFile = async <T>(filePath: string, value: T): Promise<void> => {
-  await ensureJsonFile(filePath, value);
-  await fs.writeFile(filePath, JSON.stringify(value, null, 2));
+const loadUsers = (): StoredAuthUser[] => {
+  if (usersCache) {
+    return usersCache;
+  }
+
+  usersCache = readJsonFile(usersFilePath, authUsersDataSchema, []);
+  return usersCache;
 };
 
-const hashPassword = async (password: string, salt: string): Promise<string> => {
-  const derivedKey = await scryptAsync(password, salt, 64);
-  return (derivedKey as Buffer).toString("hex");
+const saveUsers = (users: StoredAuthUser[]): StoredAuthUser[] => {
+  usersCache = writeJsonFile(usersFilePath, authUsersDataSchema, users);
+  return usersCache;
 };
 
-const verifyPassword = async (password: string, user: AuthUserRecord): Promise<boolean> => {
-  const derivedHash = await hashPassword(password, user.passwordSalt);
+const loadSessions = (): AuthSession[] => {
+  if (sessionsCache) {
+    return sessionsCache;
+  }
 
-  return timingSafeEqual(
-    Buffer.from(user.passwordHash, "hex"),
-    Buffer.from(derivedHash, "hex"),
-  );
+  sessionsCache = readJsonFile(sessionsFilePath, authSessionsDataSchema, []);
+  return sessionsCache;
 };
 
-const toPublicUser = (user: AuthUserRecord): AuthPublicUser => ({
+const saveSessions = (sessions: AuthSession[]): AuthSession[] => {
+  sessionsCache = writeJsonFile(sessionsFilePath, authSessionsDataSchema, sessions);
+  return sessionsCache;
+};
+
+const stripPasswordHash = (user: StoredAuthUser): AuthUser => ({
   id: user.id,
   name: user.name,
   email: user.email,
   createdAt: user.createdAt,
 });
 
-class AuthService {
-  private async getUsers(): Promise<AuthUserRecord[]> {
-    return readJsonFile<AuthUserRecord[]>(usersFilePath, []);
+const removeExpiredSessions = (): AuthSession[] => {
+  const currentTime = now().getTime();
+  const activeSessions = loadSessions().filter((session) => {
+    return new Date(session.expiresAt).getTime() > currentTime;
+  });
+
+  if (activeSessions.length !== loadSessions().length) {
+    saveSessions(activeSessions);
   }
 
-  private async saveUsers(users: AuthUserRecord[]): Promise<void> {
-    await writeJsonFile(usersFilePath, users);
+  return activeSessions;
+};
+
+const createSessionForUser = (userId: string): AuthSession => {
+  const createdAt = now();
+  const expiresAt = new Date(createdAt);
+  expiresAt.setDate(expiresAt.getDate() + env.AUTH_TOKEN_TTL_DAYS);
+
+  const nextSession: AuthSession = {
+    id: crypto.randomUUID(),
+    userId,
+    token: crypto.randomBytes(32).toString("hex"),
+    createdAt: createdAt.toISOString(),
+    expiresAt: expiresAt.toISOString(),
+  };
+
+  saveSessions([...removeExpiredSessions(), nextSession]);
+  return nextSession;
+};
+
+const buildAuthPayload = (user: StoredAuthUser): AuthPayload => {
+  const session = createSessionForUser(user.id);
+
+  return {
+    user: stripPasswordHash(user),
+    token: session.token,
+    expiresAt: session.expiresAt,
+  };
+};
+
+const findUserByEmail = (email: string): StoredAuthUser | undefined => {
+  const normalizedEmail = normalizeEmail(email);
+  return loadUsers().find((user) => user.email === normalizedEmail);
+};
+
+const parseBearerToken = (authorizationHeader?: string): string => {
+  if (!authorizationHeader) {
+    throw new AppError(401, "Authorization header is required");
   }
 
-  private async getSessions(): Promise<AuthSessionRecord[]> {
-    const sessions = await readJsonFile<AuthSessionRecord[]>(sessionsFilePath, []);
-    const activeSessions = sessions.filter((session) => new Date(session.expiresAt).getTime() > Date.now());
+  const [scheme, token] = authorizationHeader.split(" ");
 
-    if (activeSessions.length !== sessions.length) {
-      await this.saveSessions(activeSessions);
-    }
-
-    return activeSessions;
+  if (scheme !== "Bearer" || !token) {
+    throw new AppError(401, "Authorization header must use Bearer token");
   }
 
-  private async saveSessions(sessions: AuthSessionRecord[]): Promise<void> {
-    await writeJsonFile(sessionsFilePath, sessions);
+  return token.trim();
+};
+
+export const registerUser = (input: {
+  name: string;
+  email: string;
+  password: string;
+}): AuthPayload => {
+  if (findUserByEmail(input.email)) {
+    throw new AppError(409, "An account with this email already exists");
   }
 
-  private async createSessionResponse(user: AuthUserRecord): Promise<AuthSuccessResponse> {
-    const rawToken = randomBytes(32).toString("hex");
-    const expiresAt = new Date(Date.now() + sessionTtlMs).toISOString();
-    const nextSession: AuthSessionRecord = {
-      id: randomUUID(),
-      userId: user.id,
-      tokenHash: sha256(rawToken),
-      createdAt: new Date().toISOString(),
-      expiresAt,
-    };
+  const nextUser: StoredAuthUser = {
+    id: crypto.randomUUID(),
+    name: input.name.trim(),
+    email: normalizeEmail(input.email),
+    passwordHash: hashPassword(input.password),
+    createdAt: now().toISOString(),
+  };
 
-    const sessions = await this.getSessions();
-    await this.saveSessions([...sessions, nextSession]);
+  saveUsers([...loadUsers(), nextUser]);
+  return buildAuthPayload(nextUser);
+};
 
-    return {
-      user: toPublicUser(user),
-      token: rawToken,
-      expiresAt,
-    };
+export const loginUser = (input: { email: string; password: string }): AuthPayload => {
+  const user = findUserByEmail(input.email);
+
+  if (!user || !verifyPassword(input.password, user.passwordHash)) {
+    throw new AppError(401, "Invalid email or password");
   }
 
-  async register(input: { name: string; email: string; password: string }): Promise<AuthSuccessResponse> {
-    const users = await this.getUsers();
-    const normalizedEmail = input.email.trim().toLowerCase();
+  return buildAuthPayload(user);
+};
 
-    if (users.some((user) => user.email === normalizedEmail)) {
-      throw new AppError(409, "An account with this email already exists");
-    }
+export const getAuthenticatedUser = (authorizationHeader?: string): AuthUser => {
+  const token = parseBearerToken(authorizationHeader);
+  const activeSessions = removeExpiredSessions();
+  const session = activeSessions.find((currentSession) => currentSession.token === token);
 
-    const passwordSalt = randomBytes(16).toString("hex");
-    const nextUser: AuthUserRecord = {
-      id: randomUUID(),
-      name: input.name.trim(),
-      email: normalizedEmail,
-      createdAt: new Date().toISOString(),
-      passwordSalt,
-      passwordHash: await hashPassword(input.password, passwordSalt),
-    };
-
-    await this.saveUsers([...users, nextUser]);
-    return this.createSessionResponse(nextUser);
+  if (!session) {
+    throw new AppError(401, "Session is invalid or has expired");
   }
 
-  async login(input: { email: string; password: string }): Promise<AuthSuccessResponse> {
-    const users = await this.getUsers();
-    const normalizedEmail = input.email.trim().toLowerCase();
-    const user = users.find((candidate) => candidate.email === normalizedEmail);
+  const user = loadUsers().find((currentUser) => currentUser.id === session.userId);
 
-    if (!user) {
-      throw new AppError(401, "Invalid email or password");
-    }
-
-    const isPasswordValid = await verifyPassword(input.password, user);
-    if (!isPasswordValid) {
-      throw new AppError(401, "Invalid email or password");
-    }
-
-    return this.createSessionResponse(user);
+  if (!user) {
+    throw new AppError(401, "Authenticated user was not found");
   }
 
-  async getCurrentUser(token: string): Promise<AuthPublicUser> {
-    const sessions = await this.getSessions();
-    const currentSession = sessions.find((session) => session.tokenHash === sha256(token));
+  return stripPasswordHash(user);
+};
 
-    if (!currentSession) {
-      throw new AppError(401, "Authentication required");
-    }
+export const logoutUser = (authorizationHeader?: string): void => {
+  const token = parseBearerToken(authorizationHeader);
+  const sessions = removeExpiredSessions();
+  const nextSessions = sessions.filter((session) => session.token !== token);
 
-    const users = await this.getUsers();
-    const user = users.find((candidate) => candidate.id === currentSession.userId);
-
-    if (!user) {
-      throw new AppError(401, "Authentication required");
-    }
-
-    return toPublicUser(user);
+  if (nextSessions.length === sessions.length) {
+    throw new AppError(401, "Session is invalid or has expired");
   }
 
-  async logout(token: string): Promise<void> {
-    const sessions = await this.getSessions();
-    const nextSessions = sessions.filter((session) => session.tokenHash !== sha256(token));
-
-    if (nextSessions.length === sessions.length) {
-      throw new AppError(401, "Authentication required");
-    }
-
-    await this.saveSessions(nextSessions);
-  }
-
-  extractBearerToken(authorizationHeader: string | undefined): string {
-    if (!authorizationHeader || !authorizationHeader.startsWith("Bearer ")) {
-      throw new AppError(401, "Authentication required");
-    }
-
-    const token = authorizationHeader.slice("Bearer ".length).trim();
-    if (!token) {
-      throw new AppError(401, "Authentication required");
-    }
-
-    return token;
-  }
-}
-
-export const authService = new AuthService();
+  saveSessions(nextSessions);
+};

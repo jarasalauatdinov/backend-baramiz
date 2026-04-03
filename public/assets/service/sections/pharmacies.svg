@@ -1,0 +1,17 @@
+﻿<svg width="1200" height="800" viewBox="0 0 432 288" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg-pharmacies" x1="24" y1="24" x2="396" y2="264" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#15803D"/>
+      <stop offset="1" stop-color="#22C55E"/>
+    </linearGradient>
+    <radialGradient id="glow-pharmacies" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(340 60) rotate(142) scale(210 180)">
+      <stop stop-color="#86EFAC" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#86EFAC" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="432" height="288" rx="36" fill="url(#bg-pharmacies)"/>
+  <rect x="18" y="18" width="396" height="252" rx="28" fill="url(#glow-pharmacies)" opacity="0.62"/>
+  <g><rect x="188" y="88" width="56" height="122" rx="14" fill="#F0FDF4" opacity="0.96"/><rect x="156" y="121" width="120" height="56" rx="14" fill="#F0FDF4" opacity="0.96"/><circle cx="310" cy="96" r="24" fill="#DCFCE7" opacity="0.98"/></g>
+  <rect x="28" y="208" width="220" height="42" rx="21" fill="#0B1220" opacity="0.18"/>
+  <text x="36" y="235" fill="#FFFFFF" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700">Pharmacies</text>
+</svg>

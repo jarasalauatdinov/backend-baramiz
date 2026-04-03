@@ -1,0 +1,299 @@
+[
+  {
+    "id": "service-section-services",
+    "slug": "services",
+    "title": {
+      "kaa": "Xizmetler",
+      "uz": "Xizmatlar",
+      "ru": "Сервисы",
+      "en": "Travel Services"
+    },
+    "shortDescription": {
+      "kaa": "Useful support services for planning and moving around Karakalpakstan.",
+      "uz": "Useful support services for planning and moving around Karakalpakstan.",
+      "ru": "Useful support services for planning and moving around Karakalpakstan.",
+      "en": "Useful support services for planning and moving around Karakalpakstan."
+    },
+    "description": {
+      "kaa": "A mix of planning help, transfer support, and practical services for travelers.",
+      "uz": "A mix of planning help, transfer support, and practical services for travelers.",
+      "ru": "A mix of planning help, transfer support, and practical services for travelers.",
+      "en": "A mix of planning help, transfer support, and practical services for travelers."
+    },
+    "image": "/assets/service/sections/services.svg",
+    "icon": "briefcase",
+    "order": 1,
+    "isActive": true,
+    "type": "discovery"
+  },
+  {
+    "id": "service-section-history-and-culture",
+    "slug": "history-and-culture",
+    "title": {
+      "kaa": "Tariyx ham madeniyat",
+      "uz": "Tarix va madaniyat",
+      "ru": "История и культура",
+      "en": "History and Culture"
+    },
+    "shortDescription": {
+      "kaa": "Places that explain the deep cultural story of Karakalpakstan.",
+      "uz": "Places that explain the deep cultural story of Karakalpakstan.",
+      "ru": "Places that explain the deep cultural story of Karakalpakstan.",
+      "en": "Places that explain the deep cultural story of Karakalpakstan."
+    },
+    "description": {
+      "kaa": "Historic and cultural landmarks that help visitors understand local identity, memory, and heritage.",
+      "uz": "Historic and cultural landmarks that help visitors understand local identity, memory, and heritage.",
+      "ru": "Historic and cultural landmarks that help visitors understand local identity, memory, and heritage.",
+      "en": "Historic and cultural landmarks that help visitors understand local identity, memory, and heritage."
+    },
+    "image": "/assets/service/sections/history-and-culture.svg",
+    "icon": "landmark",
+    "order": 2,
+    "isActive": true,
+    "type": "discovery"
+  },
+  {
+    "id": "service-section-nature",
+    "slug": "nature",
+    "title": {
+      "kaa": "Tabiyat",
+      "uz": "Tabiat",
+      "ru": "Природа",
+      "en": "Nature"
+    },
+    "shortDescription": {
+      "kaa": "Desert, plateau, and river-edge viewpoints for outdoor travelers.",
+      "uz": "Desert, plateau, and river-edge viewpoints for outdoor travelers.",
+      "ru": "Desert, plateau, and river-edge viewpoints for outdoor travelers.",
+      "en": "Desert, plateau, and river-edge viewpoints for outdoor travelers."
+    },
+    "description": {
+      "kaa": "Natural stops for travelers interested in landscapes, open skies, and remote Karakalpakstan scenery.",
+      "uz": "Natural stops for travelers interested in landscapes, open skies, and remote Karakalpakstan scenery.",
+      "ru": "Natural stops for travelers interested in landscapes, open skies, and remote Karakalpakstan scenery.",
+      "en": "Natural stops for travelers interested in landscapes, open skies, and remote Karakalpakstan scenery."
+    },
+    "image": "/assets/service/sections/nature.svg",
+    "icon": "leaf",
+    "order": 3,
+    "isActive": true,
+    "type": "discovery"
+  },
+  {
+    "id": "service-section-museums-and-exhibitions",
+    "slug": "museums-and-exhibitions",
+    "title": {
+      "kaa": "Muzeyler ham korgizbeler",
+      "uz": "Muzeylar va ko'rgazmalar",
+      "ru": "Музеи и выставки",
+      "en": "Museums and Exhibitions"
+    },
+    "shortDescription": {
+      "kaa": "Museums, collections, and exhibition spaces worth planning around.",
+      "uz": "Museums, collections, and exhibition spaces worth planning around.",
+      "ru": "Museums, collections, and exhibition spaces worth planning around.",
+      "en": "Museums, collections, and exhibition spaces worth planning around."
+    },
+    "description": {
+      "kaa": "A curated set of museums and exhibition-focused stops for culture-first visitors.",
+      "uz": "A curated set of museums and exhibition-focused stops for culture-first visitors.",
+      "ru": "A curated set of museums and exhibition-focused stops for culture-first visitors.",
+      "en": "A curated set of museums and exhibition-focused stops for culture-first visitors."
+    },
+    "image": "/assets/service/sections/museums-and-exhibitions.svg",
+    "icon": "museum",
+    "order": 4,
+    "isActive": true,
+    "type": "discovery"
+  },
+  {
+    "id": "service-section-restaurants",
+    "slug": "restaurants",
+    "title": {
+      "kaa": "Restoranlar",
+      "uz": "Restoranlar",
+      "ru": "Рестораны",
+      "en": "Restaurants"
+    },
+    "shortDescription": {
+      "kaa": "Practical food stops for city visits and longer routes.",
+      "uz": "Practical food stops for city visits and longer routes.",
+      "ru": "Practical food stops for city visits and longer routes.",
+      "en": "Practical food stops for city visits and longer routes."
+    },
+    "description": {
+      "kaa": "Reliable places for lunch, dinner, and local cuisine during travel days.",
+      "uz": "Reliable places for lunch, dinner, and local cuisine during travel days.",
+      "ru": "Reliable places for lunch, dinner, and local cuisine during travel days.",
+      "en": "Reliable places for lunch, dinner, and local cuisine during travel days."
+    },
+    "image": "/assets/service/sections/restaurants.svg",
+    "icon": "utensils",
+    "order": 5,
+    "isActive": true,
+    "type": "discovery"
+  },
+  {
+    "id": "service-section-sightseeing",
+    "slug": "sightseeing",
+    "title": {
+      "kaa": "Korer jerler",
+      "uz": "Diqqatga sazovor joylar",
+      "ru": "Достопримечательности",
+      "en": "Sightseeing"
+    },
+    "shortDescription": {
+      "kaa": "High-value sights and route-friendly stops across the region.",
+      "uz": "High-value sights and route-friendly stops across the region.",
+      "ru": "High-value sights and route-friendly stops across the region.",
+      "en": "High-value sights and route-friendly stops across the region."
+    },
+    "description": {
+      "kaa": "Popular scenic and heritage stops that work well for day trips and road routes.",
+      "uz": "Popular scenic and heritage stops that work well for day trips and road routes.",
+      "ru": "Popular scenic and heritage stops that work well for day trips and road routes.",
+      "en": "Popular scenic and heritage stops that work well for day trips and road routes."
+    },
+    "image": "/assets/service/sections/sightseeing.svg",
+    "icon": "binoculars",
+    "order": 6,
+    "isActive": true,
+    "type": "discovery"
+  },
+  {
+    "id": "service-section-hotels",
+    "slug": "hotels",
+    "title": {
+      "kaa": "Qonaq uyler",
+      "uz": "Mehmonxonalar",
+      "ru": "Отели",
+      "en": "Hotels"
+    },
+    "shortDescription": {
+      "kaa": "Places to stay in Nukus and key route towns.",
+      "uz": "Places to stay in Nukus and key route towns.",
+      "ru": "Places to stay in Nukus and key route towns.",
+      "en": "Places to stay in Nukus and key route towns."
+    },
+    "description": {
+      "kaa": "Accommodation options for travelers who need a reliable city base or route stop.",
+      "uz": "Accommodation options for travelers who need a reliable city base or route stop.",
+      "ru": "Accommodation options for travelers who need a reliable city base or route stop.",
+      "en": "Accommodation options for travelers who need a reliable city base or route stop."
+    },
+    "image": "/assets/service/sections/hotels.svg",
+    "icon": "hotel",
+    "order": 7,
+    "isActive": true,
+    "type": "discovery"
+  },
+  {
+    "id": "service-section-taxi",
+    "slug": "taxi",
+    "title": {
+      "kaa": "Taksi",
+      "uz": "Taksi",
+      "ru": "Такси",
+      "en": "Taxi"
+    },
+    "shortDescription": {
+      "kaa": "Local taxi and dispatch contacts for fast, practical movement.",
+      "uz": "Local taxi and dispatch contacts for fast, practical movement.",
+      "ru": "Local taxi and dispatch contacts for fast, practical movement.",
+      "en": "Local taxi and dispatch contacts for fast, practical movement."
+    },
+    "description": {
+      "kaa": "Taxi services and dispatch numbers for city rides and simple transfer support.",
+      "uz": "Taxi services and dispatch numbers for city rides and simple transfer support.",
+      "ru": "Taxi services and dispatch numbers for city rides and simple transfer support.",
+      "en": "Taxi services and dispatch numbers for city rides and simple transfer support."
+    },
+    "image": "/assets/service/sections/taxi.svg",
+    "icon": "car",
+    "order": 8,
+    "isActive": true,
+    "type": "utility"
+  },
+  {
+    "id": "service-section-hospitals",
+    "slug": "hospitals",
+    "title": {
+      "kaa": "Auriwxanalar",
+      "uz": "Shifoxonalar",
+      "ru": "Больницы",
+      "en": "Hospitals"
+    },
+    "shortDescription": {
+      "kaa": "Important medical contacts for urgent and routine needs.",
+      "uz": "Important medical contacts for urgent and routine needs.",
+      "ru": "Important medical contacts for urgent and routine needs.",
+      "en": "Important medical contacts for urgent and routine needs."
+    },
+    "description": {
+      "kaa": "Hospital options for travelers who need medical support or emergency care directions.",
+      "uz": "Hospital options for travelers who need medical support or emergency care directions.",
+      "ru": "Hospital options for travelers who need medical support or emergency care directions.",
+      "en": "Hospital options for travelers who need medical support or emergency care directions."
+    },
+    "image": "/assets/service/sections/hospitals.svg",
+    "icon": "hospital",
+    "order": 9,
+    "isActive": true,
+    "type": "utility"
+  },
+  {
+    "id": "service-section-pharmacies",
+    "slug": "pharmacies",
+    "title": {
+      "kaa": "Darixanalar",
+      "uz": "Dorixonalar",
+      "ru": "Аптеки",
+      "en": "Pharmacies"
+    },
+    "shortDescription": {
+      "kaa": "Easy-to-find pharmacy points for essential travel needs.",
+      "uz": "Easy-to-find pharmacy points for essential travel needs.",
+      "ru": "Easy-to-find pharmacy points for essential travel needs.",
+      "en": "Easy-to-find pharmacy points for essential travel needs."
+    },
+    "description": {
+      "kaa": "Practical pharmacy locations for medicine, travel basics, and after-hours needs.",
+      "uz": "Practical pharmacy locations for medicine, travel basics, and after-hours needs.",
+      "ru": "Practical pharmacy locations for medicine, travel basics, and after-hours needs.",
+      "en": "Practical pharmacy locations for medicine, travel basics, and after-hours needs."
+    },
+    "image": "/assets/service/sections/pharmacies.svg",
+    "icon": "pill",
+    "order": 10,
+    "isActive": true,
+    "type": "utility"
+  },
+  {
+    "id": "service-section-atms",
+    "slug": "atms",
+    "title": {
+      "kaa": "Bankomatlar",
+      "uz": "Bankomatlar",
+      "ru": "Банкоматы",
+      "en": "ATMs"
+    },
+    "shortDescription": {
+      "kaa": "Cash access points around the main travel flow.",
+      "uz": "Cash access points around the main travel flow.",
+      "ru": "Cash access points around the main travel flow.",
+      "en": "Cash access points around the main travel flow."
+    },
+    "description": {
+      "kaa": "Useful ATM stops for city travel, transport, and day-route preparation.",
+      "uz": "Useful ATM stops for city travel, transport, and day-route preparation.",
+      "ru": "Useful ATM stops for city travel, transport, and day-route preparation.",
+      "en": "Useful ATM stops for city travel, transport, and day-route preparation."
+    },
+    "image": "/assets/service/sections/atms.svg",
+    "icon": "credit-card",
+    "order": 11,
+    "isActive": true,
+    "type": "utility"
+  }
+]

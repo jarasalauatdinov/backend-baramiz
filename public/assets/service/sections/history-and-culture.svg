@@ -1,0 +1,17 @@
+﻿<svg width="1200" height="800" viewBox="0 0 432 288" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg-history-and-culture" x1="24" y1="24" x2="396" y2="264" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#92400E"/>
+      <stop offset="1" stop-color="#FBBF24"/>
+    </linearGradient>
+    <radialGradient id="glow-history-and-culture" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(340 60) rotate(142) scale(210 180)">
+      <stop stop-color="#FDE68A" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#FDE68A" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="432" height="288" rx="36" fill="url(#bg-history-and-culture)"/>
+  <rect x="18" y="18" width="396" height="252" rx="28" fill="url(#glow-history-and-culture)" opacity="0.62"/>
+  <g><path d="M120 170 L180 96 L240 170" stroke="#FFF7ED" stroke-width="12" stroke-linejoin="round" fill="none"/><path d="M210 170 L270 96 L330 170" stroke="#FFF7ED" stroke-width="12" stroke-linejoin="round" fill="none"/></g>
+  <rect x="28" y="208" width="220" height="42" rx="21" fill="#0B1220" opacity="0.18"/>
+  <text x="36" y="235" fill="#FFFFFF" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700">History and Culture</text>
+</svg>

@@ -1,0 +1,54 @@
+[
+  {
+    "id": "guide-gulzada-esenova",
+    "name": "Gulzada Esenova",
+    "city": "Nukus",
+    "availableCities": ["Nukus", "Xojeli"],
+    "languages": ["kaa", "uz", "ru"],
+    "specialties": ["Museums", "Art history", "City tours"],
+    "shortBio": "Museum-focused guide for visitors who want a clear cultural route with local context and practical pacing.",
+    "contactLabel": "+998 90 321 14 22",
+    "contactHref": "tel:+998903211422",
+    "contactMethod": "phone",
+    "image": "https://placehold.co/600x800?text=Gulzada+Guide"
+  },
+  {
+    "id": "guide-timur-bekniyazov",
+    "name": "Timur Bekniyazov",
+    "city": "Moynaq",
+    "availableCities": ["Moynaq", "Qonirat"],
+    "languages": ["uz", "ru", "en"],
+    "specialties": ["Aral Sea region", "Photography", "Story-led routes"],
+    "shortBio": "Regional guide for travelers who want Moynaq to feel more meaningful than a single photo stop.",
+    "contactLabel": "@timur_aralguide",
+    "contactHref": "https://t.me/timur_aralguide",
+    "contactMethod": "telegram",
+    "image": "https://placehold.co/600x800?text=Timur+Guide"
+  },
+  {
+    "id": "guide-ayim-rakhimova",
+    "name": "Ayim Rakhimova",
+    "city": "Ellikqala",
+    "availableCities": ["Ellikqala", "Nukus"],
+    "languages": ["kaa", "uz", "en"],
+    "specialties": ["Fortresses", "Family routes", "Cultural heritage"],
+    "shortBio": "A strong guide option for fortress routes, family travelers, and visitors who want heritage context on the move.",
+    "contactLabel": "+998 93 555 20 11",
+    "contactHref": "tel:+998935552011",
+    "contactMethod": "phone",
+    "image": "https://placehold.co/600x800?text=Ayim+Guide"
+  },
+  {
+    "id": "guide-bekzod-sultanov",
+    "name": "Bekzod Sultanov",
+    "city": "Qonirat",
+    "availableCities": ["Qonirat", "Moynaq", "Ustyurt"],
+    "languages": ["uz", "ru", "en"],
+    "specialties": ["Regional logistics", "Road trips", "Remote landscapes"],
+    "shortBio": "Useful for independent travelers who need a local expert for movement, timing, and remote destination planning.",
+    "contactLabel": "routes@baramiz.uz",
+    "contactHref": "mailto:routes@baramiz.uz",
+    "contactMethod": "email",
+    "image": "https://placehold.co/600x800?text=Bekzod+Guide"
+  }
+]

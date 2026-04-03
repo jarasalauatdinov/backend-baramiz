@@ -14,6 +14,19 @@ const emptyToUndefined = (value: unknown): unknown => {
 
 const normalizeOrigin = (value: string): string => new URL(value).origin;
 const normalizeUrl = (value: string): string => value.replace(/\/+$/, "");
+const normalizeOriginCandidate = (value: string): string | undefined => {
+  const trimmedValue = value.trim();
+
+  if (!trimmedValue) {
+    return undefined;
+  }
+
+  try {
+    return normalizeOrigin(trimmedValue);
+  } catch {
+    return undefined;
+  }
+};
 
 const parseOriginList = (value: unknown): string[] | undefined => {
   if (typeof value !== "string") {
@@ -22,28 +35,25 @@ const parseOriginList = (value: unknown): string[] | undefined => {
 
   const origins = value
     .split(",")
-    .map((item) => item.trim())
-    .filter((item) => item.length > 0);
+    .map(normalizeOriginCandidate)
+    .filter((item): item is string => Boolean(item));
 
-  return origins.length > 0 ? origins : undefined;
+  return origins.length > 0 ? Array.from(new Set(origins)) : undefined;
 };
 
 const envSchema = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
   PORT: z.coerce.number().int().positive().default(3000),
   FRONTEND_URL: z.preprocess(emptyToUndefined, z.string().url().optional()),
-  CORS_ALLOWED_ORIGINS: z.preprocess(
-    parseOriginList,
-    z.array(z.string().url()).default([]),
-  ),
+  CORS_ALLOWED_ORIGINS: z.preprocess(parseOriginList, z.array(z.string().url()).default([])),
   PUBLIC_BASE_URL: z.preprocess(emptyToUndefined, z.string().url().optional()),
+  AUTH_TOKEN_TTL_DAYS: z.coerce.number().int().positive().default(30),
   PROVIDER_API_KEY: z.preprocess(emptyToUndefined, z.string().optional()),
   PROVIDER_MODEL: z.preprocess(emptyToUndefined, z.string().optional()),
   PROVIDER_BASE_URL: z.preprocess(emptyToUndefined, z.string().url().optional()),
   OPENAI_API_KEY: z.preprocess(emptyToUndefined, z.string().optional()),
   OPENAI_MODEL: z.preprocess(emptyToUndefined, z.string().optional()),
   OPENAI_BASE_URL: z.preprocess(emptyToUndefined, z.string().url().optional()),
-  AUTH_TOKEN_TTL_DAYS: z.coerce.number().int().positive().default(30),
 });
 
 const parsedEnv = envSchema.parse({
@@ -52,13 +62,13 @@ const parsedEnv = envSchema.parse({
   FRONTEND_URL: process.env.FRONTEND_URL,
   CORS_ALLOWED_ORIGINS: process.env.CORS_ALLOWED_ORIGINS,
   PUBLIC_BASE_URL: process.env.PUBLIC_BASE_URL,
+  AUTH_TOKEN_TTL_DAYS: process.env.AUTH_TOKEN_TTL_DAYS ?? "30",
   PROVIDER_API_KEY: process.env.PROVIDER_API_KEY,
   PROVIDER_MODEL: process.env.PROVIDER_MODEL,
   PROVIDER_BASE_URL: process.env.PROVIDER_BASE_URL,
   OPENAI_API_KEY: process.env.OPENAI_API_KEY,
   OPENAI_MODEL: process.env.OPENAI_MODEL,
   OPENAI_BASE_URL: process.env.OPENAI_BASE_URL,
-  AUTH_TOKEN_TTL_DAYS: process.env.AUTH_TOKEN_TTL_DAYS ?? "30",
 });
 
 const defaultDevelopmentOrigins = parsedEnv.NODE_ENV === "production"
@@ -76,16 +86,14 @@ const defaultDevelopmentOrigins = parsedEnv.NODE_ENV === "production"
 
 const allowedOriginsSet = new Set<string>([
   ...defaultDevelopmentOrigins,
-  ...(parsedEnv.FRONTEND_URL ? [parsedEnv.FRONTEND_URL] : []),
+  ...(parsedEnv.FRONTEND_URL ? [normalizeOrigin(parsedEnv.FRONTEND_URL)] : []),
   ...parsedEnv.CORS_ALLOWED_ORIGINS,
-].map(normalizeOrigin));
+]);
 
 export const env = {
   ...parsedEnv,
   CORS_ALLOWED_ORIGINS: Array.from(allowedOriginsSet),
-  PUBLIC_BASE_URL: parsedEnv.PUBLIC_BASE_URL
-    ? normalizeOrigin(parsedEnv.PUBLIC_BASE_URL)
-    : undefined,
+  PUBLIC_BASE_URL: parsedEnv.PUBLIC_BASE_URL ? normalizeOrigin(parsedEnv.PUBLIC_BASE_URL) : undefined,
   AI_PROVIDER_API_KEY: parsedEnv.PROVIDER_API_KEY ?? parsedEnv.OPENAI_API_KEY,
   AI_PROVIDER_MODEL: parsedEnv.PROVIDER_MODEL ?? parsedEnv.OPENAI_MODEL ?? "gpt-4.1-mini",
   AI_PROVIDER_BASE_URL: parsedEnv.PROVIDER_BASE_URL
@@ -96,5 +104,13 @@ export const env = {
   AI_PROVIDER_MODE: parsedEnv.PROVIDER_API_KEY || parsedEnv.PROVIDER_BASE_URL || parsedEnv.OPENAI_BASE_URL
     ? "provider"
     : "openai",
-  AUTH_TOKEN_TTL_DAYS: parsedEnv.AUTH_TOKEN_TTL_DAYS,
 } as const;
+
+export const getAllowedOrigins = (): string[] => [...env.CORS_ALLOWED_ORIGINS];
+export const isAllowedOrigin = (origin: string): boolean => {
+  const normalizedOrigin = normalizeOriginCandidate(origin);
+  return normalizedOrigin ? allowedOriginsSet.has(normalizedOrigin) : false;
+};
+export const getNormalizedOrigin = (origin: string): string => {
+  return normalizeOriginCandidate(origin) ?? origin.trim().replace(/\/+$/, "");
+};

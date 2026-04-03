@@ -1,26 +1,37 @@
 import path from "node:path";
 import cors, { type CorsOptions } from "cors";
 import express from "express";
-import { env } from "./config/env";
+import { env, getNormalizedOrigin, isAllowedOrigin } from "./config/env";
+import { AppError } from "./utils/app-error";
 import apiRouter from "./routes";
 import { errorHandlerMiddleware } from "./middleware/error-handler.middleware";
 import { notFoundMiddleware } from "./middleware/not-found.middleware";
 
 const app = express();
-const allowedOrigins = new Set(env.CORS_ALLOWED_ORIGINS);
-const corsOptions: CorsOptions = {
+
+const createCorsOptions = (): CorsOptions => ({
   origin(origin, callback) {
     if (!origin) {
       callback(null, true);
       return;
     }
 
-    callback(null, allowedOrigins.has(origin));
+    const normalizedOrigin = getNormalizedOrigin(origin);
+
+    if (isAllowedOrigin(origin)) {
+      callback(null, true);
+      return;
+    }
+
+    callback(new AppError(403, `Origin "${normalizedOrigin}" is not allowed by CORS`));
   },
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"],
+  allowedHeaders: ["Content-Type", "Authorization", "Accept"],
   optionsSuccessStatus: 204,
-};
+  maxAge: 60 * 60 * 12,
+});
+
+const corsOptions = createCorsOptions();
 const assetsDirectoryPath = path.join(process.cwd(), "public", "assets");
 
 app.set("trust proxy", 1);

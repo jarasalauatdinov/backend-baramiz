@@ -1,0 +1,917 @@
+[
+  {
+    "id": "service-item-ayaz-kala",
+    "sectionSlug": "sightseeing",
+    "slug": "ayaz-kala",
+    "title": {
+      "kaa": "Ayaz Kala",
+      "uz": "Ayaz Kala",
+      "ru": "Ayaz Kala",
+      "en": "Ayaz Kala"
+    },
+    "shortDescription": {
+      "kaa": "A high-value fortress stop for a classic Karakalpakstan road route.",
+      "uz": "A high-value fortress stop for a classic Karakalpakstan road route.",
+      "ru": "A high-value fortress stop for a classic Karakalpakstan road route.",
+      "en": "A high-value fortress stop for a classic Karakalpakstan road route."
+    },
+    "description": {
+      "kaa": "One of the most recognizable sightseeing stops in the region, especially good for road-trip style itineraries.",
+      "uz": "One of the most recognizable sightseeing stops in the region, especially good for road-trip style itineraries.",
+      "ru": "One of the most recognizable sightseeing stops in the region, especially good for road-trip style itineraries.",
+      "en": "One of the most recognizable sightseeing stops in the region, especially good for road-trip style itineraries."
+    },
+    "image": "https://placehold.co/1200x800?text=Ayaz+Kala",
+    "gallery": [],
+    "address": "Ellikqala district",
+    "city": "Ellikqala",
+    "phoneNumbers": [],
+    "workingHours": "Daylight recommended",
+    "district": "Ellikqala district",
+    "mapLink": "https://maps.google.com/?q=42.0092,61.0274",
+    "serviceType": "fortress",
+    "coordinates": {
+      "lat": 42.0092,
+      "lng": 61.0274
+    },
+    "tags": [
+      "sightseeing",
+      "fortress",
+      "road trip"
+    ],
+    "featured": true,
+    "isActive": true,
+    "metadata": {
+      "recommendedVisitMinutes": 120
+    }
+  },
+  {
+    "id": "service-item-dori-darmon-nukus-central",
+    "sectionSlug": "pharmacies",
+    "slug": "dori-darmon-nukus-central",
+    "title": {
+      "kaa": "Dori-Darmon Nukus Central",
+      "uz": "Dori-Darmon Nukus Central",
+      "ru": "Dori-Darmon Nukus Central",
+      "en": "Dori-Darmon Nukus Central"
+    },
+    "shortDescription": {
+      "kaa": "A central pharmacy option for everyday travel needs.",
+      "uz": "A central pharmacy option for everyday travel needs.",
+      "ru": "A central pharmacy option for everyday travel needs.",
+      "en": "A central pharmacy option for everyday travel needs."
+    },
+    "description": {
+      "kaa": "A practical pharmacy stop for medicine, small health essentials, and routine needs during a city stay.",
+      "uz": "A practical pharmacy stop for medicine, small health essentials, and routine needs during a city stay.",
+      "ru": "A practical pharmacy stop for medicine, small health essentials, and routine needs during a city stay.",
+      "en": "A practical pharmacy stop for medicine, small health essentials, and routine needs during a city stay."
+    },
+    "image": "https://placehold.co/1200x800?text=Pharmacy",
+    "gallery": [],
+    "address": "Central Nukus",
+    "city": "Nukus",
+    "phoneNumbers": [
+      "+998 61 222 88 44"
+    ],
+    "workingHours": "08:00-23:00",
+    "district": "Nukus center",
+    "mapLink": "https://maps.google.com/?q=42.4590,59.6125",
+    "serviceType": "pharmacy",
+    "coordinates": {
+      "lat": 42.459,
+      "lng": 59.6125
+    },
+    "tags": [
+      "pharmacy",
+      "medicine",
+      "travel basics"
+    ],
+    "featured": true,
+    "isActive": true,
+    "metadata": {
+      "openLate": true
+    }
+  },
+  {
+    "id": "service-item-ipoteka-bank-nukus-center",
+    "sectionSlug": "atms",
+    "slug": "ipoteka-bank-nukus-center",
+    "title": {
+      "kaa": "Ipoteka Bank ATM - Nukus Center",
+      "uz": "Ipoteka Bank ATM - Nukus Center",
+      "ru": "Ipoteka Bank ATM - Nukus Center",
+      "en": "Ipoteka Bank ATM - Nukus Center"
+    },
+    "shortDescription": {
+      "kaa": "A central ATM stop useful for city travel and route prep.",
+      "uz": "A central ATM stop useful for city travel and route prep.",
+      "ru": "A central ATM stop useful for city travel and route prep.",
+      "en": "A central ATM stop useful for city travel and route prep."
+    },
+    "description": {
+      "kaa": "A simple ATM reference point for withdrawing cash before transport, meals, or day routes.",
+      "uz": "A simple ATM reference point for withdrawing cash before transport, meals, or day routes.",
+      "ru": "A simple ATM reference point for withdrawing cash before transport, meals, or day routes.",
+      "en": "A simple ATM reference point for withdrawing cash before transport, meals, or day routes."
+    },
+    "image": "https://placehold.co/1200x800?text=ATM",
+    "gallery": [],
+    "address": "Nukus center",
+    "city": "Nukus",
+    "phoneNumbers": [],
+    "workingHours": "24/7 ATM access",
+    "district": "Nukus center",
+    "mapLink": "https://maps.google.com/?q=42.4620,59.6135",
+    "serviceType": "atm",
+    "coordinates": {
+      "lat": 42.462,
+      "lng": 59.6135
+    },
+    "tags": [
+      "atm",
+      "cash",
+      "bank"
+    ],
+    "featured": true,
+    "isActive": true,
+    "metadata": {
+      "bankName": "Ipoteka Bank",
+      "supportsInternationalCards": true
+    }
+  },
+  {
+    "id": "service-item-jipek-joli-city-stay",
+    "sectionSlug": "hotels",
+    "slug": "jipek-joli-city-stay",
+    "title": {
+      "kaa": "Jipek Joli city stay",
+      "uz": "Jipek Joli city stay",
+      "ru": "Jipek Joli city stay",
+      "en": "Jipek Joli city stay"
+    },
+    "shortDescription": {
+      "kaa": "A dependable Nukus stay close to the city visitor flow.",
+      "uz": "A dependable Nukus stay close to the city visitor flow.",
+      "ru": "A dependable Nukus stay close to the city visitor flow.",
+      "en": "A dependable Nukus stay close to the city visitor flow."
+    },
+    "description": {
+      "kaa": "A city-base accommodation option for museum visitors and travelers starting longer Karakalpakstan routes.",
+      "uz": "A city-base accommodation option for museum visitors and travelers starting longer Karakalpakstan routes.",
+      "ru": "A city-base accommodation option for museum visitors and travelers starting longer Karakalpakstan routes.",
+      "en": "A city-base accommodation option for museum visitors and travelers starting longer Karakalpakstan routes."
+    },
+    "image": "https://placehold.co/1200x800?text=Nukus+Hotel",
+    "gallery": [],
+    "address": "Central Nukus",
+    "city": "Nukus",
+    "phoneNumbers": [
+      "+998 61 222 14 20"
+    ],
+    "workingHours": "24/7 reception",
+    "district": "Nukus center",
+    "mapLink": "https://maps.google.com/?q=42.4600,59.6140",
+    "serviceType": "hotel",
+    "coordinates": {
+      "lat": 42.46,
+      "lng": 59.614
+    },
+    "tags": [
+      "hotel",
+      "city base",
+      "breakfast"
+    ],
+    "featured": true,
+    "isActive": true,
+    "metadata": {
+      "priceLevel": "mid",
+      "breakfastIncluded": true
+    }
+  },
+  {
+    "id": "service-item-mizdakhan-memorial-complex",
+    "sectionSlug": "history-and-culture",
+    "slug": "mizdakhan-memorial-complex",
+    "title": {
+      "kaa": "Mizdakhan Memorial Complex",
+      "uz": "Mizdakhan Memorial Complex",
+      "ru": "Mizdakhan Memorial Complex",
+      "en": "Mizdakhan Memorial Complex"
+    },
+    "shortDescription": {
+      "kaa": "A major historic necropolis and pilgrimage site near Xojeli.",
+      "uz": "A major historic necropolis and pilgrimage site near Xojeli.",
+      "ru": "A major historic necropolis and pilgrimage site near Xojeli.",
+      "en": "A major historic necropolis and pilgrimage site near Xojeli."
+    },
+    "description": {
+      "kaa": "An atmospheric historic complex that blends sacred history, local memory, and a strong sense of place.",
+      "uz": "An atmospheric historic complex that blends sacred history, local memory, and a strong sense of place.",
+      "ru": "An atmospheric historic complex that blends sacred history, local memory, and a strong sense of place.",
+      "en": "An atmospheric historic complex that blends sacred history, local memory, and a strong sense of place."
+    },
+    "image": "https://placehold.co/1200x800?text=Mizdakhan",
+    "gallery": [],
+    "address": "Near Xojeli, Karakalpakstan",
+    "city": "Xojeli",
+    "phoneNumbers": [],
+    "workingHours": "Open area",
+    "district": "Xojeli district",
+    "mapLink": "https://maps.google.com/?q=42.3482,59.3450",
+    "serviceType": "heritage-site",
+    "coordinates": {
+      "lat": 42.3482,
+      "lng": 59.345
+    },
+    "tags": [
+      "history",
+      "culture",
+      "pilgrimage"
+    ],
+    "featured": true,
+    "isActive": true,
+    "metadata": {
+      "recommendedVisitMinutes": 90
+    }
+  },
+  {
+    "id": "service-item-nukus-city-taxi-1050",
+    "sectionSlug": "taxi",
+    "slug": "nukus-city-taxi-1050",
+    "title": {
+      "kaa": "Nukus city taxi 1050",
+      "uz": "Nukus city taxi 1050",
+      "ru": "Nukus city taxi 1050",
+      "en": "Nukus city taxi 1050"
+    },
+    "shortDescription": {
+      "kaa": "A simple city taxi contact for local rides in Nukus.",
+      "uz": "A simple city taxi contact for local rides in Nukus.",
+      "ru": "A simple city taxi contact for local rides in Nukus.",
+      "en": "A simple city taxi contact for local rides in Nukus."
+    },
+    "description": {
+      "kaa": "A practical taxi dispatch option for quick city rides, station pickups, and hotel transfers in Nukus.",
+      "uz": "A practical taxi dispatch option for quick city rides, station pickups, and hotel transfers in Nukus.",
+      "ru": "A practical taxi dispatch option for quick city rides, station pickups, and hotel transfers in Nukus.",
+      "en": "A practical taxi dispatch option for quick city rides, station pickups, and hotel transfers in Nukus."
+    },
+    "image": "https://placehold.co/1200x800?text=Nukus+Taxi",
+    "gallery": [],
+    "address": "Nukus city dispatch",
+    "city": "Nukus",
+    "phoneNumbers": [
+      "1050",
+      "+998 61 225 10 50"
+    ],
+    "workingHours": "24/7",
+    "district": "Nukus city",
+    "mapLink": "https://maps.google.com/?q=42.4600,59.6150",
+    "serviceType": "taxi-dispatch",
+    "coordinates": {
+      "lat": 42.46,
+      "lng": 59.615
+    },
+    "tags": [
+      "taxi",
+      "city rides",
+      "airport transfer"
+    ],
+    "featured": true,
+    "isActive": true,
+    "metadata": {
+      "paymentOptions": [
+        "cash"
+      ],
+      "serviceArea": "Nukus"
+    }
+  },
+  {
+    "id": "service-item-nukus-emergency-hospital",
+    "sectionSlug": "hospitals",
+    "slug": "nukus-emergency-hospital",
+    "title": {
+      "kaa": "Nukus emergency hospital",
+      "uz": "Nukus emergency hospital",
+      "ru": "Nukus emergency hospital",
+      "en": "Nukus emergency hospital"
+    },
+    "shortDescription": {
+      "kaa": "A key hospital contact for urgent needs in Nukus.",
+      "uz": "A key hospital contact for urgent needs in Nukus.",
+      "ru": "A key hospital contact for urgent needs in Nukus.",
+      "en": "A key hospital contact for urgent needs in Nukus."
+    },
+    "description": {
+      "kaa": "A practical hospital reference for urgent situations, basic medical support, and quick routing during travel.",
+      "uz": "A practical hospital reference for urgent situations, basic medical support, and quick routing during travel.",
+      "ru": "A practical hospital reference for urgent situations, basic medical support, and quick routing during travel.",
+      "en": "A practical hospital reference for urgent situations, basic medical support, and quick routing during travel."
+    },
+    "image": "https://placehold.co/1200x800?text=Emergency+Hospital",
+    "gallery": [],
+    "address": "Nukus city medical district",
+    "city": "Nukus",
+    "phoneNumbers": [
+      "103",
+      "+998 61 222 03 03"
+    ],
+    "workingHours": "24/7",
+    "district": "Medical district",
+    "mapLink": "https://maps.google.com/?q=42.4585,59.6200",
+    "emergencyNote": "Call emergency number 103 first for urgent cases.",
+    "serviceType": "hospital",
+    "coordinates": {
+      "lat": 42.4585,
+      "lng": 59.62
+    },
+    "tags": [
+      "hospital",
+      "emergency",
+      "medical"
+    ],
+    "featured": true,
+    "isActive": true,
+    "metadata": {
+      "emergencyOnly": false,
+      "departments": [
+        "general",
+        "emergency"
+      ]
+    }
+  },
+  {
+    "id": "service-item-nukus-market-lunch",
+    "sectionSlug": "restaurants",
+    "slug": "nukus-market-lunch",
+    "title": {
+      "kaa": "Nukus market lunch stop",
+      "uz": "Nukus market lunch stop",
+      "ru": "Nukus market lunch stop",
+      "en": "Nukus market lunch stop"
+    },
+    "shortDescription": {
+      "kaa": "A casual food stop close to the main city flow.",
+      "uz": "A casual food stop close to the main city flow.",
+      "ru": "A casual food stop close to the main city flow.",
+      "en": "A casual food stop close to the main city flow."
+    },
+    "description": {
+      "kaa": "A practical option for travelers who want a local-style lunch between museum visits and city walking.",
+      "uz": "A practical option for travelers who want a local-style lunch between museum visits and city walking.",
+      "ru": "A practical option for travelers who want a local-style lunch between museum visits and city walking.",
+      "en": "A practical option for travelers who want a local-style lunch between museum visits and city walking."
+    },
+    "image": "https://placehold.co/1200x800?text=Nukus+Lunch",
+    "gallery": [],
+    "address": "Near Nukus central bazaar",
+    "city": "Nukus",
+    "phoneNumbers": [],
+    "workingHours": "11:00-20:00",
+    "district": "Nukus center",
+    "mapLink": "https://maps.google.com/?q=42.4679,59.6054",
+    "serviceType": "restaurant",
+    "coordinates": {
+      "lat": 42.4679,
+      "lng": 59.6054
+    },
+    "tags": [
+      "food",
+      "lunch",
+      "local cuisine"
+    ],
+    "featured": true,
+    "isActive": true,
+    "metadata": {
+      "priceLevel": "budget"
+    }
+  },
+  {
+    "id": "service-item-regional-transfer-desk",
+    "sectionSlug": "services",
+    "slug": "regional-transfer-desk",
+    "title": {
+      "kaa": "Regional transfer desk",
+      "uz": "Regional transfer desk",
+      "ru": "Regional transfer desk",
+      "en": "Regional transfer desk"
+    },
+    "shortDescription": {
+      "kaa": "Transfer coordination for Nukus, Moynaq, and fortress routes.",
+      "uz": "Transfer coordination for Nukus, Moynaq, and fortress routes.",
+      "ru": "Transfer coordination for Nukus, Moynaq, and fortress routes.",
+      "en": "Transfer coordination for Nukus, Moynaq, and fortress routes."
+    },
+    "description": {
+      "kaa": "A practical support point for travelers who need intercity transport coordination across the main Karakalpakstan tourism flow.",
+      "uz": "A practical support point for travelers who need intercity transport coordination across the main Karakalpakstan tourism flow.",
+      "ru": "A practical support point for travelers who need intercity transport coordination across the main Karakalpakstan tourism flow.",
+      "en": "A practical support point for travelers who need intercity transport coordination across the main Karakalpakstan tourism flow."
+    },
+    "image": "https://placehold.co/1200x800?text=Regional+Transfer",
+    "gallery": [],
+    "address": "Nukus transport support desk",
+    "city": "Nukus",
+    "phoneNumbers": [
+      "+998 91 155 00 11"
+    ],
+    "workingHours": "06:00-22:00",
+    "district": "Nukus center",
+    "mapLink": "https://maps.google.com/?q=42.4610,59.6150",
+    "serviceType": "transport-support",
+    "coordinates": {
+      "lat": 42.461,
+      "lng": 59.615
+    },
+    "tags": [
+      "transfer",
+      "intercity",
+      "driver support"
+    ],
+    "featured": true,
+    "isActive": true,
+    "metadata": {
+      "vehicleTypes": [
+        "sedan",
+        "minivan"
+      ],
+      "advanceBookingRecommended": true
+    }
+  },
+  {
+    "id": "service-item-savitsky-museum",
+    "sectionSlug": "museums-and-exhibitions",
+    "slug": "savitsky-museum",
+    "title": {
+      "kaa": "Savitsky Museum",
+      "uz": "Savitsky Museum",
+      "ru": "Savitsky Museum",
+      "en": "Savitsky Museum"
+    },
+    "shortDescription": {
+      "kaa": "The best-known museum stop in Nukus and a core Baramiz highlight.",
+      "uz": "The best-known museum stop in Nukus and a core Baramiz highlight.",
+      "ru": "The best-known museum stop in Nukus and a core Baramiz highlight.",
+      "en": "The best-known museum stop in Nukus and a core Baramiz highlight."
+    },
+    "description": {
+      "kaa": "A flagship museum in Nukus with one of the region's most memorable collections for culture-first visitors.",
+      "uz": "A flagship museum in Nukus with one of the region's most memorable collections for culture-first visitors.",
+      "ru": "A flagship museum in Nukus with one of the region's most memorable collections for culture-first visitors.",
+      "en": "A flagship museum in Nukus with one of the region's most memorable collections for culture-first visitors."
+    },
+    "image": "https://placehold.co/1200x800?text=Savitsky+Museum",
+    "gallery": [],
+    "address": "Nukus city center",
+    "city": "Nukus",
+    "phoneNumbers": [
+      "+998 61 222 74 54"
+    ],
+    "workingHours": "10:00-18:00",
+    "district": "Nukus center",
+    "mapLink": "https://maps.google.com/?q=42.4601,59.6168",
+    "serviceType": "museum",
+    "coordinates": {
+      "lat": 42.4601,
+      "lng": 59.6168
+    },
+    "tags": [
+      "museum",
+      "art",
+      "culture"
+    ],
+    "featured": true,
+    "isActive": true,
+    "metadata": {
+      "recommendedVisitMinutes": 120
+    }
+  },
+  {
+    "id": "service-item-smart-route-concierge",
+    "sectionSlug": "services",
+    "slug": "smart-route-concierge",
+    "title": {
+      "kaa": "Smart route concierge",
+      "uz": "Smart route concierge",
+      "ru": "Smart route concierge",
+      "en": "Smart route concierge"
+    },
+    "shortDescription": {
+      "kaa": "Human support for travelers who want help polishing a generated route.",
+      "uz": "Human support for travelers who want help polishing a generated route.",
+      "ru": "Human support for travelers who want help polishing a generated route.",
+      "en": "Human support for travelers who want help polishing a generated route."
+    },
+    "description": {
+      "kaa": "A simple planning support contact for travelers who want to turn a generated route into a practical day plan with stops, timing, and local tips.",
+      "uz": "A simple planning support contact for travelers who want to turn a generated route into a practical day plan with stops, timing, and local tips.",
+      "ru": "A simple planning support contact for travelers who want to turn a generated route into a practical day plan with stops, timing, and local tips.",
+      "en": "A simple planning support contact for travelers who want to turn a generated route into a practical day plan with stops, timing, and local tips."
+    },
+    "image": "https://placehold.co/1200x800?text=Route+Concierge",
+    "gallery": [],
+    "address": "Remote support based in Nukus",
+    "city": "Nukus",
+    "phoneNumbers": [
+      "+998 91 550 00 11"
+    ],
+    "workingHours": "09:00-19:00",
+    "district": "Nukus center",
+    "mapLink": "https://maps.google.com/?q=42.4601,59.6168",
+    "serviceType": "concierge",
+    "coordinates": {
+      "lat": 42.4601,
+      "lng": 59.6168
+    },
+    "tags": [
+      "planning",
+      "route support",
+      "travel help"
+    ],
+    "featured": true,
+    "isActive": true,
+    "metadata": {
+      "supportChannels": [
+        "phone",
+        "telegram"
+      ],
+      "sameDayResponse": true
+    }
+  },
+  {
+    "id": "service-item-topraq-kala",
+    "sectionSlug": "sightseeing",
+    "slug": "topraq-kala",
+    "title": {
+      "kaa": "Topraq Kala",
+      "uz": "Topraq Kala",
+      "ru": "Topraq Kala",
+      "en": "Topraq Kala"
+    },
+    "shortDescription": {
+      "kaa": "A strong archaeology and sightseeing stop in the fortress cluster.",
+      "uz": "A strong archaeology and sightseeing stop in the fortress cluster.",
+      "ru": "A strong archaeology and sightseeing stop in the fortress cluster.",
+      "en": "A strong archaeology and sightseeing stop in the fortress cluster."
+    },
+    "description": {
+      "kaa": "A practical companion stop to Ayaz Kala for travelers interested in archaeology, ruins, and heritage landscapes.",
+      "uz": "A practical companion stop to Ayaz Kala for travelers interested in archaeology, ruins, and heritage landscapes.",
+      "ru": "A practical companion stop to Ayaz Kala for travelers interested in archaeology, ruins, and heritage landscapes.",
+      "en": "A practical companion stop to Ayaz Kala for travelers interested in archaeology, ruins, and heritage landscapes."
+    },
+    "image": "https://placehold.co/1200x800?text=Topraq+Kala",
+    "gallery": [],
+    "address": "Ellikqala district",
+    "city": "Ellikqala",
+    "phoneNumbers": [],
+    "workingHours": "Daylight recommended",
+    "district": "Ellikqala district",
+    "mapLink": "https://maps.google.com/?q=41.9286,60.8198",
+    "serviceType": "fortress",
+    "coordinates": {
+      "lat": 41.9286,
+      "lng": 60.8198
+    },
+    "tags": [
+      "sightseeing",
+      "history",
+      "fortress"
+    ],
+    "featured": true,
+    "isActive": true,
+    "metadata": {
+      "recommendedVisitMinutes": 90
+    }
+  },
+  {
+    "id": "service-item-ustyurt-plateau-viewpoint",
+    "sectionSlug": "nature",
+    "slug": "ustyurt-plateau-viewpoint",
+    "title": {
+      "kaa": "Ustyurt Plateau Viewpoint",
+      "uz": "Ustyurt Plateau Viewpoint",
+      "ru": "Ustyurt Plateau Viewpoint",
+      "en": "Ustyurt Plateau Viewpoint"
+    },
+    "shortDescription": {
+      "kaa": "Remote desert scenery for travelers who want wide, dramatic views.",
+      "uz": "Remote desert scenery for travelers who want wide, dramatic views.",
+      "ru": "Remote desert scenery for travelers who want wide, dramatic views.",
+      "en": "Remote desert scenery for travelers who want wide, dramatic views."
+    },
+    "description": {
+      "kaa": "A nature-heavy stop suited to travelers who want a more remote landscape experience beyond city visits.",
+      "uz": "A nature-heavy stop suited to travelers who want a more remote landscape experience beyond city visits.",
+      "ru": "A nature-heavy stop suited to travelers who want a more remote landscape experience beyond city visits.",
+      "en": "A nature-heavy stop suited to travelers who want a more remote landscape experience beyond city visits."
+    },
+    "image": "https://placehold.co/1200x800?text=Ustyurt+Plateau",
+    "gallery": [],
+    "address": "Qonirat direction, Karakalpakstan",
+    "city": "Qonirat",
+    "phoneNumbers": [],
+    "workingHours": "Daylight recommended",
+    "district": "Qonirat area",
+    "mapLink": "https://maps.google.com/?q=43.1586,58.9797",
+    "serviceType": "viewpoint",
+    "coordinates": {
+      "lat": 43.1586,
+      "lng": 58.9797
+    },
+    "tags": [
+      "nature",
+      "desert",
+      "photography"
+    ],
+    "featured": true,
+    "isActive": true,
+    "metadata": {
+      "roadCondition": "best with local driver"
+    }
+  },
+  {
+    "id": "service-item-chilpik-dakhma",
+    "sectionSlug": "history-and-culture",
+    "slug": "chilpik-dakhma",
+    "title": {
+      "kaa": "Chilpik Dakhma",
+      "uz": "Chilpik Dakhma",
+      "ru": "Chilpik Dakhma",
+      "en": "Chilpik Dakhma"
+    },
+    "shortDescription": {
+      "kaa": "A striking hilltop tower tied to ancient burial traditions.",
+      "uz": "A striking hilltop tower tied to ancient burial traditions.",
+      "ru": "A striking hilltop tower tied to ancient burial traditions.",
+      "en": "A striking hilltop tower tied to ancient burial traditions."
+    },
+    "description": {
+      "kaa": "A memorable historic landmark with wide desert views and strong storytelling value for heritage-focused travelers.",
+      "uz": "A memorable historic landmark with wide desert views and strong storytelling value for heritage-focused travelers.",
+      "ru": "A memorable historic landmark with wide desert views and strong storytelling value for heritage-focused travelers.",
+      "en": "A memorable historic landmark with wide desert views and strong storytelling value for heritage-focused travelers."
+    },
+    "image": "https://placehold.co/1200x800?text=Chilpik+Dakhma",
+    "gallery": [],
+    "address": "Xojeli district, Karakalpakstan",
+    "city": "Xojeli",
+    "phoneNumbers": [],
+    "workingHours": "Open area",
+    "district": "Xojeli district",
+    "mapLink": "https://maps.google.com/?q=42.3972,59.1678",
+    "serviceType": "heritage-site",
+    "coordinates": {
+      "lat": 42.3972,
+      "lng": 59.1678
+    },
+    "tags": [
+      "history",
+      "zoroastrian",
+      "views"
+    ],
+    "featured": false,
+    "isActive": true,
+    "metadata": {
+      "recommendedVisitMinutes": 60
+    }
+  },
+  {
+    "id": "service-item-lower-amu-darya-outlook",
+    "sectionSlug": "nature",
+    "slug": "lower-amu-darya-outlook",
+    "title": {
+      "kaa": "Lower Amu Darya outlook",
+      "uz": "Lower Amu Darya outlook",
+      "ru": "Lower Amu Darya outlook",
+      "en": "Lower Amu Darya outlook"
+    },
+    "shortDescription": {
+      "kaa": "A calm river-edge stop for slower scenic travel.",
+      "uz": "A calm river-edge stop for slower scenic travel.",
+      "ru": "A calm river-edge stop for slower scenic travel.",
+      "en": "A calm river-edge stop for slower scenic travel."
+    },
+    "description": {
+      "kaa": "A simple natural stop for travelers who want a softer contrast to the desert and fortress route landscapes.",
+      "uz": "A simple natural stop for travelers who want a softer contrast to the desert and fortress route landscapes.",
+      "ru": "A simple natural stop for travelers who want a softer contrast to the desert and fortress route landscapes.",
+      "en": "A simple natural stop for travelers who want a softer contrast to the desert and fortress route landscapes."
+    },
+    "image": "https://placehold.co/1200x800?text=Amu+Darya",
+    "gallery": [],
+    "address": "River outlook near Nukus",
+    "city": "Nukus",
+    "phoneNumbers": [],
+    "workingHours": "Daylight recommended",
+    "district": "Nukus outskirts",
+    "mapLink": "https://maps.google.com/?q=42.5000,59.6500",
+    "serviceType": "river-view",
+    "coordinates": {
+      "lat": 42.5,
+      "lng": 59.65
+    },
+    "tags": [
+      "nature",
+      "river",
+      "quiet stop"
+    ],
+    "featured": false,
+    "isActive": true,
+    "metadata": {
+      "recommendedVisitMinutes": 45
+    }
+  },
+  {
+    "id": "service-item-moynaq-fish-kitchen",
+    "sectionSlug": "restaurants",
+    "slug": "moynaq-fish-kitchen",
+    "title": {
+      "kaa": "Moynaq fish kitchen",
+      "uz": "Moynaq fish kitchen",
+      "ru": "Moynaq fish kitchen",
+      "en": "Moynaq fish kitchen"
+    },
+    "shortDescription": {
+      "kaa": "A route-friendly meal stop for Moynaq visitors.",
+      "uz": "A route-friendly meal stop for Moynaq visitors.",
+      "ru": "A route-friendly meal stop for Moynaq visitors.",
+      "en": "A route-friendly meal stop for Moynaq visitors."
+    },
+    "description": {
+      "kaa": "A practical dining option for travelers making the longer trip to Moynaq and wanting a reliable food stop nearby.",
+      "uz": "A practical dining option for travelers making the longer trip to Moynaq and wanting a reliable food stop nearby.",
+      "ru": "A practical dining option for travelers making the longer trip to Moynaq and wanting a reliable food stop nearby.",
+      "en": "A practical dining option for travelers making the longer trip to Moynaq and wanting a reliable food stop nearby."
+    },
+    "image": "https://placehold.co/1200x800?text=Moynaq+Kitchen",
+    "gallery": [],
+    "address": "Moynaq center",
+    "city": "Moynaq",
+    "phoneNumbers": [
+      "+998 90 447 70 05"
+    ],
+    "workingHours": "11:00-21:00",
+    "district": "Moynaq center",
+    "mapLink": "https://maps.google.com/?q=43.7705,59.0214",
+    "serviceType": "restaurant",
+    "coordinates": {
+      "lat": 43.7705,
+      "lng": 59.0214
+    },
+    "tags": [
+      "food",
+      "moynaq",
+      "regional dishes"
+    ],
+    "featured": false,
+    "isActive": true,
+    "metadata": {
+      "priceLevel": "mid"
+    }
+  },
+  {
+    "id": "service-item-moynaq-route-guest-house",
+    "sectionSlug": "hotels",
+    "slug": "moynaq-route-guest-house",
+    "title": {
+      "kaa": "Moynaq route guest house",
+      "uz": "Moynaq route guest house",
+      "ru": "Moynaq route guest house",
+      "en": "Moynaq route guest house"
+    },
+    "shortDescription": {
+      "kaa": "A practical overnight option for Aral Sea trips.",
+      "uz": "A practical overnight option for Aral Sea trips.",
+      "ru": "A practical overnight option for Aral Sea trips.",
+      "en": "A practical overnight option for Aral Sea trips."
+    },
+    "description": {
+      "kaa": "A route-focused guest house option for travelers spending more time around Moynaq and nearby landscapes.",
+      "uz": "A route-focused guest house option for travelers spending more time around Moynaq and nearby landscapes.",
+      "ru": "A route-focused guest house option for travelers spending more time around Moynaq and nearby landscapes.",
+      "en": "A route-focused guest house option for travelers spending more time around Moynaq and nearby landscapes."
+    },
+    "image": "https://placehold.co/1200x800?text=Moynaq+Guest+House",
+    "gallery": [],
+    "address": "Moynaq center",
+    "city": "Moynaq",
+    "phoneNumbers": [
+      "+998 90 447 77 05"
+    ],
+    "workingHours": "24/7 check-in by request",
+    "district": "Moynaq center",
+    "mapLink": "https://maps.google.com/?q=43.7683,59.0179",
+    "serviceType": "guest-house",
+    "coordinates": {
+      "lat": 43.7683,
+      "lng": 59.0179
+    },
+    "tags": [
+      "stay",
+      "route stop",
+      "small groups"
+    ],
+    "featured": false,
+    "isActive": true,
+    "metadata": {
+      "priceLevel": "budget"
+    }
+  },
+  {
+    "id": "service-item-regional-taxi-dispatch",
+    "sectionSlug": "taxi",
+    "slug": "regional-taxi-dispatch",
+    "title": {
+      "kaa": "Regional taxi dispatch",
+      "uz": "Regional taxi dispatch",
+      "ru": "Regional taxi dispatch",
+      "en": "Regional taxi dispatch"
+    },
+    "shortDescription": {
+      "kaa": "Longer-distance taxi and road-route support from Nukus.",
+      "uz": "Longer-distance taxi and road-route support from Nukus.",
+      "ru": "Longer-distance taxi and road-route support from Nukus.",
+      "en": "Longer-distance taxi and road-route support from Nukus."
+    },
+    "description": {
+      "kaa": "A regional taxi contact that is more suitable for longer trips outside the city, including fortress and Moynaq directions.",
+      "uz": "A regional taxi contact that is more suitable for longer trips outside the city, including fortress and Moynaq directions.",
+      "ru": "A regional taxi contact that is more suitable for longer trips outside the city, including fortress and Moynaq directions.",
+      "en": "A regional taxi contact that is more suitable for longer trips outside the city, including fortress and Moynaq directions."
+    },
+    "image": "https://placehold.co/1200x800?text=Regional+Taxi",
+    "gallery": [],
+    "address": "Nukus transfer point",
+    "city": "Nukus",
+    "phoneNumbers": [
+      "+998 91 100 22 33"
+    ],
+    "workingHours": "06:00-22:00",
+    "district": "Nukus city",
+    "mapLink": "https://maps.google.com/?q=42.4615,59.6148",
+    "serviceType": "regional-taxi",
+    "coordinates": {
+      "lat": 42.4615,
+      "lng": 59.6148
+    },
+    "tags": [
+      "taxi",
+      "intercity",
+      "fortress route"
+    ],
+    "featured": false,
+    "isActive": true,
+    "metadata": {
+      "serviceArea": "Karakalpakstan",
+      "advanceBookingRecommended": true
+    }
+  },
+  {
+    "id": "service-item-state-museum-of-karakalpakstan",
+    "sectionSlug": "museums-and-exhibitions",
+    "slug": "state-museum-of-karakalpakstan",
+    "title": {
+      "kaa": "State Museum of Karakalpakstan",
+      "uz": "State Museum of Karakalpakstan",
+      "ru": "State Museum of Karakalpakstan",
+      "en": "State Museum of Karakalpakstan"
+    },
+    "shortDescription": {
+      "kaa": "A practical museum stop for history, archaeology, and regional context.",
+      "uz": "A practical museum stop for history, archaeology, and regional context.",
+      "ru": "A practical museum stop for history, archaeology, and regional context.",
+      "en": "A practical museum stop for history, archaeology, and regional context."
+    },
+    "description": {
+      "kaa": "A strong museum visit for travelers who want a broader understanding of Karakalpakstan before heading out on longer routes.",
+      "uz": "A strong museum visit for travelers who want a broader understanding of Karakalpakstan before heading out on longer routes.",
+      "ru": "A strong museum visit for travelers who want a broader understanding of Karakalpakstan before heading out on longer routes.",
+      "en": "A strong museum visit for travelers who want a broader understanding of Karakalpakstan before heading out on longer routes."
+    },
+    "image": "https://placehold.co/1200x800?text=State+Museum",
+    "gallery": [],
+    "address": "Nukus city center",
+    "city": "Nukus",
+    "phoneNumbers": [],
+    "workingHours": "09:00-17:00",
+    "district": "Nukus center",
+    "mapLink": "https://maps.google.com/?q=42.4613,59.6119",
+    "serviceType": "museum",
+    "coordinates": {
+      "lat": 42.4613,
+      "lng": 59.6119
+    },
+    "tags": [
+      "museum",
+      "history",
+      "archaeology"
+    ],
+    "featured": false,
+    "isActive": true,
+    "metadata": {
+      "recommendedVisitMinutes": 90
+    }
+  }
+]

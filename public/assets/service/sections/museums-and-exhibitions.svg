@@ -1,0 +1,17 @@
+﻿<svg width="1200" height="800" viewBox="0 0 432 288" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg-museums-and-exhibitions" x1="24" y1="24" x2="396" y2="264" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1D4ED8"/>
+      <stop offset="1" stop-color="#60A5FA"/>
+    </linearGradient>
+    <radialGradient id="glow-museums-and-exhibitions" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(340 60) rotate(142) scale(210 180)">
+      <stop stop-color="#BFDBFE" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#BFDBFE" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="432" height="288" rx="36" fill="url(#bg-museums-and-exhibitions)"/>
+  <rect x="18" y="18" width="396" height="252" rx="28" fill="url(#glow-museums-and-exhibitions)" opacity="0.62"/>
+  <g><rect x="126" y="86" width="180" height="118" rx="18" fill="#EFF6FF" opacity="0.95"/><rect x="154" y="112" width="56" height="56" rx="12" fill="#93C5FD"/><rect x="222" y="112" width="56" height="18" rx="9" fill="#BFDBFE"/><rect x="222" y="144" width="42" height="18" rx="9" fill="#DBEAFE"/></g>
+  <rect x="28" y="208" width="220" height="42" rx="21" fill="#0B1220" opacity="0.18"/>
+  <text x="36" y="235" fill="#FFFFFF" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700">Museums and Exhibitions</text>
+</svg>

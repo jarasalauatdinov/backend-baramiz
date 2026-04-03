@@ -1,0 +1,522 @@
+import path from "node:path";
+import { serviceSectionsDataSchema, servicesDataSchema } from "../schemas/tourism-data.schema";
+import type {
+  AdminServiceItemInput,
+  AdminServiceSectionInput,
+  Language,
+  PublicServiceItem,
+  PublicServiceSection,
+  ServiceItem,
+  ServiceSection,
+  ServiceSectionCard,
+  ServiceSectionType,
+} from "../types/tourism.types";
+import { AppError } from "../utils/app-error";
+import { readJsonFile, writeJsonFile } from "../utils/json-storage";
+import {
+  localizeMultilingualText,
+  normalizeMultilingualTextInput,
+  normalizeText,
+  slugify,
+} from "../utils/text-helpers";
+import { resolvePublicAssetUrl } from "../utils/url-helpers";
+
+const serviceSectionsFilePath = path.join(process.cwd(), "src", "data", "service-sections.json");
+const serviceItemsFilePath = path.join(process.cwd(), "src", "data", "service-items.json");
+
+interface ServiceItemFilters {
+  city?: string;
+  featured?: boolean;
+  search?: string;
+  language?: Language;
+}
+
+let serviceSectionsCache: ServiceSection[] | null = null;
+let serviceItemsCache: ServiceItem[] | null = null;
+
+const sortSections = (sections: ServiceSection[]): ServiceSection[] => {
+  return [...sections].sort((left, right) => {
+    if (left.order !== right.order) {
+      return left.order - right.order;
+    }
+
+    return left.title.en.localeCompare(right.title.en);
+  });
+};
+
+const sortItems = (items: ServiceItem[]): ServiceItem[] => {
+  return [...items].sort((left, right) => {
+    if (left.featured !== right.featured) {
+      return Number(right.featured) - Number(left.featured);
+    }
+
+    return left.title.en.localeCompare(right.title.en);
+  });
+};
+
+const normalizeServiceSection = (section: ServiceSection): ServiceSection => {
+  const fallbackTitle = normalizeMultilingualTextInput(section.title);
+
+  if (!fallbackTitle) {
+    throw new AppError(500, `Service section "${section.id}" is missing title translations`);
+  }
+
+  return {
+    ...section,
+    slug: slugify(section.slug || fallbackTitle.en),
+    title: fallbackTitle,
+    shortDescription: normalizeMultilingualTextInput(section.shortDescription),
+    description: normalizeMultilingualTextInput(section.description),
+  };
+};
+
+const normalizeServiceItem = (item: ServiceItem): ServiceItem => {
+  const fallbackTitle = normalizeMultilingualTextInput(item.title);
+
+  if (!fallbackTitle) {
+    throw new AppError(500, `Service item "${item.id}" is missing title translations`);
+  }
+
+  return {
+    ...item,
+    sectionSlug: slugify(item.sectionSlug),
+    slug: slugify(item.slug || fallbackTitle.en),
+    title: fallbackTitle,
+    shortDescription: normalizeMultilingualTextInput(item.shortDescription),
+    description: normalizeMultilingualTextInput(item.description),
+    gallery: item.gallery ?? [],
+    phoneNumbers: item.phoneNumbers ?? [],
+    tags: item.tags ?? [],
+    featured: item.featured ?? false,
+    metadata: item.metadata ?? {},
+  };
+};
+
+const mapServiceSectionForClient = (section: ServiceSection): ServiceSection => ({
+  ...section,
+  image: resolvePublicAssetUrl(section.image),
+});
+
+const mapServiceSectionCardForClient = (section: ServiceSection): ServiceSectionCard => ({
+  id: section.id,
+  slug: section.slug,
+  title: section.title.en,
+  image: resolvePublicAssetUrl(section.image),
+  order: section.order,
+  isActive: section.isActive,
+  shortDescription: section.shortDescription?.en,
+  icon: section.icon,
+  type: section.type,
+});
+
+const mapServiceSectionCardForClientLanguage = (
+  section: ServiceSection,
+  language: Language,
+): ServiceSectionCard => ({
+  ...mapServiceSectionCardForClient(section),
+  title: localizeMultilingualText(section.title, language) ?? section.title.en,
+  shortDescription: localizeMultilingualText(section.shortDescription, language),
+});
+
+const mapServiceSectionForPublic = (
+  section: ServiceSection,
+  language: Language,
+): PublicServiceSection => ({
+  ...mapServiceSectionCardForClientLanguage(section, language),
+  description: localizeMultilingualText(section.description, language),
+});
+
+const mapServiceItemForClient = (item: ServiceItem): ServiceItem => ({
+  ...item,
+  image: item.image ? resolvePublicAssetUrl(item.image) : undefined,
+  gallery: item.gallery.map(resolvePublicAssetUrl),
+});
+
+const mapServiceItemForPublic = (item: ServiceItem, language: Language): PublicServiceItem => ({
+  id: item.id,
+  sectionSlug: item.sectionSlug,
+  slug: item.slug,
+  title: localizeMultilingualText(item.title, language) ?? item.title.en,
+  shortDescription: localizeMultilingualText(item.shortDescription, language),
+  description: localizeMultilingualText(item.description, language),
+  image: item.image ? resolvePublicAssetUrl(item.image) : undefined,
+  gallery: item.gallery.map(resolvePublicAssetUrl),
+  address: item.address,
+  city: item.city,
+  phoneNumbers: item.phoneNumbers,
+  workingHours: item.workingHours,
+  district: item.district,
+  mapLink: item.mapLink,
+  emergencyNote: item.emergencyNote,
+  serviceType: item.serviceType,
+  coordinates: item.coordinates,
+  tags: item.tags,
+  featured: item.featured,
+  isActive: item.isActive,
+  metadata: item.metadata,
+});
+
+const loadServiceSections = (): ServiceSection[] => {
+  if (serviceSectionsCache) {
+    return serviceSectionsCache;
+  }
+
+  serviceSectionsCache = sortSections(
+    readJsonFile(serviceSectionsFilePath, serviceSectionsDataSchema, []).map(normalizeServiceSection),
+  );
+  return serviceSectionsCache;
+};
+
+const saveServiceSections = (sections: ServiceSection[]): ServiceSection[] => {
+  serviceSectionsCache = writeJsonFile(
+    serviceSectionsFilePath,
+    serviceSectionsDataSchema,
+    sortSections(sections.map(normalizeServiceSection)),
+  );
+  return serviceSectionsCache;
+};
+
+const loadServiceItems = (): ServiceItem[] => {
+  if (serviceItemsCache) {
+    return serviceItemsCache;
+  }
+
+  serviceItemsCache = sortItems(
+    readJsonFile(serviceItemsFilePath, servicesDataSchema, []).map(normalizeServiceItem),
+  );
+  return serviceItemsCache;
+};
+
+const saveServiceItems = (items: ServiceItem[]): ServiceItem[] => {
+  serviceItemsCache = writeJsonFile(
+    serviceItemsFilePath,
+    servicesDataSchema,
+    sortItems(items.map(normalizeServiceItem)),
+  );
+  return serviceItemsCache;
+};
+
+const getNextSectionOrder = (): number => {
+  return loadServiceSections().reduce((maxOrder, section) => Math.max(maxOrder, section.order), 0) + 1;
+};
+
+const createUniqueSectionId = (slugValue: string): string => {
+  const baseId = `service-section-${slugValue}`;
+  const sections = loadServiceSections();
+  let nextId = baseId;
+  let suffix = 2;
+
+  while (sections.some((section) => section.id === nextId)) {
+    nextId = `${baseId}-${suffix}`;
+    suffix += 1;
+  }
+
+  return nextId;
+};
+
+const createUniqueItemId = (sectionSlug: string, itemSlug: string): string => {
+  const baseId = `service-item-${sectionSlug}-${itemSlug}`;
+  const items = loadServiceItems();
+  let nextId = baseId;
+  let suffix = 2;
+
+  while (items.some((item) => item.id === nextId)) {
+    nextId = `${baseId}-${suffix}`;
+    suffix += 1;
+  }
+
+  return nextId;
+};
+
+const ensureSectionExistsBySlug = (slugValue: string): ServiceSection => {
+  const section = loadServiceSections().find((item) => item.slug === slugValue);
+
+  if (!section) {
+    throw new AppError(404, `Service section "${slugValue}" not found`);
+  }
+
+  return section;
+};
+
+const ensureUniqueSectionSlug = (slugValue: string, currentId?: string): void => {
+  const duplicateSection = loadServiceSections().find((section) => {
+    return section.slug === slugValue && section.id !== currentId;
+  });
+
+  if (duplicateSection) {
+    throw new AppError(409, `Service section slug "${slugValue}" already exists`);
+  }
+};
+
+const ensureUniqueItemSlug = (sectionSlug: string, itemSlug: string, currentId?: string): void => {
+  const duplicateItem = loadServiceItems().find((item) => {
+    return item.sectionSlug === sectionSlug && item.slug === itemSlug && item.id !== currentId;
+  });
+
+  if (duplicateItem) {
+    throw new AppError(409, `Service item slug "${itemSlug}" already exists in section "${sectionSlug}"`);
+  }
+};
+
+const matchesServiceItemFilters = (item: ServiceItem, filters: ServiceItemFilters): boolean => {
+  if (filters.featured !== undefined && item.featured !== filters.featured) {
+    return false;
+  }
+
+  if (filters.city && normalizeText(item.city ?? "") !== normalizeText(filters.city)) {
+    return false;
+  }
+
+  if (filters.search) {
+    const normalizedSearch = normalizeText(filters.search);
+    const searchableText = [
+      ...Object.values(item.title),
+      ...(item.shortDescription ? Object.values(item.shortDescription) : []),
+      ...(item.description ? Object.values(item.description) : []),
+      item.address,
+      item.city,
+      item.district,
+      item.serviceType,
+      ...item.tags,
+      ...item.phoneNumbers,
+    ]
+      .filter(Boolean)
+      .map((value) => normalizeText(value as string))
+      .join(" ");
+
+    if (!searchableText.includes(normalizedSearch)) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
+const buildServiceSectionFromInput = (
+  input: AdminServiceSectionInput,
+  existingSection?: ServiceSection,
+): ServiceSection => {
+  const normalizedTitle = normalizeMultilingualTextInput(input.title);
+
+  if (!normalizedTitle) {
+    throw new AppError(400, "title is required");
+  }
+
+  const slugValue = slugify(input.slug ?? normalizedTitle.en);
+
+  ensureUniqueSectionSlug(slugValue, existingSection?.id);
+
+  return normalizeServiceSection({
+    id: existingSection?.id ?? createUniqueSectionId(slugValue),
+    slug: slugValue,
+    title: normalizedTitle,
+    shortDescription: input.shortDescription === undefined
+      ? existingSection?.shortDescription
+      : normalizeMultilingualTextInput(input.shortDescription, existingSection?.shortDescription?.en),
+    description: input.description === undefined
+      ? existingSection?.description
+      : normalizeMultilingualTextInput(input.description, existingSection?.description?.en),
+    image: input.image.trim(),
+    icon: input.icon?.trim(),
+    order: input.order ?? existingSection?.order ?? getNextSectionOrder(),
+    isActive: input.isActive ?? existingSection?.isActive ?? true,
+    type: input.type,
+  });
+};
+
+const buildServiceItemFromInput = (
+  input: AdminServiceItemInput,
+  defaultSectionSlug: string,
+  existingItem?: ServiceItem,
+): ServiceItem => {
+  const sectionSlug = slugify(input.sectionSlug ?? existingItem?.sectionSlug ?? defaultSectionSlug);
+  const normalizedTitle = normalizeMultilingualTextInput(input.title);
+
+  if (!normalizedTitle) {
+    throw new AppError(400, "title is required");
+  }
+
+  const slugValue = slugify(input.slug ?? normalizedTitle.en);
+  const section = ensureSectionExistsBySlug(sectionSlug);
+
+  ensureUniqueItemSlug(section.slug, slugValue, existingItem?.id);
+
+  return normalizeServiceItem({
+    id: existingItem?.id ?? createUniqueItemId(section.slug, slugValue),
+    sectionSlug: section.slug,
+    slug: slugValue,
+    title: normalizedTitle,
+    shortDescription: input.shortDescription === undefined
+      ? existingItem?.shortDescription
+      : normalizeMultilingualTextInput(input.shortDescription, existingItem?.shortDescription?.en),
+    description: input.description === undefined
+      ? existingItem?.description
+      : normalizeMultilingualTextInput(input.description, existingItem?.description?.en),
+    image: input.image?.trim(),
+    gallery: input.gallery?.map((item) => item.trim()).filter(Boolean) ?? existingItem?.gallery ?? [],
+    address: input.address?.trim(),
+    city: input.city?.trim(),
+    phoneNumbers: input.phoneNumbers?.map((item) => item.trim()).filter(Boolean) ?? existingItem?.phoneNumbers ?? [],
+    workingHours: input.workingHours?.trim(),
+    district: input.district?.trim(),
+    mapLink: input.mapLink?.trim(),
+    emergencyNote: input.emergencyNote?.trim(),
+    serviceType: input.serviceType?.trim(),
+    coordinates: input.coordinates,
+    tags: input.tags?.map((item) => item.trim()).filter(Boolean) ?? existingItem?.tags ?? [],
+    featured: input.featured ?? existingItem?.featured ?? false,
+    isActive: input.isActive ?? existingItem?.isActive ?? true,
+    metadata: input.metadata ?? existingItem?.metadata ?? {},
+  });
+};
+
+export const getServiceSections = (type?: ServiceSectionType, language: Language = "en"): ServiceSectionCard[] => {
+  return loadServiceSections()
+    .filter((section) => section.isActive)
+    .filter((section) => (type ? section.type === type : true))
+    .map((section) => mapServiceSectionCardForClientLanguage(section, language));
+};
+
+export const getServiceSectionBySlug = (slugValue: string, language: Language = "en"): PublicServiceSection | undefined => {
+  const section = loadServiceSections()
+    .filter((currentSection) => currentSection.isActive)
+    .find((currentSection) => currentSection.slug === slugify(slugValue));
+
+  return section ? mapServiceSectionForPublic(section, language) : undefined;
+};
+
+export const getServiceItemsBySection = (
+  sectionSlug: string,
+  filters: ServiceItemFilters = {},
+): PublicServiceItem[] => {
+  const normalizedSectionSlug = slugify(sectionSlug);
+  const section = loadServiceSections().find((item) => item.slug === normalizedSectionSlug && item.isActive);
+
+  if (!section) {
+    throw new AppError(404, `Service section "${sectionSlug}" not found`);
+  }
+
+  return sortItems(
+    loadServiceItems()
+      .filter((item) => item.isActive)
+      .filter((item) => item.sectionSlug === normalizedSectionSlug)
+      .filter((item) => matchesServiceItemFilters(item, filters)),
+  ).map((item) => mapServiceItemForPublic(item, filters.language ?? "en"));
+};
+
+export const getServiceItemBySectionAndSlug = (
+  sectionSlug: string,
+  itemSlug: string,
+  language: Language = "en",
+): PublicServiceItem | undefined => {
+  const normalizedSectionSlug = slugify(sectionSlug);
+  const normalizedItemSlug = slugify(itemSlug);
+  const section = loadServiceSections().find((item) => item.slug === normalizedSectionSlug && item.isActive);
+
+  if (!section) {
+    return undefined;
+  }
+
+  const item = loadServiceItems().find((currentItem) => {
+    return currentItem.isActive
+      && currentItem.sectionSlug === normalizedSectionSlug
+      && currentItem.slug === normalizedItemSlug;
+  });
+
+  return item ? mapServiceItemForPublic(item, language) : undefined;
+};
+
+export const getServices = (filters: ServiceItemFilters = {}): PublicServiceItem[] => {
+  return sortItems(
+    loadServiceItems()
+      .filter((item) => item.isActive)
+      .filter((item) => {
+        const section = loadServiceSections().find((currentSection) => currentSection.slug === item.sectionSlug);
+        return Boolean(section?.isActive);
+      })
+      .filter((item) => matchesServiceItemFilters(item, filters)),
+  ).map((item) => mapServiceItemForPublic(item, filters.language ?? "en"));
+};
+
+export const getAdminServiceSections = (): ServiceSection[] => {
+  return loadServiceSections().map(mapServiceSectionForClient);
+};
+
+export const createServiceSection = (input: AdminServiceSectionInput): ServiceSection => {
+  const nextSection = buildServiceSectionFromInput(input);
+  saveServiceSections([...loadServiceSections(), nextSection]);
+  return mapServiceSectionForClient(nextSection);
+};
+
+export const updateServiceSection = (id: string, input: AdminServiceSectionInput): ServiceSection => {
+  const sections = loadServiceSections();
+  const sectionIndex = sections.findIndex((section) => section.id === id);
+
+  if (sectionIndex === -1) {
+    throw new AppError(404, "Service section not found");
+  }
+
+  const nextSection = buildServiceSectionFromInput(input, sections[sectionIndex]);
+  const nextSections = [...sections];
+  nextSections[sectionIndex] = nextSection;
+  saveServiceSections(nextSections);
+  return mapServiceSectionForClient(nextSection);
+};
+
+export const deleteServiceSection = (id: string): void => {
+  const sections = loadServiceSections();
+  const section = sections.find((currentSection) => currentSection.id === id);
+
+  if (!section) {
+    throw new AppError(404, "Service section not found");
+  }
+
+  saveServiceSections(sections.filter((currentSection) => currentSection.id !== id));
+  saveServiceItems(loadServiceItems().filter((item) => item.sectionSlug !== section.slug));
+};
+
+export const getAdminServiceItemsBySection = (sectionSlug: string): ServiceItem[] => {
+  const normalizedSectionSlug = slugify(sectionSlug);
+  ensureSectionExistsBySlug(normalizedSectionSlug);
+
+  return sortItems(
+    loadServiceItems().filter((item) => item.sectionSlug === normalizedSectionSlug),
+  ).map(mapServiceItemForClient);
+};
+
+export const getAdminServiceItemById = (id: string): ServiceItem | undefined => {
+  const item = loadServiceItems().find((currentItem) => currentItem.id === id);
+  return item ? mapServiceItemForClient(item) : undefined;
+};
+
+export const createServiceItem = (sectionSlug: string, input: AdminServiceItemInput): ServiceItem => {
+  const nextItem = buildServiceItemFromInput(input, sectionSlug);
+  saveServiceItems([...loadServiceItems(), nextItem]);
+  return mapServiceItemForClient(nextItem);
+};
+
+export const updateServiceItem = (id: string, input: AdminServiceItemInput): ServiceItem => {
+  const items = loadServiceItems();
+  const itemIndex = items.findIndex((item) => item.id === id);
+
+  if (itemIndex === -1) {
+    throw new AppError(404, "Service item not found");
+  }
+
+  const nextItem = buildServiceItemFromInput(input, items[itemIndex].sectionSlug, items[itemIndex]);
+  const nextItems = [...items];
+  nextItems[itemIndex] = nextItem;
+  saveServiceItems(nextItems);
+  return mapServiceItemForClient(nextItem);
+};
+
+export const deleteServiceItem = (id: string): void => {
+  const items = loadServiceItems();
+  const nextItems = items.filter((item) => item.id !== id);
+
+  if (nextItems.length === items.length) {
+    throw new AppError(404, "Service item not found");
+  }
+
+  saveServiceItems(nextItems);
+};

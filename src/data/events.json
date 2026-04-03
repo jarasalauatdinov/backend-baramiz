@@ -1,0 +1,58 @@
+[
+  {
+    "id": "event-savitsky-art-week",
+    "slug": "savitsky-art-week",
+    "city": "Nukus",
+    "region": "Karakalpakstan",
+    "title": "Savitsky Art Week",
+    "description": "A museum-centered week of guided exhibitions, talks, and city culture programming in Nukus.",
+    "dateLabel": "April 18-24",
+    "season": "spring",
+    "venue": "Savitsky Museum",
+    "category": "culture",
+    "image": "https://placehold.co/1200x800?text=Savitsky+Art+Week",
+    "featured": true
+  },
+  {
+    "id": "event-aral-story-day",
+    "slug": "aral-story-day",
+    "city": "Moynaq",
+    "region": "Karakalpakstan",
+    "title": "Aral Story Day",
+    "description": "A one-day public program around Moynaq history, environmental storytelling, and photography routes.",
+    "dateLabel": "May 12",
+    "season": "spring",
+    "venue": "Moynaq Ship Cemetery",
+    "category": "history",
+    "image": "https://placehold.co/1200x800?text=Aral+Story+Day",
+    "featured": true
+  },
+  {
+    "id": "event-fortress-sunrise-route",
+    "slug": "fortress-sunrise-route",
+    "city": "Ellikqala",
+    "region": "Karakalpakstan",
+    "title": "Fortress Sunrise Route",
+    "description": "An early-start road trip program linking the main Ellikqala fortress stops for one scenic heritage day.",
+    "dateLabel": "October weekends",
+    "season": "autumn",
+    "venue": "Ayaz Kala cluster",
+    "category": "adventure",
+    "image": "https://placehold.co/1200x800?text=Fortress+Sunrise",
+    "featured": false
+  },
+  {
+    "id": "event-plateau-night-sky-camp",
+    "slug": "plateau-night-sky-camp",
+    "city": "Qonirat",
+    "region": "Karakalpakstan",
+    "title": "Plateau Night Sky Camp",
+    "description": "A small-group evening nature program designed around remote views, photography, and open-sky camping.",
+    "dateLabel": "September 6-7",
+    "season": "autumn",
+    "venue": "Ustyurt route zone",
+    "category": "nature",
+    "image": "https://placehold.co/1200x800?text=Night+Sky+Camp",
+    "featured": false
+  }
+]

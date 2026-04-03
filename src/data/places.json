@@ -1,278 +1,446 @@
 [
-  {
-    "id": "savitsky-museum",
-    "name": "Savitsky Museum",
-    "name_kaa": "Savitsky Museum",
-    "name_uz": "Savitsky Museum",
-    "name_ru": "Savitsky Museum",
-    "name_en": "Savitsky Museum",
-    "city": "Nukus",
-    "region": "Karakalpakstan",
-    "category": "museum",
-    "durationMinutes": 120,
-    "description": "The famous museum in Nukus with one of the most remarkable collections of avant-garde art in Central Asia.",
-    "description_kaa": "The famous museum in Nukus with one of the most remarkable collections of avant-garde art in Central Asia.",
-    "description_uz": "The famous museum in Nukus with one of the most remarkable collections of avant-garde art in Central Asia.",
-    "description_ru": "The famous museum in Nukus with one of the most remarkable collections of avant-garde art in Central Asia.",
-    "description_en": "The famous museum in Nukus with one of the most remarkable collections of avant-garde art in Central Asia.",
-    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmFg6iH4oKd5vbwQYB59gEldNSzS3O-qPX4w&s",
-    "coordinates": {
-      "lat": 42.4601,
-      "lng": 59.6168
+    {
+        "id":  "savitsky-museum",
+        "slug":  "savitsky-museum",
+        "city":  "Nukus",
+        "region":  "Karakalpakstan",
+        "category":  "museum",
+        "name":  "Savitsky Museum",
+        "name_kaa":  "Savitsky Museum",
+        "name_uz":  "Savitsky Museum",
+        "name_ru":  "Savitsky Museum",
+        "name_en":  "Savitsky Museum",
+        "description":  "The famous museum in Nukus with one of the most remarkable collections of avant-garde art in Central Asia.",
+        "description_kaa":  "The famous museum in Nukus with one of the most remarkable collections of avant-garde art in Central Asia.",
+        "description_uz":  "The famous museum in Nukus with one of the most remarkable collections of avant-garde art in Central Asia.",
+        "description_ru":  "The famous museum in Nukus with one of the most remarkable collections of avant-garde art in Central Asia.",
+        "description_en":  "The famous museum in Nukus with one of the most remarkable collections of avant-garde art in Central Asia.",
+        "shortDescription":  "The famous museum in Nukus with one of the most remarkable collections of avant-garde art in...",
+        "address":  null,
+        "coordinates":  {
+                            "lat":  42.4601,
+                            "lng":  59.6168
+                        },
+        "duration":  120,
+        "image":  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmFg6iH4oKd5vbwQYB59gEldNSzS3O-qPX4w\u0026s",
+        "gallery":  [
+                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmFg6iH4oKd5vbwQYB59gEldNSzS3O-qPX4w\u0026s"
+                    ],
+        "tags":  [
+                     "museum",
+                     "Nukus",
+                     "Karakalpakstan"
+                 ],
+        "featured":  true,
+        "rating":  null,
+        "workingHours":  null,
+        "price":  null
     },
-    "featured": true
-  },
-  {
-    "id": "state-museum-karakalpakstan",
-    "name": "State Museum of Karakalpakstan",
-    "name_kaa": "State Museum of Karakalpakstan",
-    "name_uz": "State Museum of Karakalpakstan",
-    "name_ru": "State Museum of Karakalpakstan",
-    "name_en": "State Museum of Karakalpakstan",
-    "city": "Nukus",
-    "region": "Karakalpakstan",
-    "category": "history",
-    "durationMinutes": 90,
-    "description": "A useful stop for understanding the history, archaeology, and identity of the wider Karakalpak region.",
-    "description_kaa": "A useful stop for understanding the history, archaeology, and identity of the wider Karakalpak region.",
-    "description_uz": "A useful stop for understanding the history, archaeology, and identity of the wider Karakalpak region.",
-    "description_ru": "A useful stop for understanding the history, archaeology, and identity of the wider Karakalpak region.",
-    "description_en": "A useful stop for understanding the history, archaeology, and identity of the wider Karakalpak region.",
-    "image": "data:image/jpeg;base64,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",
-    "coordinates": {
-      "lat": 42.4613,
-      "lng": 59.6119
+    {
+        "id":  "state-museum-karakalpakstan",
+        "slug":  "state-museum-karakalpakstan",
+        "city":  "Nukus",
+        "region":  "Karakalpakstan",
+        "category":  "history",
+        "name":  "State Museum of Karakalpakstan",
+        "name_kaa":  "State Museum of Karakalpakstan",
+        "name_uz":  "State Museum of Karakalpakstan",
+        "name_ru":  "State Museum of Karakalpakstan",
+        "name_en":  "State Museum of Karakalpakstan",
+        "description":  "A useful stop for understanding the history, archaeology, and identity of the wider Karakalpak region.",
+        "description_kaa":  "A useful stop for understanding the history, archaeology, and identity of the wider Karakalpak region.",
+        "description_uz":  "A useful stop for understanding the history, archaeology, and identity of the wider Karakalpak region.",
+        "description_ru":  "A useful stop for understanding the history, archaeology, and identity of the wider Karakalpak region.",
+        "description_en":  "A useful stop for understanding the history, archaeology, and identity of the wider Karakalpak region.",
+        "shortDescription":  "A useful stop for understanding the history, archaeology, and identity of the wider Karakalpa...",
+        "address":  null,
+        "coordinates":  {
+                            "lat":  42.4613,
+                            "lng":  59.6119
+                        },
+        "duration":  90,
+        "image":  "https://placehold.co/1200x800/png?text=State+Museum+of+Karakalpakstan",
+        "gallery":  [
+                        "https://placehold.co/1200x800/png?text=State+Museum+of+Karakalpakstan"
+                    ],
+        "tags":  [
+                     "history",
+                     "Nukus",
+                     "Karakalpakstan"
+                 ],
+        "featured":  true,
+        "rating":  null,
+        "workingHours":  null,
+        "price":  null
     },
-    "featured": true
-  },
-  {
-    "id": "berdakh-theater",
-    "name": "Berdakh Theater",
-    "name_kaa": "Berdakh Theater",
-    "name_uz": "Berdakh Theater",
-    "name_ru": "Berdakh Theater",
-    "name_en": "Berdakh Theater",
-    "city": "Nukus",
-    "region": "Karakalpakstan",
-    "category": "culture",
-    "durationMinutes": 75,
-    "description": "A cultural landmark that reflects the performing arts tradition of Karakalpakstan.",
-    "description_kaa": "A cultural landmark that reflects the performing arts tradition of Karakalpakstan.",
-    "description_uz": "A cultural landmark that reflects the performing arts tradition of Karakalpakstan.",
-    "description_ru": "A cultural landmark that reflects the performing arts tradition of Karakalpakstan.",
-    "description_en": "A cultural landmark that reflects the performing arts tradition of Karakalpakstan.",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Karakalpak_State_Academic_Musical_Theatre_named_after_Berdakh_%28Stanislavski%29.jpg",
-    "coordinates": {
-      "lat": 42.4652,
-      "lng": 59.6132
+    {
+        "id":  "berdakh-theater",
+        "slug":  "berdakh-theater",
+        "city":  "Nukus",
+        "region":  "Karakalpakstan",
+        "category":  "culture",
+        "name":  "Berdakh Theater",
+        "name_kaa":  "Berdakh Theater",
+        "name_uz":  "Berdakh Theater",
+        "name_ru":  "Berdakh Theater",
+        "name_en":  "Berdakh Theater",
+        "description":  "A cultural landmark that reflects the performing arts tradition of Karakalpakstan.",
+        "description_kaa":  "A cultural landmark that reflects the performing arts tradition of Karakalpakstan.",
+        "description_uz":  "A cultural landmark that reflects the performing arts tradition of Karakalpakstan.",
+        "description_ru":  "A cultural landmark that reflects the performing arts tradition of Karakalpakstan.",
+        "description_en":  "A cultural landmark that reflects the performing arts tradition of Karakalpakstan.",
+        "shortDescription":  "A cultural landmark that reflects the performing arts tradition of Karakalpakstan.",
+        "address":  null,
+        "coordinates":  {
+                            "lat":  42.4652,
+                            "lng":  59.6132
+                        },
+        "duration":  75,
+        "image":  "https://upload.wikimedia.org/wikipedia/commons/b/ba/Karakalpak_State_Academic_Musical_Theatre_named_after_Berdakh_%28Stanislavski%29.jpg",
+        "gallery":  [
+                        "https://upload.wikimedia.org/wikipedia/commons/b/ba/Karakalpak_State_Academic_Musical_Theatre_named_after_Berdakh_%28Stanislavski%29.jpg"
+                    ],
+        "tags":  [
+                     "culture",
+                     "Nukus",
+                     "Karakalpakstan"
+                 ],
+        "featured":  false,
+        "rating":  null,
+        "workingHours":  null,
+        "price":  null
     },
-    "featured": false
-  },
-  {
-    "id": "nukus-central-bazaar",
-    "name": "Nukus Central Bazaar",
-    "name_kaa": "Nukus Central Bazaar",
-    "name_uz": "Nukus Central Bazaar",
-    "name_ru": "Nukus Central Bazaar",
-    "name_en": "Nukus Central Bazaar",
-    "city": "Nukus",
-    "region": "Karakalpakstan",
-    "category": "food",
-    "durationMinutes": 60,
-    "description": "A lively market where visitors can sample local snacks and get a feel for daily life in Nukus.",
-    "description_kaa": "A lively market where visitors can sample local snacks and get a feel for daily life in Nukus.",
-    "description_uz": "A lively market where visitors can sample local snacks and get a feel for daily life in Nukus.",
-    "description_ru": "A lively market where visitors can sample local snacks and get a feel for daily life in Nukus.",
-    "description_en": "A lively market where visitors can sample local snacks and get a feel for daily life in Nukus.",
-    "image": "https://pbs.twimg.com/media/HDpXlJAXEAAGFYN.jpg",
-    "coordinates": {
-      "lat": 42.4679,
-      "lng": 59.6054
+    {
+        "id":  "nukus-central-bazaar",
+        "slug":  "nukus-central-bazaar",
+        "city":  "Nukus",
+        "region":  "Karakalpakstan",
+        "category":  "food",
+        "name":  "Nukus Central Bazaar",
+        "name_kaa":  "Nukus Central Bazaar",
+        "name_uz":  "Nukus Central Bazaar",
+        "name_ru":  "Nukus Central Bazaar",
+        "name_en":  "Nukus Central Bazaar",
+        "description":  "A lively market where visitors can sample local snacks and get a feel for daily life in Nukus.",
+        "description_kaa":  "A lively market where visitors can sample local snacks and get a feel for daily life in Nukus.",
+        "description_uz":  "A lively market where visitors can sample local snacks and get a feel for daily life in Nukus.",
+        "description_ru":  "A lively market where visitors can sample local snacks and get a feel for daily life in Nukus.",
+        "description_en":  "A lively market where visitors can sample local snacks and get a feel for daily life in Nukus.",
+        "shortDescription":  "A lively market where visitors can sample local snacks and get a feel for daily life in Nukus.",
+        "address":  null,
+        "coordinates":  {
+                            "lat":  42.4679,
+                            "lng":  59.6054
+                        },
+        "duration":  60,
+        "image":  "https://pbs.twimg.com/media/HDpXlJAXEAAGFYN.jpg",
+        "gallery":  [
+                        "https://pbs.twimg.com/media/HDpXlJAXEAAGFYN.jpg"
+                    ],
+        "tags":  [
+                     "food",
+                     "Nukus",
+                     "Karakalpakstan"
+                 ],
+        "featured":  true,
+        "rating":  null,
+        "workingHours":  null,
+        "price":  null
     },
-    "featured": true
-  },
-  {
-    "id": "mizdakhan-complex",
-    "name": "Mizdakhan Memorial Complex",
-    "name_kaa": "Mizdakhan Memorial Complex",
-    "name_uz": "Mizdakhan Memorial Complex",
-    "name_ru": "Mizdakhan Memorial Complex",
-    "name_en": "Mizdakhan Memorial Complex",
-    "city": "Xojeli",
-    "region": "Karakalpakstan",
-    "category": "history",
-    "durationMinutes": 90,
-    "description": "An atmospheric necropolis and pilgrimage site with layers of regional history and legend.",
-    "description_kaa": "An atmospheric necropolis and pilgrimage site with layers of regional history and legend.",
-    "description_uz": "An atmospheric necropolis and pilgrimage site with layers of regional history and legend.",
-    "description_ru": "An atmospheric necropolis and pilgrimage site with layers of regional history and legend.",
-    "description_en": "An atmospheric necropolis and pilgrimage site with layers of regional history and legend.",
-    "image": "https://eurasia.travel/wp-content/uploads/2025/02/1.-Mizdakhan-necropolis-Karakalpakstan.jpg",
-    "coordinates": {
-      "lat": 42.3482,
-      "lng": 59.345
+    {
+        "id":  "mizdakhan-complex",
+        "slug":  "mizdakhan-complex",
+        "city":  "Xojeli",
+        "region":  "Karakalpakstan",
+        "category":  "history",
+        "name":  "Mizdakhan Memorial Complex",
+        "name_kaa":  "Mizdakhan Memorial Complex",
+        "name_uz":  "Mizdakhan Memorial Complex",
+        "name_ru":  "Mizdakhan Memorial Complex",
+        "name_en":  "Mizdakhan Memorial Complex",
+        "description":  "An atmospheric necropolis and pilgrimage site with layers of regional history and legend.",
+        "description_kaa":  "An atmospheric necropolis and pilgrimage site with layers of regional history and legend.",
+        "description_uz":  "An atmospheric necropolis and pilgrimage site with layers of regional history and legend.",
+        "description_ru":  "An atmospheric necropolis and pilgrimage site with layers of regional history and legend.",
+        "description_en":  "An atmospheric necropolis and pilgrimage site with layers of regional history and legend.",
+        "shortDescription":  "An atmospheric necropolis and pilgrimage site with layers of regional history and legend.",
+        "address":  null,
+        "coordinates":  {
+                            "lat":  42.3482,
+                            "lng":  59.345
+                        },
+        "duration":  90,
+        "image":  "https://eurasia.travel/wp-content/uploads/2025/02/1.-Mizdakhan-necropolis-Karakalpakstan.jpg",
+        "gallery":  [
+                        "https://eurasia.travel/wp-content/uploads/2025/02/1.-Mizdakhan-necropolis-Karakalpakstan.jpg"
+                    ],
+        "tags":  [
+                     "history",
+                     "Xojeli",
+                     "Karakalpakstan"
+                 ],
+        "featured":  true,
+        "rating":  null,
+        "workingHours":  null,
+        "price":  null
     },
-    "featured": true
-  },
-  {
-    "id": "chilpik-dakhma",
-    "name": "Chilpik Dakhma",
-    "name_kaa": "Chilpik Dakhma",
-    "name_uz": "Chilpik Dakhma",
-    "name_ru": "Chilpik Dakhma",
-    "name_en": "Chilpik Dakhma",
-    "city": "Xojeli",
-    "region": "Karakalpakstan",
-    "category": "history",
-    "durationMinutes": 60,
-    "description": "A circular hilltop tower connected to ancient Zoroastrian burial traditions and striking desert views.",
-    "description_kaa": "A circular hilltop tower connected to ancient Zoroastrian burial traditions and striking desert views.",
-    "description_uz": "A circular hilltop tower connected to ancient Zoroastrian burial traditions and striking desert views.",
-    "description_ru": "A circular hilltop tower connected to ancient Zoroastrian burial traditions and striking desert views.",
-    "description_en": "A circular hilltop tower connected to ancient Zoroastrian burial traditions and striking desert views.",
-    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdzluOSVHQNBSNULPORRe6gEzdTL-sNjJu4w&s",
-    "coordinates": {
-      "lat": 42.3972,
-      "lng": 59.1678
+    {
+        "id":  "chilpik-dakhma",
+        "slug":  "chilpik-dakhma",
+        "city":  "Xojeli",
+        "region":  "Karakalpakstan",
+        "category":  "history",
+        "name":  "Chilpik Dakhma",
+        "name_kaa":  "Chilpik Dakhma",
+        "name_uz":  "Chilpik Dakhma",
+        "name_ru":  "Chilpik Dakhma",
+        "name_en":  "Chilpik Dakhma",
+        "description":  "A circular hilltop tower connected to ancient Zoroastrian burial traditions and striking desert views.",
+        "description_kaa":  "A circular hilltop tower connected to ancient Zoroastrian burial traditions and striking desert views.",
+        "description_uz":  "A circular hilltop tower connected to ancient Zoroastrian burial traditions and striking desert views.",
+        "description_ru":  "A circular hilltop tower connected to ancient Zoroastrian burial traditions and striking desert views.",
+        "description_en":  "A circular hilltop tower connected to ancient Zoroastrian burial traditions and striking desert views.",
+        "shortDescription":  "A circular hilltop tower connected to ancient Zoroastrian burial traditions and striking dese...",
+        "address":  null,
+        "coordinates":  {
+                            "lat":  42.3972,
+                            "lng":  59.1678
+                        },
+        "duration":  60,
+        "image":  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdzluOSVHQNBSNULPORRe6gEzdTL-sNjJu4w\u0026s",
+        "gallery":  [
+                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdzluOSVHQNBSNULPORRe6gEzdTL-sNjJu4w\u0026s"
+                    ],
+        "tags":  [
+                     "history",
+                     "Xojeli",
+                     "Karakalpakstan"
+                 ],
+        "featured":  false,
+        "rating":  null,
+        "workingHours":  null,
+        "price":  null
     },
-    "featured": false
-  },
-  {
-    "id": "ayaz-kala",
-    "name": "Ayaz Kala",
-    "name_kaa": "Ayaz Kala",
-    "name_uz": "Ayaz Kala",
-    "name_ru": "Ayaz Kala",
-    "name_en": "Ayaz Kala",
-    "city": "Ellikqala",
-    "region": "Karakalpakstan",
-    "category": "adventure",
-    "durationMinutes": 120,
-    "description": "A desert fortress complex that feels best as a scenic road-trip stop with time to explore the surroundings.",
-    "description_kaa": "A desert fortress complex that feels best as a scenic road-trip stop with time to explore the surroundings.",
-    "description_uz": "A desert fortress complex that feels best as a scenic road-trip stop with time to explore the surroundings.",
-    "description_ru": "A desert fortress complex that feels best as a scenic road-trip stop with time to explore the surroundings.",
-    "description_en": "A desert fortress complex that feels best as a scenic road-trip stop with time to explore the surroundings.",
-    "image": "https://centralasia-adventures.com/image/new/ayaz-kala.html-n.jpg",
-    "coordinates": {
-      "lat": 42.0092,
-      "lng": 61.0274
+    {
+        "id":  "ayaz-kala",
+        "slug":  "ayaz-kala",
+        "city":  "Ellikqala",
+        "region":  "Karakalpakstan",
+        "category":  "adventure",
+        "name":  "Ayaz Kala",
+        "name_kaa":  "Ayaz Kala",
+        "name_uz":  "Ayaz Kala",
+        "name_ru":  "Ayaz Kala",
+        "name_en":  "Ayaz Kala",
+        "description":  "A desert fortress complex that feels best as a scenic road-trip stop with time to explore the surroundings.",
+        "description_kaa":  "A desert fortress complex that feels best as a scenic road-trip stop with time to explore the surroundings.",
+        "description_uz":  "A desert fortress complex that feels best as a scenic road-trip stop with time to explore the surroundings.",
+        "description_ru":  "A desert fortress complex that feels best as a scenic road-trip stop with time to explore the surroundings.",
+        "description_en":  "A desert fortress complex that feels best as a scenic road-trip stop with time to explore the surroundings.",
+        "shortDescription":  "A desert fortress complex that feels best as a scenic road-trip stop with time to explore the...",
+        "address":  null,
+        "coordinates":  {
+                            "lat":  42.0092,
+                            "lng":  61.0274
+                        },
+        "duration":  120,
+        "image":  "https://centralasia-adventures.com/image/new/ayaz-kala.html-n.jpg",
+        "gallery":  [
+                        "https://centralasia-adventures.com/image/new/ayaz-kala.html-n.jpg"
+                    ],
+        "tags":  [
+                     "adventure",
+                     "Ellikqala",
+                     "Karakalpakstan"
+                 ],
+        "featured":  true,
+        "rating":  null,
+        "workingHours":  null,
+        "price":  null
     },
-    "featured": true
-  },
-  {
-    "id": "topraq-kala",
-    "name": "Topraq Kala",
-    "name_kaa": "Topraq Kala",
-    "name_uz": "Topraq Kala",
-    "name_ru": "Topraq Kala",
-    "name_en": "Topraq Kala",
-    "city": "Ellikqala",
-    "region": "Karakalpakstan",
-    "category": "history",
-    "durationMinutes": 90,
-    "description": "One of the best known ancient Khorezm fortresses, ideal for travelers interested in archaeology and early urban history.",
-    "description_kaa": "One of the best known ancient Khorezm fortresses, ideal for travelers interested in archaeology and early urban history.",
-    "description_uz": "One of the best known ancient Khorezm fortresses, ideal for travelers interested in archaeology and early urban history.",
-    "description_ru": "One of the best known ancient Khorezm fortresses, ideal for travelers interested in archaeology and early urban history.",
-    "description_en": "One of the best known ancient Khorezm fortresses, ideal for travelers interested in archaeology and early urban history.",
-    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzr99LHFeT4W9skOkHbc1urpolB-BMTZYZ9Q&s",
-    "coordinates": {
-      "lat": 41.9286,
-      "lng": 60.8198
+    {
+        "id":  "topraq-kala",
+        "slug":  "topraq-kala",
+        "city":  "Ellikqala",
+        "region":  "Karakalpakstan",
+        "category":  "history",
+        "name":  "Topraq Kala",
+        "name_kaa":  "Topraq Kala",
+        "name_uz":  "Topraq Kala",
+        "name_ru":  "Topraq Kala",
+        "name_en":  "Topraq Kala",
+        "description":  "One of the best known ancient Khorezm fortresses, ideal for travelers interested in archaeology and early urban history.",
+        "description_kaa":  "One of the best known ancient Khorezm fortresses, ideal for travelers interested in archaeology and early urban history.",
+        "description_uz":  "One of the best known ancient Khorezm fortresses, ideal for travelers interested in archaeology and early urban history.",
+        "description_ru":  "One of the best known ancient Khorezm fortresses, ideal for travelers interested in archaeology and early urban history.",
+        "description_en":  "One of the best known ancient Khorezm fortresses, ideal for travelers interested in archaeology and early urban history.",
+        "shortDescription":  "One of the best known ancient Khorezm fortresses, ideal for travelers interested in archaeolo...",
+        "address":  null,
+        "coordinates":  {
+                            "lat":  41.9286,
+                            "lng":  60.8198
+                        },
+        "duration":  90,
+        "image":  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzr99LHFeT4W9skOkHbc1urpolB-BMTZYZ9Q\u0026s",
+        "gallery":  [
+                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzr99LHFeT4W9skOkHbc1urpolB-BMTZYZ9Q\u0026s"
+                    ],
+        "tags":  [
+                     "history",
+                     "Ellikqala",
+                     "Karakalpakstan"
+                 ],
+        "featured":  true,
+        "rating":  null,
+        "workingHours":  null,
+        "price":  null
     },
-    "featured": true
-  },
-  {
-    "id": "kyzyl-kala",
-    "name": "Kyzyl Kala",
-    "name_kaa": "Kyzyl Kala",
-    "name_uz": "Kyzyl Kala",
-    "name_ru": "Kyzyl Kala",
-    "name_en": "Kyzyl Kala",
-    "city": "Ellikqala",
-    "region": "Karakalpakstan",
-    "category": "history",
-    "durationMinutes": 60,
-    "description": "A restored fortress stop that pairs well with Topraq Kala for a focused history route in Ellikqala district.",
-    "description_kaa": "A restored fortress stop that pairs well with Topraq Kala for a focused history route in Ellikqala district.",
-    "description_uz": "A restored fortress stop that pairs well with Topraq Kala for a focused history route in Ellikqala district.",
-    "description_ru": "A restored fortress stop that pairs well with Topraq Kala for a focused history route in Ellikqala district.",
-    "description_en": "A restored fortress stop that pairs well with Topraq Kala for a focused history route in Ellikqala district.",
-    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQ5NPYOS6h_cILO2kLHPy1xv3eY-DD-HXIcg&s",
-    "coordinates": {
-      "lat": 41.9326,
-      "lng": 60.8131
+    {
+        "id":  "kyzyl-kala",
+        "slug":  "kyzyl-kala",
+        "city":  "Ellikqala",
+        "region":  "Karakalpakstan",
+        "category":  "history",
+        "name":  "Kyzyl Kala",
+        "name_kaa":  "Kyzyl Kala",
+        "name_uz":  "Kyzyl Kala",
+        "name_ru":  "Kyzyl Kala",
+        "name_en":  "Kyzyl Kala",
+        "description":  "A restored fortress stop that pairs well with Topraq Kala for a focused history route in Ellikqala district.",
+        "description_kaa":  "A restored fortress stop that pairs well with Topraq Kala for a focused history route in Ellikqala district.",
+        "description_uz":  "A restored fortress stop that pairs well with Topraq Kala for a focused history route in Ellikqala district.",
+        "description_ru":  "A restored fortress stop that pairs well with Topraq Kala for a focused history route in Ellikqala district.",
+        "description_en":  "A restored fortress stop that pairs well with Topraq Kala for a focused history route in Ellikqala district.",
+        "shortDescription":  "A restored fortress stop that pairs well with Topraq Kala for a focused history route in Elli...",
+        "address":  null,
+        "coordinates":  {
+                            "lat":  41.9326,
+                            "lng":  60.8131
+                        },
+        "duration":  60,
+        "image":  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQ5NPYOS6h_cILO2kLHPy1xv3eY-DD-HXIcg\u0026s",
+        "gallery":  [
+                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQ5NPYOS6h_cILO2kLHPy1xv3eY-DD-HXIcg\u0026s"
+                    ],
+        "tags":  [
+                     "history",
+                     "Ellikqala",
+                     "Karakalpakstan"
+                 ],
+        "featured":  false,
+        "rating":  null,
+        "workingHours":  null,
+        "price":  null
     },
-    "featured": false
-  },
-  {
-    "id": "moynaq-ship-cemetery",
-    "name": "Moynaq Ship Cemetery",
-    "name_kaa": "Moynaq Ship Cemetery",
-    "name_uz": "Moynaq Ship Cemetery",
-    "name_ru": "Moynaq Ship Cemetery",
-    "name_en": "Moynaq Ship Cemetery",
-    "city": "Moynaq",
-    "region": "Karakalpakstan",
-    "category": "history",
-    "durationMinutes": 75,
-    "description": "The iconic former seaport site that tells the story of the Aral Sea disaster in a powerful and visual way.",
-    "description_kaa": "The iconic former seaport site that tells the story of the Aral Sea disaster in a powerful and visual way.",
-    "description_uz": "The iconic former seaport site that tells the story of the Aral Sea disaster in a powerful and visual way.",
-    "description_ru": "The iconic former seaport site that tells the story of the Aral Sea disaster in a powerful and visual way.",
-    "description_en": "The iconic former seaport site that tells the story of the Aral Sea disaster in a powerful and visual way.",
-    "image": "https://www.civitatis.com/f/uzbekistan/nukus/excursion-cementerio-barcos-moynaq-589x392.jpg",
-    "coordinates": {
-      "lat": 43.7705,
-      "lng": 59.0214
+    {
+        "id":  "moynaq-ship-cemetery",
+        "slug":  "moynaq-ship-cemetery",
+        "city":  "Moynaq",
+        "region":  "Karakalpakstan",
+        "category":  "history",
+        "name":  "Moynaq Ship Cemetery",
+        "name_kaa":  "Moynaq Ship Cemetery",
+        "name_uz":  "Moynaq Ship Cemetery",
+        "name_ru":  "Moynaq Ship Cemetery",
+        "name_en":  "Moynaq Ship Cemetery",
+        "description":  "The iconic former seaport site that tells the story of the Aral Sea disaster in a powerful and visual way.",
+        "description_kaa":  "The iconic former seaport site that tells the story of the Aral Sea disaster in a powerful and visual way.",
+        "description_uz":  "The iconic former seaport site that tells the story of the Aral Sea disaster in a powerful and visual way.",
+        "description_ru":  "The iconic former seaport site that tells the story of the Aral Sea disaster in a powerful and visual way.",
+        "description_en":  "The iconic former seaport site that tells the story of the Aral Sea disaster in a powerful and visual way.",
+        "shortDescription":  "The iconic former seaport site that tells the story of the Aral Sea disaster in a powerful an...",
+        "address":  null,
+        "coordinates":  {
+                            "lat":  43.7705,
+                            "lng":  59.0214
+                        },
+        "duration":  75,
+        "image":  "https://www.civitatis.com/f/uzbekistan/nukus/excursion-cementerio-barcos-moynaq-589x392.jpg",
+        "gallery":  [
+                        "https://www.civitatis.com/f/uzbekistan/nukus/excursion-cementerio-barcos-moynaq-589x392.jpg"
+                    ],
+        "tags":  [
+                     "history",
+                     "Moynaq",
+                     "Karakalpakstan"
+                 ],
+        "featured":  true,
+        "rating":  null,
+        "workingHours":  null,
+        "price":  null
     },
-    "featured": true
-  },
-  {
-    "id": "aral-sea-museum",
-    "name": "Moynaq Regional Museum",
-    "name_kaa": "Moynaq Regional Museum",
-    "name_uz": "Moynaq Regional Museum",
-    "name_ru": "Moynaq Regional Museum",
-    "name_en": "Moynaq Regional Museum",
-    "city": "Moynaq",
-    "region": "Karakalpakstan",
-    "category": "museum",
-    "durationMinutes": 60,
-    "description": "A compact museum that adds social and environmental context to a visit to Moynaq and the former Aral coastline.",
-    "description_kaa": "A compact museum that adds social and environmental context to a visit to Moynaq and the former Aral coastline.",
-    "description_uz": "A compact museum that adds social and environmental context to a visit to Moynaq and the former Aral coastline.",
-    "description_ru": "A compact museum that adds social and environmental context to a visit to Moynaq and the former Aral coastline.",
-    "description_en": "A compact museum that adds social and environmental context to a visit to Moynaq and the former Aral coastline.",
-    "image": "https://www.journalofnomads.com/wp-content/uploads/2022/12/Moynaq-museum-Uzbekistan.jpg",
-    "coordinates": {
-      "lat": 43.7683,
-      "lng": 59.0179
+    {
+        "id":  "aral-sea-museum",
+        "slug":  "aral-sea-museum",
+        "city":  "Moynaq",
+        "region":  "Karakalpakstan",
+        "category":  "museum",
+        "name":  "Moynaq Regional Museum",
+        "name_kaa":  "Moynaq Regional Museum",
+        "name_uz":  "Moynaq Regional Museum",
+        "name_ru":  "Moynaq Regional Museum",
+        "name_en":  "Moynaq Regional Museum",
+        "description":  "A compact museum that adds social and environmental context to a visit to Moynaq and the former Aral coastline.",
+        "description_kaa":  "A compact museum that adds social and environmental context to a visit to Moynaq and the former Aral coastline.",
+        "description_uz":  "A compact museum that adds social and environmental context to a visit to Moynaq and the former Aral coastline.",
+        "description_ru":  "A compact museum that adds social and environmental context to a visit to Moynaq and the former Aral coastline.",
+        "description_en":  "A compact museum that adds social and environmental context to a visit to Moynaq and the former Aral coastline.",
+        "shortDescription":  "A compact museum that adds social and environmental context to a visit to Moynaq and the form...",
+        "address":  null,
+        "coordinates":  {
+                            "lat":  43.7683,
+                            "lng":  59.0179
+                        },
+        "duration":  60,
+        "image":  "https://www.journalofnomads.com/wp-content/uploads/2022/12/Moynaq-museum-Uzbekistan.jpg",
+        "gallery":  [
+                        "https://www.journalofnomads.com/wp-content/uploads/2022/12/Moynaq-museum-Uzbekistan.jpg"
+                    ],
+        "tags":  [
+                     "museum",
+                     "Moynaq",
+                     "Karakalpakstan"
+                 ],
+        "featured":  false,
+        "rating":  null,
+        "workingHours":  null,
+        "price":  null
     },
-    "featured": false
-  },
-  {
-    "id": "ustyurt-plateau-viewpoint",
-    "name": "Ustyurt Plateau Viewpoint",
-    "name_kaa": "Ustyurt Plateau Viewpoint",
-    "name_uz": "Ustyurt Plateau Viewpoint",
-    "name_ru": "Ustyurt Plateau Viewpoint",
-    "name_en": "Ustyurt Plateau Viewpoint",
-    "city": "Qonirat",
-    "region": "Karakalpakstan",
-    "category": "nature",
-    "durationMinutes": 120,
-    "description": "A remote landscape stop for travelers who want wide desert views and a memorable nature-heavy detour.",
-    "description_kaa": "A remote landscape stop for travelers who want wide desert views and a memorable nature-heavy detour.",
-    "description_uz": "A remote landscape stop for travelers who want wide desert views and a memorable nature-heavy detour.",
-    "description_ru": "A remote landscape stop for travelers who want wide desert views and a memorable nature-heavy detour.",
-    "description_en": "A remote landscape stop for travelers who want wide desert views and a memorable nature-heavy detour.",
-    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_iGINe-ubOuuwvfZ3iMmDyaxwfL11PPF92Q&s",
-    "coordinates": {
-      "lat": 43.1586,
-      "lng": 58.9797
-    },
-    "featured": true
-  }
+    {
+        "id":  "ustyurt-plateau-viewpoint",
+        "slug":  "ustyurt-plateau-viewpoint",
+        "city":  "Qonirat",
+        "region":  "Karakalpakstan",
+        "category":  "nature",
+        "name":  "Ustyurt Plateau Viewpoint",
+        "name_kaa":  "Ustyurt Plateau Viewpoint",
+        "name_uz":  "Ustyurt Plateau Viewpoint",
+        "name_ru":  "Ustyurt Plateau Viewpoint",
+        "name_en":  "Ustyurt Plateau Viewpoint",
+        "description":  "A remote landscape stop for travelers who want wide desert views and a memorable nature-heavy detour.",
+        "description_kaa":  "A remote landscape stop for travelers who want wide desert views and a memorable nature-heavy detour.",
+        "description_uz":  "A remote landscape stop for travelers who want wide desert views and a memorable nature-heavy detour.",
+        "description_ru":  "A remote landscape stop for travelers who want wide desert views and a memorable nature-heavy detour.",
+        "description_en":  "A remote landscape stop for travelers who want wide desert views and a memorable nature-heavy detour.",
+        "shortDescription":  "A remote landscape stop for travelers who want wide desert views and a memorable nature-heavy...",
+        "address":  null,
+        "coordinates":  {
+                            "lat":  43.1586,
+                            "lng":  58.9797
+                        },
+        "duration":  120,
+        "image":  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_iGINe-ubOuuwvfZ3iMmDyaxwfL11PPF92Q\u0026s",
+        "gallery":  [
+                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_iGINe-ubOuuwvfZ3iMmDyaxwfL11PPF92Q\u0026s"
+                    ],
+        "tags":  [
+                     "nature",
+                     "Qonirat",
+                     "Karakalpakstan"
+                 ],
+        "featured":  true,
+        "rating":  null,
+        "workingHours":  null,
+        "price":  null
+    }
 ]

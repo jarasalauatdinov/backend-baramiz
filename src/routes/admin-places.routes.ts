@@ -14,6 +14,7 @@ adminPlacesRouter.get("/", asyncHandler(getAdminPlaces));
 adminPlacesRouter.get("/:id", asyncHandler(getAdminPlaceById));
 adminPlacesRouter.post("/", asyncHandler(createAdminPlace));
 adminPlacesRouter.put("/:id", asyncHandler(updateAdminPlace));
+adminPlacesRouter.patch("/:id", asyncHandler(updateAdminPlace));
 adminPlacesRouter.delete("/:id", asyncHandler(deleteAdminPlace));
 
 export default adminPlacesRouter;

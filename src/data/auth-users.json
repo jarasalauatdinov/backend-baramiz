@@ -1,18 +1,9 @@
 [
   {
-    "id": "16868e2a-8b98-467a-904d-7cf36dd9706b",
-    "name": "fdsf",
-    "email": "jarasalauatdinov@gmail.com",
-    "createdAt": "2026-04-02T07:28:44.153Z",
-    "passwordSalt": "ba335adb4b1293dfa3a1f6b4dda20821",
-    "passwordHash": "42605dd8aa3e8ec8986c9b01c7b61d8a34825346728640597ac3682607c0b8c6d88c8e842b2d109cc42d1edf0dcfc036ca61bad4e219b0f3ebc0aadaf2b50bdd"
-  },
-  {
-    "id": "9dbe79d0-c8c0-4261-9bfa-b9c639cf25a4",
-    "name": "Test Traveler",
-    "email": "codex.auth.test@example.com",
-    "createdAt": "2026-04-02T07:29:07.411Z",
-    "passwordSalt": "e866af4aa9b68d26df652eaf9150ddfe",
-    "passwordHash": "d0c70efc413741cbb47f87a0f2e1a02970c444e5b229c0ddd12f3eb51baa90a1fbc7787bed178b9966d1d9f8f88964485fae2cc37747cfdc92bcfddecbc43b58"
+    "id": "b18d6099-9880-4199-90cf-d6f9b17c09c7",
+    "name": "Amina",
+    "email": "amina@example.com",
+    "passwordHash": "9bdfc2e1ce6cc56e3da12c7d7480d8e5:323e5474bffca090192a01769ed8f6bbd0cdac13218a2c53853ca45ccfff3b9f61c8124725c29d29e26e2c6ff6b8041a1efc32da9e991c76b524007ea9455354",
+    "createdAt": "2026-04-03T06:53:33.107Z"
   }
 ]

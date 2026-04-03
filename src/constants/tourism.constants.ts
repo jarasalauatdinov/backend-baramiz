@@ -15,19 +15,21 @@ export const ROUTE_DURATION_MINUTES = {
   "1_day": 480,
 } as const;
 
-export const TRANSFER_BUFFER_MINUTES = 20;
 export const ROUTE_START_TIME = "09:00";
-export const ROUTE_NEARBY_FALLBACK_MAX_DISTANCE_KM = {
-  "3_hours": 0,
-  half_day: 0,
-  "1_day": 160,
-} as const;
+export const TRANSFER_BUFFER_MINUTES = 20;
+export const CROSS_CITY_TRAVEL_SPEED_KMH = 55;
+
 export const ROUTE_IDEAL_STOP_COUNT = {
   "3_hours": 2,
   half_day: 3,
   "1_day": 4,
 } as const;
-export const CROSS_CITY_TRAVEL_SPEED_KMH = 55;
+
+export const ROUTE_NEARBY_FALLBACK_MAX_DISTANCE_KM = {
+  "3_hours": 0,
+  half_day: 0,
+  "1_day": 160,
+} as const;
 
 export const ROUTE_CITY_CLUSTERS: Record<string, string[]> = {
   Nukus: ["Xojeli"],
@@ -37,6 +39,14 @@ export const ROUTE_CITY_CLUSTERS: Record<string, string[]> = {
   Ellikqala: [],
 };
 
+export const CITY_ALIASES: Record<string, string[]> = {
+  Nukus: ["nukus", "nokis"],
+  Moynaq: ["moynaq", "muynak", "moinaq"],
+  Xojeli: ["xojeli", "khojeli", "khodjeyli", "hojeli"],
+  Ellikqala: ["ellikqala", "ellik kala", "ellikala", "ellik-qala"],
+  Qonirat: ["qonirat", "kungrad", "kongrat", "qongirat"],
+};
+
 export const CATEGORY_KEYWORDS: Record<string, string[]> = {
   history: [
     "history",
@@ -44,13 +54,10 @@ export const CATEGORY_KEYWORDS: Record<string, string[]> = {
     "ancient",
     "fortress",
     "memorial",
-    "archeology",
     "archaeology",
     "tarix",
-    "tariyikh",
     "istoriya",
-    "istoriya",
-    "krepost",
+    "история",
     "qala",
     "kala",
   ],
@@ -65,7 +72,7 @@ export const CATEGORY_KEYWORDS: Record<string, string[]> = {
     "madaniyat",
     "medeniyat",
     "kultura",
-    "sanat",
+    "культура",
   ],
   museum: [
     "museum",
@@ -74,7 +81,7 @@ export const CATEGORY_KEYWORDS: Record<string, string[]> = {
     "collection",
     "muzey",
     "muzei",
-    "museumlar",
+    "музей",
   ],
   nature: [
     "nature",
@@ -85,6 +92,7 @@ export const CATEGORY_KEYWORDS: Record<string, string[]> = {
     "landscape",
     "tabiat",
     "priroda",
+    "природа",
     "aral",
     "ustyurt",
   ],
@@ -92,11 +100,11 @@ export const CATEGORY_KEYWORDS: Record<string, string[]> = {
     "adventure",
     "offroad",
     "desert",
-    "trip",
-    "road",
+    "road trip",
     "explore",
     "sarguzasht",
-    "priklyuch",
+    "priklyucheniye",
+    "приключение",
     "safari",
   ],
   food: [
@@ -106,20 +114,13 @@ export const CATEGORY_KEYWORDS: Record<string, string[]> = {
     "restaurant",
     "bazaar",
     "market",
-    "dish",
     "taom",
     "ovqat",
     "eda",
+    "еда",
+    "cafe",
     "kafe",
   ],
-};
-
-export const CITY_ALIASES: Record<string, string[]> = {
-  Nukus: ["nukus", "nokis"],
-  Moynaq: ["moynaq", "muynak", "moinaq"],
-  Xojeli: ["xojeli", "khojeli", "khodjeyli", "hojeli"],
-  Ellikqala: ["ellikqala", "ellik kala", "ellikala", "ellik-qala"],
-  Qonirat: ["qonirat", "kungrad", "kongrat", "qongirat"],
 };
 
 export const DURATION_KEYWORDS = {
@@ -128,7 +129,6 @@ export const DURATION_KEYWORDS = {
     "3 hour",
     "2 hours",
     "2 hour",
-    "short trip",
     "few hours",
     "3 soat",
     "2 soat",
@@ -146,7 +146,6 @@ export const DURATION_KEYWORDS = {
     "5 hour",
     "yarim kun",
     "pol dnya",
-    "poldnya",
     "4 soat",
     "5 soat",
     "4 часа",

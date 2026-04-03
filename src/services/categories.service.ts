@@ -1,59 +1,28 @@
-import categoriesData from "../data/categories.json";
+import path from "node:path";
 import { categoriesDataSchema } from "../schemas/tourism-data.schema";
-import type { Category, Language } from "../types/tourism.types";
-import { getCategoryLabel, localize } from "../utils/text-helpers";
+import type { Category, Language, PublicCategory } from "../types/tourism.types";
+import { readJsonFile } from "../utils/json-storage";
+import { localize } from "../utils/text-helpers";
 
-const categories = categoriesDataSchema.parse(categoriesData) as Category[];
+const categoriesFilePath = path.join(process.cwd(), "src", "data", "categories.json");
 
-const localizedDescriptions: Record<Category["id"], Partial<Record<Language, string>> & { en: string }> = {
-  history: {
-    kaa: "Áyyemgi qalalar, memorial orinlar hám region tariyxina baylanisli hikayalar.",
-    uz: "Qadimiy qal'alar, yodgorliklar va hudud tarixiga oid hikoyalar.",
-    en: "Ancient fortresses, memorial sites, and stories from the region.",
-    ru: "??????? ????????, ????????? ? ??????? ???????.",
-  },
-  culture: {
-    kaa: "Jergilikli dástúrler, óner orinlari hám mádeniy kenislikler.",
-    uz: "Mahalliy an'analar, ijodiy makonlar va madaniy nuqtalar.",
-    en: "Local traditions, performance venues, and creative spaces.",
-    ru: "??????? ????????, ?????????? ???????? ? ?????????? ????????????.",
-  },
-  museum: {
-    kaa: "Óner hám miyra arqali Qaraqalpaqstanni túsindiretu?in kolleksiyalar.",
-    uz: "San'at va meros orqali Qoraqalpog'istonni tushuntiradigan kolleksiyalar.",
-    en: "Collections that explain Karakalpakstan through art and heritage.",
-    ru: "?????????, ???????????? ?????????????? ????? ????????? ? ????????.",
-  },
-  nature: {
-    kaa: "Ashiq landshaftlar, kóriw nukteleri hám tábiyatqa baylanisli tájiriybeler.",
-    uz: "Ochiq landshaftlar, kuzatuv nuqtalari va tabiatga yo'naltirilgan tajribalar.",
-    en: "Open landscapes, viewpoints, and nature-driven experiences.",
-    ru: "???????? ?????????, ????????? ????? ? ????????? ???????????.",
-  },
-  adventure: {
-    kaa: "Shól jollari, qal'a marshrutlari hám aktiv izlenis túrleri.",
-    uz: "Cho'l yo'llari, qal'a marshrutlari va faol sayohat tajribalari.",
-    en: "Desert road trips and active exploration around remote landmarks.",
-    ru: "????????? ???????? ? ???????? ???????????? ????????? ???????.",
-  },
-  food: {
-    kaa: "Bazarlar hám jergilikli dám tatiwlar sapardi toliq etedi.",
-    uz: "Bozorlar va mahalliy ta'mlar sayohatni to'liq qiladi.",
-    en: "Markets and local flavors that make a trip feel complete.",
-    ru: "????? ? ??????? ?????, ??????? ?????? ??????? ???????????.",
-  },
+let categoriesCache: Category[] | null = null;
+
+const loadCategories = (): Category[] => {
+  if (categoriesCache) {
+    return categoriesCache;
+  }
+
+  categoriesCache = readJsonFile(categoriesFilePath, categoriesDataSchema, []);
+  return categoriesCache;
 };
 
-class CategoriesService {
-  getCategories(language?: Language): Category[] {
-    const resolvedLanguage = language ?? "en";
-
-    return categories.map((category) => ({
+export const getCategories = (language: Language = "en"): PublicCategory[] => {
+  return loadCategories()
+    .filter((category) => category.is_active && category.type === "interest")
+    .sort((left, right) => left.sort_order - right.sort_order || left.slug.localeCompare(right.slug))
+    .map((category) => ({
       ...category,
-      name: getCategoryLabel(category.id, resolvedLanguage),
-      description: localize(resolvedLanguage, localizedDescriptions[category.id]),
+      name: localize(language, category.names),
     }));
-  }
-}
-
-export const categoriesService = new CategoriesService();
+};

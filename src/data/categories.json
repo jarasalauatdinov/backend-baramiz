@@ -1,32 +1,128 @@
 [
   {
     "id": "history",
-    "name": "History",
-    "description": "Ancient fortresses, memorial sites, and stories from the region."
+    "slug": "history",
+    "names": {
+      "kaa": "Tarix",
+      "uz": "Tarix",
+      "ru": "История",
+      "en": "History"
+    },
+    "icon": "landmark",
+    "type": "interest",
+    "sort_order": 1,
+    "is_active": true
   },
   {
     "id": "culture",
-    "name": "Culture",
-    "description": "Local traditions, performance venues, and creative spaces."
+    "slug": "culture",
+    "names": {
+      "kaa": "Madeniyat",
+      "uz": "Madaniyat",
+      "ru": "Культура",
+      "en": "Culture"
+    },
+    "icon": "theater",
+    "type": "interest",
+    "sort_order": 2,
+    "is_active": true
   },
   {
     "id": "museum",
-    "name": "Museum",
-    "description": "Collections that explain Karakalpakstan through art and heritage."
+    "slug": "museum",
+    "names": {
+      "kaa": "Muzey",
+      "uz": "Muzey",
+      "ru": "Музей",
+      "en": "Museum"
+    },
+    "icon": "museum",
+    "type": "interest",
+    "sort_order": 3,
+    "is_active": true
   },
   {
     "id": "nature",
-    "name": "Nature",
-    "description": "Open landscapes, viewpoints, and nature-driven experiences."
+    "slug": "nature",
+    "names": {
+      "kaa": "Tabiyat",
+      "uz": "Tabiat",
+      "ru": "Природа",
+      "en": "Nature"
+    },
+    "icon": "mountain",
+    "type": "interest",
+    "sort_order": 4,
+    "is_active": true
   },
   {
     "id": "adventure",
-    "name": "Adventure",
-    "description": "Desert road trips and active exploration around remote landmarks."
+    "slug": "adventure",
+    "names": {
+      "kaa": "Sarguzasht",
+      "uz": "Sarguzasht",
+      "ru": "Приключение",
+      "en": "Adventure"
+    },
+    "icon": "route",
+    "type": "interest",
+    "sort_order": 5,
+    "is_active": true
   },
   {
     "id": "food",
-    "name": "Food",
-    "description": "Markets and local flavors that make a trip feel complete."
+    "slug": "food",
+    "names": {
+      "kaa": "Taam",
+      "uz": "Taom",
+      "ru": "Еда",
+      "en": "Food"
+    },
+    "icon": "utensils",
+    "type": "interest",
+    "sort_order": 6,
+    "is_active": true
+  },
+  {
+    "id": "hotel",
+    "slug": "hotel",
+    "names": {
+      "kaa": "Qonaq uy",
+      "uz": "Mehmonxona",
+      "ru": "Отель",
+      "en": "Hotel"
+    },
+    "icon": "bed",
+    "type": "service",
+    "sort_order": 7,
+    "is_active": true
+  },
+  {
+    "id": "restaurant",
+    "slug": "restaurant",
+    "names": {
+      "kaa": "Restoran",
+      "uz": "Restoran",
+      "ru": "Ресторан",
+      "en": "Restaurant"
+    },
+    "icon": "chef-hat",
+    "type": "service",
+    "sort_order": 8,
+    "is_active": true
+  },
+  {
+    "id": "service",
+    "slug": "service",
+    "names": {
+      "kaa": "Xizmet",
+      "uz": "Xizmat",
+      "ru": "Сервис",
+      "en": "Service"
+    },
+    "icon": "briefcase",
+    "type": "service",
+    "sort_order": 9,
+    "is_active": true
   }
 ]

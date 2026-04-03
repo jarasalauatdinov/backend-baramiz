@@ -1,27 +1,27 @@
 import type { Request, Response } from "express";
 import { loginBodySchema, registerBodySchema } from "../schemas/auth.schema";
-import { authService } from "../services/auth.service";
+import {
+  getAuthenticatedUser,
+  loginUser,
+  logoutUser,
+  registerUser,
+} from "../services/auth.service";
 
-export const register = async (request: Request, response: Response): Promise<void> => {
+export const register = (request: Request, response: Response): void => {
   const body = registerBodySchema.parse(request.body);
-  const result = await authService.register(body);
-  response.status(201).json(result);
+  response.status(201).json({ item: registerUser(body) });
 };
 
-export const login = async (request: Request, response: Response): Promise<void> => {
+export const login = (request: Request, response: Response): void => {
   const body = loginBodySchema.parse(request.body);
-  const result = await authService.login(body);
-  response.json(result);
+  response.json({ item: loginUser(body) });
 };
 
-export const me = async (request: Request, response: Response): Promise<void> => {
-  const token = authService.extractBearerToken(request.header("Authorization"));
-  const user = await authService.getCurrentUser(token);
-  response.json({ user });
+export const me = (request: Request, response: Response): void => {
+  response.json({ item: getAuthenticatedUser(request.header("authorization")) });
 };
 
-export const logout = async (request: Request, response: Response): Promise<void> => {
-  const token = authService.extractBearerToken(request.header("Authorization"));
-  await authService.logout(token);
-  response.json({ message: "Logged out" });
+export const logout = (request: Request, response: Response): void => {
+  logoutUser(request.header("authorization"));
+  response.json({ message: "Logged out successfully" });
 };

@@ -1,355 +1,334 @@
-import fs from "node:fs";
 import path from "node:path";
-import { env } from "../config/env";
 import { placesDataSchema } from "../schemas/tourism-data.schema";
 import type {
   AdminPlaceInput,
+  CategoryId,
   Coordinates,
   Language,
   Place,
   PlaceFilters,
   PublicPlace,
-  RoutePlaceSummary,
-  TranslationResult,
+  RouteStop,
+  TranslationResponse,
 } from "../types/tourism.types";
-import { calculateDistanceKm } from "../utils/route-helpers";
 import { AppError } from "../utils/app-error";
-import { localizePlace, normalizeText, resolveCityName } from "../utils/text-helpers";
+import { readJsonFile, writeJsonFile } from "../utils/json-storage";
+import { calculateDistanceKm } from "../utils/route-helpers";
+import {
+  createShortDescription,
+  getLocalizedPlaceDescription,
+  getLocalizedPlaceName,
+  localizePlace,
+  normalizeText,
+  resolveCityName,
+  slugify,
+} from "../utils/text-helpers";
+import { resolvePublicAssetUrl } from "../utils/url-helpers";
 
 const placesFilePath = path.join(process.cwd(), "src", "data", "places.json");
 
-class PlacesService {
-  private placesCache: Place[] | null = null;
+let placesCache: Place[] | null = null;
 
-  getPublicPlaces(filters: PlaceFilters = {}): PublicPlace[] {
-    return this.getPlaces(filters).map((place) => this.toPublicPlace(place));
+const normalizeStoredPlace = (place: Place): Place => {
+  const gallery = place.gallery.length > 0 ? place.gallery : [place.image];
+  const tags = place.tags.length > 0 ? place.tags : [place.category, place.city, place.region];
+
+  return {
+    ...place,
+    slug: place.slug || slugify(place.id || place.name_uz),
+    shortDescription: place.shortDescription || createShortDescription(place.description_en || place.description_uz),
+    gallery,
+    tags,
+  };
+};
+
+const loadPlaces = (): Place[] => {
+  if (placesCache) {
+    return placesCache;
   }
 
-  getPublicPlaceById(id: string, language?: Language): PublicPlace | undefined {
-    const place = this.getPlaceById(id, language);
-    return place ? this.toPublicPlace(place) : undefined;
+  const rawPlaces = readJsonFile(placesFilePath, placesDataSchema, []);
+  placesCache = rawPlaces.map(normalizeStoredPlace);
+  return placesCache;
+};
+
+const savePlaces = (places: Place[]): Place[] => {
+  const normalizedPlaces = places.map(normalizeStoredPlace);
+  placesCache = writeJsonFile(placesFilePath, placesDataSchema, normalizedPlaces);
+  return placesCache;
+};
+
+const toPublicPlace = (place: Place): PublicPlace => ({
+  id: place.id,
+  slug: place.slug,
+  city: place.city,
+  region: place.region,
+  category: place.category,
+  name: place.name,
+  description: place.description,
+  shortDescription: place.shortDescription,
+  address: place.address,
+  coordinates: place.coordinates,
+  duration: place.duration,
+  image: resolvePublicAssetUrl(place.image),
+  gallery: place.gallery.map(resolvePublicAssetUrl),
+  tags: place.tags,
+  featured: place.featured,
+  rating: place.rating,
+  workingHours: place.workingHours,
+  price: place.price,
+});
+
+const localizeStoredPlace = (place: Place, language: Language = "en"): Place => {
+  const localizedPlace = localizePlace(place, language);
+
+  return {
+    ...localizedPlace,
+    shortDescription: createShortDescription(getLocalizedPlaceDescription(place, language)),
+  };
+};
+
+const matchesFilters = (place: Place, filters: PlaceFilters): boolean => {
+  if (filters.category && place.category !== filters.category) {
+    return false;
   }
 
-  getPlaces(filters: PlaceFilters = {}): Place[] {
-    const places = this.loadPlaces();
-    const resolvedCity = filters.city ? this.resolveCityName(filters.city) : undefined;
-    const normalizedCityQuery = filters.city ? normalizeText(filters.city) : undefined;
-
-    return places
-      .filter((place) => {
-        const matchesCity = !normalizedCityQuery
-          || (resolvedCity
-            ? normalizeText(place.city) === normalizeText(resolvedCity)
-            : normalizeText(place.city).includes(normalizedCityQuery));
-        const matchesCategory = !filters.category || place.category === filters.category;
-        const matchesFeatured = filters.featured === undefined || place.featured === filters.featured;
-
-        return matchesCity && matchesCategory && matchesFeatured;
-      })
-      .map((place) => this.toClientPlace(place, filters.language));
+  if (filters.featured !== undefined && place.featured !== filters.featured) {
+    return false;
   }
 
-  getPlaceById(id: string, language?: Language): Place | undefined {
-    const place = this.loadPlaces().find((item) => item.id === id);
-    return place ? this.toClientPlace(place, language) : undefined;
-  }
+  if (filters.city) {
+    const resolvedCity = resolveCityName(filters.city, loadPlaces());
 
-  getAllPlaces(language?: Language): Place[] {
-    return this.loadPlaces().map((place) => this.toClientPlace(place, language));
-  }
-
-  getPlacesByCity(city: string, language?: Language): Place[] {
-    return this.getRawPlacesByCity(city).map((place) => this.toClientPlace(place, language));
-  }
-
-  getPlacesByRegion(region: string, language?: Language): Place[] {
-    const normalizedRegion = normalizeText(region);
-
-    return this.loadPlaces()
-      .filter((place) => normalizeText(place.region) === normalizedRegion)
-      .map((place) => this.toClientPlace(place, language));
-  }
-
-  getNearbyPlaces(city: string, maxDistanceKm: number, language?: Language): Place[] {
-    if (maxDistanceKm <= 0) {
-      return [];
+    if (resolvedCity) {
+      return normalizeText(place.city) === normalizeText(resolvedCity);
     }
 
-    const resolvedCity = this.resolveCityName(city);
-    const cityCenter = resolvedCity ? this.getCityCenter(resolvedCity) : undefined;
-
-    if (!resolvedCity || !cityCenter) {
-      return [];
-    }
-
-    return this.loadPlaces()
-      .filter((place) => normalizeText(place.city) !== normalizeText(resolvedCity))
-      .map((place) => ({
-        place,
-        distanceKm: calculateDistanceKm(cityCenter, place.coordinates),
-      }))
-      .filter((candidate) => candidate.distanceKm <= maxDistanceKm)
-      .sort((left, right) => {
-        if (left.distanceKm !== right.distanceKm) {
-          return left.distanceKm - right.distanceKm;
-        }
-
-        if (left.place.featured !== right.place.featured) {
-          return Number(right.place.featured) - Number(left.place.featured);
-        }
-
-        return left.place.name.localeCompare(right.place.name);
-      })
-      .map((candidate) => this.toClientPlace(candidate.place, language));
+    return normalizeText(place.city).includes(normalizeText(filters.city));
   }
 
-  getFeaturedPlaces(limit?: number, language?: Language): Place[] {
-    const featuredPlaces = this.loadPlaces()
-      .filter((place) => place.featured)
-      .map((place) => this.toClientPlace(place, language));
+  return true;
+};
 
-    return limit ? featuredPlaces.slice(0, limit) : featuredPlaces;
+const createPlaceId = (nameUz: string, existingPlaces: Place[]): string => {
+  const baseId = slugify(nameUz);
+  let nextId = baseId;
+  let suffix = 2;
+
+  while (existingPlaces.some((place) => place.id === nextId)) {
+    nextId = `${baseId}-${suffix}`;
+    suffix += 1;
   }
 
-  getKnownCities(): string[] {
-    return Array.from(new Set(this.loadPlaces().map((place) => place.city))).sort((leftCity, rightCity) =>
-      leftCity.localeCompare(rightCity),
-    );
+  return nextId;
+};
+
+const pickLocalizedValue = (
+  manualValue: string | undefined,
+  translatedValue: string | undefined,
+  existingValue: string | undefined,
+  fallbackValue: string,
+): string => {
+  return manualValue?.trim()
+    || translatedValue?.trim()
+    || existingValue?.trim()
+    || fallbackValue.trim();
+};
+
+const buildPlaceFromInput = (
+  input: AdminPlaceInput,
+  existingPlace?: Place,
+  translations?: TranslationResponse,
+): Place => {
+  const nameUz = input.name_uz.trim();
+  const descriptionUz = input.description_uz.trim();
+  const imageSource = input.imageUrl ?? input.image;
+  const duration = input.duration ?? input.durationMinutes;
+  const gallery = input.gallery?.map((item) => item.trim()).filter(Boolean) ?? [];
+  const tags = input.tags?.map((item) => item.trim()).filter(Boolean) ?? [];
+  const fallbackId = existingPlace?.id ?? createPlaceId(nameUz, loadPlaces());
+
+  if (!imageSource) {
+    throw new AppError(400, "image is required");
   }
 
-  resolveCityName(city: string): string | undefined {
-    return resolveCityName(city, this.loadPlaces());
+  if (duration === undefined) {
+    throw new AppError(400, "duration is required");
   }
 
-  getCityCenter(city: string): Coordinates | undefined {
-    const cityPlaces = this.getRawPlacesByCity(city);
+  const image = imageSource.trim();
 
-    if (cityPlaces.length === 0) {
-      return undefined;
-    }
+  return normalizeStoredPlace({
+    id: fallbackId,
+    slug: existingPlace?.slug ?? slugify(nameUz),
+    city: input.city.trim(),
+    region: input.region.trim(),
+    category: input.category,
+    name: (existingPlace?.name ?? input.name_en?.trim()) || nameUz,
+    name_kaa: input.name_kaa.trim(),
+    name_uz: nameUz,
+    name_ru: pickLocalizedValue(input.name_ru, translations?.name_ru, existingPlace?.name_ru, nameUz),
+    name_en: pickLocalizedValue(input.name_en, translations?.name_en, existingPlace?.name_en, nameUz),
+    description: (existingPlace?.description ?? input.description_en?.trim()) || descriptionUz,
+    description_kaa: input.description_kaa.trim(),
+    description_uz: descriptionUz,
+    description_ru: pickLocalizedValue(
+      input.description_ru,
+      translations?.description_ru,
+      existingPlace?.description_ru,
+      descriptionUz,
+    ),
+    description_en: pickLocalizedValue(
+      input.description_en,
+      translations?.description_en,
+      existingPlace?.description_en,
+      descriptionUz,
+    ),
+    shortDescription: input.shortDescription?.trim() || existingPlace?.shortDescription || createShortDescription(descriptionUz),
+    address: input.address?.trim() || existingPlace?.address,
+    coordinates: input.coordinates,
+    duration,
+    image,
+    gallery: gallery.length > 0 ? gallery : existingPlace?.gallery ?? [image],
+    tags: tags.length > 0 ? tags : existingPlace?.tags ?? [input.category, input.city.trim(), input.region.trim()],
+    featured: input.featured,
+    rating: input.rating ?? existingPlace?.rating,
+    workingHours: input.workingHours?.trim() || existingPlace?.workingHours,
+    price: input.price?.trim() || existingPlace?.price,
+  });
+};
 
-    const totalCoordinates = cityPlaces.reduce(
-      (accumulator, place) => ({
-        lat: accumulator.lat + place.coordinates.lat,
-        lng: accumulator.lng + place.coordinates.lng,
-      }),
-      { lat: 0, lng: 0 },
-    );
+export const getPublicPlaces = (filters: PlaceFilters = {}): PublicPlace[] => {
+  return loadPlaces()
+    .filter((place) => matchesFilters(place, filters))
+    .map((place) => localizeStoredPlace(place, filters.language))
+    .map(toPublicPlace);
+};
 
-    return {
-      lat: totalCoordinates.lat / cityPlaces.length,
-      lng: totalCoordinates.lng / cityPlaces.length,
-    };
+export const getPublicPlaceById = (id: string, language: Language = "en"): PublicPlace | undefined => {
+  const place = loadPlaces().find((item) => item.id === id);
+  return place ? toPublicPlace(localizeStoredPlace(place, language)) : undefined;
+};
+
+export const getPlaces = (filters: PlaceFilters = {}): Place[] => {
+  return loadPlaces()
+    .filter((place) => matchesFilters(place, filters))
+    .map((place) => localizeStoredPlace(place, filters.language));
+};
+
+export const getPlaceById = (id: string, language: Language = "en"): Place | undefined => {
+  const place = loadPlaces().find((item) => item.id === id);
+  return place ? localizeStoredPlace(place, language) : undefined;
+};
+
+export const getAllPlaces = (language: Language = "en"): Place[] => {
+  return loadPlaces().map((place) => localizeStoredPlace(place, language));
+};
+
+export const getPlacesByCity = (city: string, language: Language = "en"): Place[] => {
+  return getPlaces({ city, language });
+};
+
+export const getPlacesByRegion = (region: string, language: Language = "en"): Place[] => {
+  return getAllPlaces(language).filter((place) => normalizeText(place.region) === normalizeText(region));
+};
+
+export const getKnownCities = (): string[] => {
+  return Array.from(new Set(loadPlaces().map((place) => place.city))).sort((left, right) => left.localeCompare(right));
+};
+
+export const resolveKnownCityName = (city: string): string | undefined => {
+  return resolveCityName(city, loadPlaces());
+};
+
+export const getCityCenter = (city: string): Coordinates | undefined => {
+  const cityPlaces = getPlacesByCity(city);
+
+  if (cityPlaces.length === 0) {
+    return undefined;
   }
 
-  createPlace(input: AdminPlaceInput, translation?: TranslationResult): Place {
-    const places = this.loadPlaces();
-    const id = this.generateUniqueId(input.name_uz, places);
-    const place = this.buildPlaceRecord(id, input, translation);
+  const totals = cityPlaces.reduce((accumulator, place) => ({
+    lat: accumulator.lat + place.coordinates.lat,
+    lng: accumulator.lng + place.coordinates.lng,
+  }), { lat: 0, lng: 0 });
 
-    this.writePlaces([...places, place]);
-    return this.toClientPlace(place);
+  return {
+    lat: totals.lat / cityPlaces.length,
+    lng: totals.lng / cityPlaces.length,
+  };
+};
+
+export const getNearbyPlaces = (city: string, maxDistanceKm: number, language: Language = "en"): Place[] => {
+  if (maxDistanceKm <= 0) {
+    return [];
   }
 
-  updatePlace(id: string, input: AdminPlaceInput, translation?: TranslationResult): Place {
-    const places = this.loadPlaces();
-    const placeIndex = places.findIndex((place) => place.id === id);
+  const resolvedCity = resolveKnownCityName(city);
+  const cityCenter = resolvedCity ? getCityCenter(resolvedCity) : undefined;
 
-    if (placeIndex === -1) {
-      throw new AppError(404, "Place not found");
-    }
-
-    const updatedPlace = this.buildPlaceRecord(id, input, translation, places[placeIndex]);
-    const updatedPlaces = [...places];
-    updatedPlaces[placeIndex] = updatedPlace;
-
-    this.writePlaces(updatedPlaces);
-    return this.toClientPlace(updatedPlace);
+  if (!resolvedCity || !cityCenter) {
+    return [];
   }
 
-  deletePlace(id: string): void {
-    const places = this.loadPlaces();
-    const nextPlaces = places.filter((place) => place.id !== id);
+  return getAllPlaces(language)
+    .filter((place) => normalizeText(place.city) !== normalizeText(resolvedCity))
+    .map((place) => ({
+      place,
+      distanceKm: calculateDistanceKm(cityCenter, place.coordinates),
+    }))
+    .filter((candidate) => candidate.distanceKm <= maxDistanceKm)
+    .sort((left, right) => left.distanceKm - right.distanceKm || left.place.name.localeCompare(right.place.name))
+    .map((candidate) => candidate.place);
+};
 
-    if (nextPlaces.length === places.length) {
-      throw new AppError(404, "Place not found");
-    }
+export const getFeaturedPlaces = (limit?: number, language: Language = "en"): Place[] => {
+  const featuredPlaces = getAllPlaces(language).filter((place) => place.featured);
+  return typeof limit === "number" ? featuredPlaces.slice(0, limit) : featuredPlaces;
+};
 
-    this.writePlaces(nextPlaces);
+export const createPlace = (input: AdminPlaceInput, translations?: TranslationResponse): Place => {
+  const nextPlace = buildPlaceFromInput(input, undefined, translations);
+  const updatedPlaces = savePlaces([...loadPlaces(), nextPlace]);
+  return localizeStoredPlace(updatedPlaces.find((place) => place.id === nextPlace.id) ?? nextPlace, "en");
+};
+
+export const updatePlace = (id: string, input: AdminPlaceInput, translations?: TranslationResponse): Place => {
+  const places = loadPlaces();
+  const index = places.findIndex((place) => place.id === id);
+
+  if (index === -1) {
+    throw new AppError(404, "Place not found");
   }
 
-  private loadPlaces(): Place[] {
-    if (this.placesCache) {
-      return this.placesCache;
-    }
+  const nextPlace = buildPlaceFromInput(input, places[index], translations);
+  const nextPlaces = [...places];
+  nextPlaces[index] = nextPlace;
+  savePlaces(nextPlaces);
 
-    const rawContent = fs.readFileSync(placesFilePath, "utf8");
-    const parsedContent = JSON.parse(rawContent) as unknown;
-    this.placesCache = placesDataSchema.parse(parsedContent) as Place[];
+  return localizeStoredPlace(nextPlace, "en");
+};
 
-    return this.placesCache;
+export const deletePlace = (id: string): void => {
+  const places = loadPlaces();
+  const nextPlaces = places.filter((place) => place.id !== id);
+
+  if (nextPlaces.length === places.length) {
+    throw new AppError(404, "Place not found");
   }
 
-  private writePlaces(places: Place[]): void {
-    this.placesCache = places;
-    fs.writeFileSync(placesFilePath, `${JSON.stringify(places, null, 2)}\n`, "utf8");
-  }
+  savePlaces(nextPlaces);
+};
 
-  private getRawPlacesByCity(city: string): Place[] {
-    const resolvedCity = this.resolveCityName(city);
-
-    if (!resolvedCity) {
-      return [];
-    }
-
-    return this.loadPlaces().filter((place) => normalizeText(place.city) === normalizeText(resolvedCity));
-  }
-
-  private buildPlaceRecord(
-    id: string,
-    input: AdminPlaceInput,
-    translation?: TranslationResult,
-    existingPlace?: Place,
-  ): Place {
-    const nameUz = input.name_uz.trim();
-    const descriptionUz = input.description_uz.trim();
-
-    return {
-      id,
-      name: nameUz,
-      name_kaa: input.name_kaa.trim(),
-      name_uz: nameUz,
-      name_ru: this.pickLocalizedValue(translation?.name_ru, input.name_ru, existingPlace?.name_ru, nameUz),
-      name_en: this.pickLocalizedValue(translation?.name_en, input.name_en, existingPlace?.name_en, nameUz),
-      city: input.city.trim(),
-      region: input.region.trim(),
-      category: input.category,
-      durationMinutes: input.durationMinutes,
-      description: descriptionUz,
-      description_kaa: input.description_kaa.trim(),
-      description_uz: descriptionUz,
-      description_ru: this.pickLocalizedValue(
-        translation?.description_ru,
-        input.description_ru,
-        existingPlace?.description_ru,
-        descriptionUz,
-      ),
-      description_en: this.pickLocalizedValue(
-        translation?.description_en,
-        input.description_en,
-        existingPlace?.description_en,
-        descriptionUz,
-      ),
-      image: input.image.trim(),
-      coordinates: input.coordinates,
-      featured: input.featured,
-    };
-  }
-
-  private toClientPlace(place: Place, language?: Language): Place {
-    const localizedPlace = language ? localizePlace(place, language) : place;
-
-    return {
-      ...localizedPlace,
-      image: this.resolveImageUrl(localizedPlace.image),
-    };
-  }
-
-  toRoutePlaceSummary(place: Place): RoutePlaceSummary {
-    return {
-      id: place.id,
-      name: place.name,
-      city: place.city,
-      category: place.category,
-      imageUrl: place.image,
-      coordinates: place.coordinates,
-      description: place.description,
-    };
-  }
-
-  private toPublicPlace(place: Place): PublicPlace {
-    return {
-      id: place.id,
-      name: place.name,
-      description: place.description,
-      city: place.city,
-      region: place.region,
-      category: place.category,
-      durationMinutes: place.durationMinutes,
-      imageUrl: place.image,
-      coordinates: place.coordinates,
-      featured: place.featured,
-    };
-  }
-
-  private resolveImageUrl(image: string): string {
-    const trimmedImage = image.trim();
-    const publicBaseUrl = env.PUBLIC_BASE_URL
-      || (env.NODE_ENV !== "production" ? `http://localhost:${env.PORT}` : undefined);
-
-    if (!trimmedImage) {
-      return trimmedImage;
-    }
-
-    if (
-      /^https?:\/\//i.test(trimmedImage)
-      || /^data:/i.test(trimmedImage)
-      || /^blob:/i.test(trimmedImage)
-      || /^\/\//.test(trimmedImage)
-    ) {
-      return trimmedImage;
-    }
-
-    if (trimmedImage.startsWith("/")) {
-      return publicBaseUrl ? `${publicBaseUrl}${trimmedImage}` : trimmedImage;
-    }
-
-    if (trimmedImage.startsWith("assets/")) {
-      return publicBaseUrl ? `${publicBaseUrl}/${trimmedImage}` : `/${trimmedImage}`;
-    }
-
-    if (trimmedImage.startsWith("./assets/")) {
-      const normalizedAssetPath = trimmedImage.slice(2);
-      return publicBaseUrl ? `${publicBaseUrl}/${normalizedAssetPath}` : `/${normalizedAssetPath}`;
-    }
-
-    return trimmedImage;
-  }
-
-  private pickLocalizedValue(
-    translatedValue?: string,
-    manualValue?: string,
-    existingValue?: string,
-    fallbackValue?: string,
-  ): string {
-    return translatedValue?.trim()
-      || manualValue?.trim()
-      || existingValue?.trim()
-      || fallbackValue?.trim()
-      || "";
-  }
-
-  private generateUniqueId(baseName: string, places: Place[]): string {
-    const baseSlug = this.slugify(baseName) || `place-${Date.now()}`;
-    let candidate = baseSlug;
-    let counter = 2;
-
-    while (places.some((place) => place.id === candidate)) {
-      candidate = `${baseSlug}-${counter}`;
-      counter += 1;
-    }
-
-    return candidate;
-  }
-
-  private slugify(value: string): string {
-    return value
-      .toLowerCase()
-      .normalize("NFKD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-+|-+$/g, "");
-  }
-}
-
-export const placesService = new PlacesService();
+export const toRouteStop = (place: Place, order: number): RouteStop => {
+  return {
+    id: place.id,
+    order,
+    name: place.name,
+    city: place.city,
+    category: place.category,
+    description: place.shortDescription,
+    estimatedDurationMinutes: place.duration,
+    image: resolvePublicAssetUrl(place.image),
+  };
+};
