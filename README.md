@@ -276,6 +276,30 @@ These are the active frontend-safe endpoints:
 - `POST /api/routes/generate`
 - `POST /api/chat`
 
+## Live Demo Notes
+
+Recommended demo-safe frontend flow:
+
+1. load `GET /api/service/sections`
+2. open one section with `GET /api/service/sections/:slug/items`
+3. open one place with `GET /api/places/:id`
+4. generate a route with `POST /api/routes/generate`
+5. use auth only for Profile-ready flows
+
+For the judge demo, the strongest backend-backed paths are:
+
+- Service tab grid via `GET /api/service/sections`
+- Service item detail via `GET /api/service/sections/:slug/items/:itemSlug`
+- Places list and place detail via `GET /api/places` and `GET /api/places/:id`
+- Route generation via `POST /api/routes/generate`
+
+Practical demo advice:
+
+- prefer registering a fresh demo user instead of depending on old seeded auth data
+- public discovery, Service browsing, and routes work without login
+- if a stored token fails on `/api/auth/me`, clear it locally and continue as guest
+- logout is safe as a cleanup call even if the session already expired
+
 ## Service Contract Guarantees
 
 ### `GET /api/service/sections`
@@ -340,7 +364,60 @@ Supports:
 - `city`
 - `featured=true|false`
 - `search`
+- `lat`
+- `lng`
+- `radiusKm`
 - `language=uz|ru|en|kaa`
+
+Nearby behavior:
+
+- if `lat` and `lng` are provided, items are sorted nearest first
+- if `radiusKm` is also provided, only items within that radius are returned
+- `distanceKm` is included on each returned item when location is provided
+- items without coordinates stay out of radius filtering and sort after items with distances
+- utility items need valid `coordinates` in the JSON data to participate in nearby search
+
+Example:
+
+```text
+GET /api/service/sections/pharmacies/items?lat=42.46&lng=59.61&radiusKm=5&language=en
+```
+
+Example response:
+
+```json
+{
+  "items": [
+    {
+      "id": "service-item-dori-darmon-nukus-central",
+      "sectionSlug": "pharmacies",
+      "slug": "dori-darmon-nukus-central",
+      "title": "Dori-Darmon Nukus Central",
+      "shortDescription": "A central pharmacy option for everyday travel needs.",
+      "address": "Central Nukus",
+      "city": "Nukus",
+      "phoneNumbers": ["+998 61 222 88 44"],
+      "workingHours": "08:00-23:00",
+      "mapLink": "https://maps.google.com/?q=42.4590,59.6125",
+      "telegram": "https://t.me/doridarmon_nukus",
+      "website": "https://doridarmon.uz",
+      "instagram": "https://instagram.com/doridarmon_nukus",
+      "coordinates": {
+        "lat": 42.459,
+        "lng": 59.6125
+      },
+      "distanceKm": 0.3,
+      "distanceText": "0.3 km",
+      "serviceType": "pharmacy",
+      "featured": true,
+      "isActive": true,
+      "metadata": {
+        "openLate": true
+      }
+    }
+  ]
+}
+```
 
 ### `GET /api/service/sections/:slug/items/:itemSlug`
 
@@ -351,6 +428,12 @@ Localized output notes:
 - `title`, `shortDescription`, and `description` are returned as resolved strings
 - the backend avoids mixing languages inside one item payload by using one consistent content language per item
 - `metadata` stays raw and language-agnostic
+- utility item detail may include `phoneNumbers`, `workingHours`, `mapLink`, `coordinates`, `instagram`, `telegram`, and `website`
+
+Current practical use:
+
+- `pharmacies`, `hospitals`, and `atms` are the first utility categories ready for nearby search
+- the same query pattern can be reused later for `taxi`, `hotels`, `restaurants`, and similar location-based sections
 
 ### `GET /api/services`
 

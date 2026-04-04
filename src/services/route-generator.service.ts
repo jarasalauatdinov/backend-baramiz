@@ -24,6 +24,10 @@ interface RankedCandidate {
   score: number;
 }
 
+const formatClockTime = (minutes: number): string => {
+  return `${Math.floor(minutes / 60).toString().padStart(2, "0")}:${String(minutes % 60).padStart(2, "0")}`;
+};
+
 const getTransferMinutes = (
   previousPlace: Place | undefined,
   nextPlace: Place,
@@ -215,6 +219,7 @@ export const generateRoute = (input: RouteGenerationInput): GeneratedRoute => {
   }
 
   const endMinutes = timeToMinutes(ROUTE_START_TIME) + elapsedMinutes;
+  const formattedEndTime = formatClockTime(endMinutes);
   const formattedDuration = localize(input.language, {
     kaa: input.duration === "3_hours" ? "3 saatlıq" : input.duration === "half_day" ? "jarım kúnlik" : "1 kúnlik",
     uz: input.duration === "3_hours" ? "3 soatlik" : input.duration === "half_day" ? "yarim kunlik" : "1 kunlik",
@@ -228,10 +233,10 @@ export const generateRoute = (input: RouteGenerationInput): GeneratedRoute => {
     en: `${resolvedCity} ${formattedDuration} itinerary`,
   });
   const localizedSummary = localize(input.language, {
-    kaa: `${routeStops.length} stop ${ROUTE_START_TIME} de baslanıp shamamen ${Math.floor(endMinutes / 60).toString().padStart(2, "0")}:${String(endMinutes % 60).padStart(2, "0")} da juwmaqlanadı.`,
-    uz: `${routeStops.length} ta stop ${ROUTE_START_TIME} da boshlanib taxminan ${Math.floor(endMinutes / 60).toString().padStart(2, "0")}:${String(endMinutes % 60).padStart(2, "0")} da yakunlanadi.`,
-    ru: `${routeStops.length} остановки, старт в ${ROUTE_START_TIME} и завершение примерно в ${Math.floor(endMinutes / 60).toString().padStart(2, "0")}:${String(endMinutes % 60).padStart(2, "0")}.`,
-    en: `${routeStops.length} stops starting at ${ROUTE_START_TIME} and ending around ${Math.floor(endMinutes / 60).toString().padStart(2, "0")}:${String(endMinutes % 60).padStart(2, "0")}.`,
+    kaa: `${routeStops.length} stop ${ROUTE_START_TIME} de baslanıp shamamen ${formattedEndTime} da juwmaqlanadı.`,
+    uz: `${routeStops.length} ta stop ${ROUTE_START_TIME} da boshlanib taxminan ${formattedEndTime} da yakunlanadi.`,
+    ru: `${routeStops.length} остановки, старт в ${ROUTE_START_TIME} и завершение примерно в ${formattedEndTime}.`,
+    en: `${routeStops.length} stops starting at ${ROUTE_START_TIME} and ending around ${formattedEndTime}.`,
   });
 
   return {

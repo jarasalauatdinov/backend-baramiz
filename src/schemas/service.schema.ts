@@ -19,6 +19,33 @@ const trimString = (value: unknown): unknown => {
 };
 
 const optionalTrimmedStringSchema = z.preprocess(trimString, z.string().min(1).optional());
+const coordinateQueryValue = (label: string) => z.preprocess((value) => {
+  if (value === undefined || value === null || value === "") {
+    return undefined;
+  }
+
+  if (typeof value === "number") {
+    return value;
+  }
+
+  if (typeof value === "string") {
+    const parsedValue = Number(value);
+    return Number.isFinite(parsedValue) ? parsedValue : value;
+  }
+
+  return value;
+}, z.any()).superRefine((value, context) => {
+  if (value === undefined) {
+    return;
+  }
+
+  if (typeof value !== "number" || !Number.isFinite(value)) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: `${label} must be a valid number`,
+    });
+  }
+}).transform((value) => value as number | undefined);
 const optionalStringArraySchema = z.preprocess((value) => {
   if (value === undefined || value === null || value === "") {
     return undefined;
@@ -45,7 +72,32 @@ export const serviceItemsQuerySchema = z.object({
   city: optionalQueryStringSchema,
   featured: booleanQuerySchema,
   search: optionalQueryStringSchema,
+  lat: coordinateQueryValue("Latitude").refine((value) => {
+    return value === undefined || (value >= -90 && value <= 90);
+  }, "Latitude must be between -90 and 90"),
+  lng: coordinateQueryValue("Longitude").refine((value) => {
+    return value === undefined || (value >= -180 && value <= 180);
+  }, "Longitude must be between -180 and 180"),
+  radiusKm: coordinateQueryValue("radiusKm").refine((value) => {
+    return value === undefined || value > 0;
+  }, "radiusKm must be greater than 0"),
   language: languageSchema.optional(),
+}).superRefine((value, context) => {
+  if ((value.lat === undefined) !== (value.lng === undefined)) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: value.lat === undefined ? ["lat"] : ["lng"],
+      message: "lat and lng must be provided together",
+    });
+  }
+
+  if (value.radiusKm !== undefined && (value.lat === undefined || value.lng === undefined)) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ["radiusKm"],
+      message: "radiusKm requires both lat and lng",
+    });
+  }
 });
 
 export const serviceSectionDetailQuerySchema = z.object({
@@ -91,6 +143,9 @@ export const adminServiceItemBodySchema = z.object({
   workingHours: optionalTrimmedStringSchema,
   district: optionalTrimmedStringSchema,
   mapLink: optionalTrimmedStringSchema,
+  instagram: optionalTrimmedStringSchema,
+  telegram: optionalTrimmedStringSchema,
+  website: optionalTrimmedStringSchema,
   emergencyNote: optionalTrimmedStringSchema,
   serviceType: optionalTrimmedStringSchema,
   coordinates: z.preprocess((value) => value === null ? undefined : value, coordinatesSchema.optional()),

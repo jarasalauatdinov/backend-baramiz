@@ -3,6 +3,7 @@ import { serviceSectionsDataSchema, servicesDataSchema } from "../schemas/touris
 import type {
   AdminServiceItemInput,
   AdminServiceSectionInput,
+  Coordinates,
   Language,
   PublicServiceItem,
   PublicServiceSection,
@@ -13,6 +14,7 @@ import type {
 } from "../types/tourism.types";
 import { AppError } from "../utils/app-error";
 import { readJsonFile, writeJsonFile } from "../utils/json-storage";
+import { calculateDistanceKm } from "../utils/route-helpers";
 import {
   getConsistentMultilingualLanguage,
   localizeOptionalMultilingualText,
@@ -30,6 +32,8 @@ interface ServiceItemFilters {
   city?: string;
   featured?: boolean;
   search?: string;
+  coordinates?: Coordinates;
+  radiusKm?: number;
   language?: Language;
 }
 
@@ -42,6 +46,10 @@ const isPlaceholderImageUrl = (value: string | undefined): boolean => {
 };
 const uniqueNonEmptyStrings = (values: Array<string | undefined>): string[] => {
   return Array.from(new Set(values.map((value) => value?.trim()).filter((value): value is string => Boolean(value))));
+};
+const normalizeOptionalString = (value: string | undefined): string | undefined => {
+  const trimmedValue = value?.trim();
+  return trimmedValue ? trimmedValue : undefined;
 };
 
 const sortSections = (sections: ServiceSection[]): ServiceSection[] => {
@@ -62,6 +70,14 @@ const sortItems = (items: ServiceItem[]): ServiceItem[] => {
 
     return left.title.en.localeCompare(right.title.en);
   });
+};
+
+const roundDistanceKm = (value: number): number => {
+  return Math.round(value * 10) / 10;
+};
+
+const formatDistanceText = (distanceKm: number): string => {
+  return `${distanceKm.toFixed(1)} km`;
 };
 
 const normalizeServiceSection = (section: ServiceSection): ServiceSection => {
@@ -108,6 +124,16 @@ const normalizeServiceItem = (item: ServiceItem): ServiceItem => {
     image: normalizedImage,
     gallery: normalizedGallery.length > 0 ? normalizedGallery : [normalizedImage],
     phoneNumbers: normalizedPhoneNumbers,
+    address: normalizeOptionalString(item.address),
+    city: normalizeOptionalString(item.city),
+    workingHours: normalizeOptionalString(item.workingHours),
+    district: normalizeOptionalString(item.district),
+    mapLink: normalizeOptionalString(item.mapLink),
+    instagram: normalizeOptionalString(item.instagram),
+    telegram: normalizeOptionalString(item.telegram),
+    website: normalizeOptionalString(item.website),
+    emergencyNote: normalizeOptionalString(item.emergencyNote),
+    serviceType: normalizeOptionalString(item.serviceType),
     tags: normalizedTags,
     featured: item.featured ?? false,
     metadata: item.metadata ?? {},
@@ -153,7 +179,11 @@ const mapServiceItemForClient = (item: ServiceItem): ServiceItem => ({
   gallery: item.gallery.map(resolvePublicAssetUrl),
 });
 
-const mapServiceItemForPublic = (item: ServiceItem, language: Language): PublicServiceItem => {
+const mapServiceItemForPublic = (
+  item: ServiceItem,
+  language: Language,
+  distanceKm?: number,
+): PublicServiceItem => {
   const contentLanguage = getConsistentMultilingualLanguage(language, [
     item.title,
     item.shortDescription,
@@ -175,6 +205,11 @@ const mapServiceItemForPublic = (item: ServiceItem, language: Language): PublicS
     workingHours: item.workingHours,
     district: item.district,
     mapLink: item.mapLink,
+    instagram: item.instagram,
+    telegram: item.telegram,
+    website: item.website,
+    distanceKm,
+    distanceText: distanceKm === undefined ? undefined : formatDistanceText(distanceKm),
     emergencyNote: item.emergencyNote,
     serviceType: item.serviceType,
     coordinates: item.coordinates,
@@ -321,6 +356,59 @@ const matchesServiceItemFilters = (item: ServiceItem, filters: ServiceItemFilter
   return true;
 };
 
+const getDistanceKm = (item: ServiceItem, coordinates: Coordinates | undefined): number | undefined => {
+  if (!coordinates || !item.coordinates) {
+    return undefined;
+  }
+
+  return calculateDistanceKm(coordinates, item.coordinates);
+};
+
+const applyNearbySortingAndFiltering = (
+  items: ServiceItem[],
+  filters: ServiceItemFilters,
+): Array<{ item: ServiceItem; distanceKm?: number }> => {
+  const withDistances = items.map((item) => ({
+    item,
+    distanceKm: getDistanceKm(item, filters.coordinates),
+  }));
+
+  const withinRadius = withDistances.filter((candidate) => {
+    if (filters.radiusKm === undefined) {
+      return true;
+    }
+
+    return candidate.distanceKm !== undefined && candidate.distanceKm <= filters.radiusKm;
+  });
+
+  if (!filters.coordinates) {
+    return sortItems(withinRadius.map((candidate) => candidate.item)).map((item) => ({
+      item,
+      distanceKm: undefined,
+    }));
+  }
+
+  return [...withinRadius].sort((left, right) => {
+    if (left.distanceKm !== undefined && right.distanceKm !== undefined && left.distanceKm !== right.distanceKm) {
+      return left.distanceKm - right.distanceKm;
+    }
+
+    if (left.distanceKm !== undefined && right.distanceKm === undefined) {
+      return -1;
+    }
+
+    if (left.distanceKm === undefined && right.distanceKm !== undefined) {
+      return 1;
+    }
+
+    if (left.item.featured !== right.item.featured) {
+      return Number(right.item.featured) - Number(left.item.featured);
+    }
+
+    return left.item.title.en.localeCompare(right.item.title.en);
+  });
+};
+
 const buildServiceSectionFromInput = (
   input: AdminServiceSectionInput,
   existingSection?: ServiceSection,
@@ -389,6 +477,9 @@ const buildServiceItemFromInput = (
     workingHours: input.workingHours?.trim(),
     district: input.district?.trim(),
     mapLink: input.mapLink?.trim(),
+    instagram: input.instagram?.trim(),
+    telegram: input.telegram?.trim(),
+    website: input.website?.trim(),
     emergencyNote: input.emergencyNote?.trim(),
     serviceType: input.serviceType?.trim(),
     coordinates: input.coordinates,
@@ -425,12 +516,19 @@ export const getServiceItemsBySection = (
     throw new AppError(404, `Service section "${sectionSlug}" not found`);
   }
 
-  return sortItems(
+  return applyNearbySortingAndFiltering(
     loadServiceItems()
       .filter((item) => item.isActive)
       .filter((item) => item.sectionSlug === normalizedSectionSlug)
       .filter((item) => matchesServiceItemFilters(item, filters)),
-  ).map((item) => mapServiceItemForPublic(item, filters.language ?? "en"));
+    filters,
+  ).map((candidate) => {
+    return mapServiceItemForPublic(
+      candidate.item,
+      filters.language ?? "en",
+      candidate.distanceKm === undefined ? undefined : roundDistanceKm(candidate.distanceKm),
+    );
+  });
 };
 
 export const getServiceItemBySectionAndSlug = (
@@ -456,7 +554,7 @@ export const getServiceItemBySectionAndSlug = (
 };
 
 export const getServices = (filters: ServiceItemFilters = {}): PublicServiceItem[] => {
-  return sortItems(
+  return applyNearbySortingAndFiltering(
     loadServiceItems()
       .filter((item) => item.isActive)
       .filter((item) => {
@@ -464,7 +562,14 @@ export const getServices = (filters: ServiceItemFilters = {}): PublicServiceItem
         return Boolean(section?.isActive);
       })
       .filter((item) => matchesServiceItemFilters(item, filters)),
-  ).map((item) => mapServiceItemForPublic(item, filters.language ?? "en"));
+    filters,
+  ).map((candidate) => {
+    return mapServiceItemForPublic(
+      candidate.item,
+      filters.language ?? "en",
+      candidate.distanceKm === undefined ? undefined : roundDistanceKm(candidate.distanceKm),
+    );
+  });
 };
 
 export const getAdminServiceSections = (): ServiceSection[] => {

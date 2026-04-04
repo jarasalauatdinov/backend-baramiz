@@ -53,7 +53,20 @@ export const listServiceSectionItems = (request: Request, response: Response): v
   const params = serviceSectionSlugParamsSchema.parse(request.params);
   const query = serviceItemsQuerySchema.parse(request.query);
   const language = resolveRequestLanguage(request, query.language);
-  response.json({ items: getServiceItemsBySection(params.slug, { ...query, language }) });
+  const coordinates = query.lat !== undefined && query.lng !== undefined
+    ? { lat: query.lat, lng: query.lng }
+    : undefined;
+
+  response.json({
+    items: getServiceItemsBySection(params.slug, {
+      city: query.city,
+      featured: query.featured,
+      search: query.search,
+      radiusKm: query.radiusKm,
+      coordinates,
+      language,
+    }),
+  });
 };
 
 export const getServiceSectionItem = (request: Request, response: Response): void => {

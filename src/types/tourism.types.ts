@@ -198,6 +198,9 @@ export interface ServiceItem {
   workingHours?: string;
   district?: string;
   mapLink?: string;
+  instagram?: string;
+  telegram?: string;
+  website?: string;
   emergencyNote?: string;
   serviceType?: string;
   coordinates?: Coordinates;
@@ -224,6 +227,11 @@ export interface PublicServiceItem {
   workingHours?: string;
   district?: string;
   mapLink?: string;
+  instagram?: string;
+  telegram?: string;
+  website?: string;
+  distanceKm?: number;
+  distanceText?: string;
   emergencyNote?: string;
   serviceType?: string;
   coordinates?: Coordinates;
@@ -259,6 +267,9 @@ export interface AdminServiceItemInput {
   workingHours?: string;
   district?: string;
   mapLink?: string;
+  instagram?: string;
+  telegram?: string;
+  website?: string;
   emergencyNote?: string;
   serviceType?: string;
   coordinates?: Coordinates;

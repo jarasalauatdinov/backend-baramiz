@@ -6,5 +6,18 @@ import { resolveRequestLanguage } from "../utils/request-language";
 export const listServices = (request: Request, response: Response): void => {
   const query = serviceItemsQuerySchema.parse(request.query);
   const language = resolveRequestLanguage(request, query.language);
-  response.json({ items: getServices({ ...query, language }) });
+  const coordinates = query.lat !== undefined && query.lng !== undefined
+    ? { lat: query.lat, lng: query.lng }
+    : undefined;
+
+  response.json({
+    items: getServices({
+      city: query.city,
+      featured: query.featured,
+      search: query.search,
+      radiusKm: query.radiusKm,
+      coordinates,
+      language,
+    }),
+  });
 };
