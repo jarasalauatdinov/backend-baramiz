@@ -120,13 +120,13 @@ const findUserByEmail = (email: string): StoredAuthUser | undefined => {
 
 const parseBearerToken = (authorizationHeader?: string): string => {
   if (!authorizationHeader) {
-    throw new AppError(401, "Authorization header is required");
+    throw new AppError(401, "Authentication required");
   }
 
   const [scheme, token] = authorizationHeader.split(" ");
 
-  if (scheme !== "Bearer" || !token) {
-    throw new AppError(401, "Authorization header must use Bearer token");
+  if (!scheme || scheme.toLowerCase() !== "bearer" || !token?.trim()) {
+    throw new AppError(401, "Use a Bearer token in the Authorization header");
   }
 
   return token.trim();
@@ -169,13 +169,13 @@ export const getAuthenticatedUser = (authorizationHeader?: string): AuthUser => 
   const session = activeSessions.find((currentSession) => currentSession.token === token);
 
   if (!session) {
-    throw new AppError(401, "Session is invalid or has expired");
+    throw new AppError(401, "Session expired or invalid");
   }
 
   const user = loadUsers().find((currentUser) => currentUser.id === session.userId);
 
   if (!user) {
-    throw new AppError(401, "Authenticated user was not found");
+    throw new AppError(401, "Session expired or invalid");
   }
 
   return stripPasswordHash(user);
@@ -187,7 +187,7 @@ export const logoutUser = (authorizationHeader?: string): void => {
   const nextSessions = sessions.filter((session) => session.token !== token);
 
   if (nextSessions.length === sessions.length) {
-    throw new AppError(401, "Session is invalid or has expired");
+    throw new AppError(401, "Session expired or invalid");
   }
 
   saveSessions(nextSessions);

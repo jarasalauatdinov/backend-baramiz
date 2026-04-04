@@ -14,6 +14,8 @@ import type {
 import { AppError } from "../utils/app-error";
 import { readJsonFile, writeJsonFile } from "../utils/json-storage";
 import {
+  getConsistentMultilingualLanguage,
+  localizeOptionalMultilingualText,
   localizeMultilingualText,
   normalizeMultilingualTextInput,
   normalizeText,
@@ -33,6 +35,14 @@ interface ServiceItemFilters {
 
 let serviceSectionsCache: ServiceSection[] | null = null;
 let serviceItemsCache: ServiceItem[] | null = null;
+
+const getDefaultSectionImagePath = (slugValue: string): string => `/assets/service/sections/${slugValue}.svg`;
+const isPlaceholderImageUrl = (value: string | undefined): boolean => {
+  return Boolean(value && /^https?:\/\/placehold\.co\//i.test(value.trim()));
+};
+const uniqueNonEmptyStrings = (values: Array<string | undefined>): string[] => {
+  return Array.from(new Set(values.map((value) => value?.trim()).filter((value): value is string => Boolean(value))));
+};
 
 const sortSections = (sections: ServiceSection[]): ServiceSection[] => {
   return [...sections].sort((left, right) => {
@@ -61,12 +71,15 @@ const normalizeServiceSection = (section: ServiceSection): ServiceSection => {
     throw new AppError(500, `Service section "${section.id}" is missing title translations`);
   }
 
+  const slugValue = slugify(section.slug || fallbackTitle.en);
+
   return {
     ...section,
-    slug: slugify(section.slug || fallbackTitle.en),
+    slug: slugValue,
     title: fallbackTitle,
     shortDescription: normalizeMultilingualTextInput(section.shortDescription),
     description: normalizeMultilingualTextInput(section.description),
+    image: section.image?.trim() || getDefaultSectionImagePath(slugValue),
   };
 };
 
@@ -77,16 +90,25 @@ const normalizeServiceItem = (item: ServiceItem): ServiceItem => {
     throw new AppError(500, `Service item "${item.id}" is missing title translations`);
   }
 
+  const normalizedSectionSlug = slugify(item.sectionSlug);
+  const normalizedImage = !item.image || isPlaceholderImageUrl(item.image)
+    ? getDefaultSectionImagePath(normalizedSectionSlug)
+    : item.image.trim();
+  const normalizedGallery = uniqueNonEmptyStrings(item.gallery);
+  const normalizedPhoneNumbers = uniqueNonEmptyStrings(item.phoneNumbers);
+  const normalizedTags = uniqueNonEmptyStrings(item.tags);
+
   return {
     ...item,
-    sectionSlug: slugify(item.sectionSlug),
+    sectionSlug: normalizedSectionSlug,
     slug: slugify(item.slug || fallbackTitle.en),
     title: fallbackTitle,
     shortDescription: normalizeMultilingualTextInput(item.shortDescription),
     description: normalizeMultilingualTextInput(item.description),
-    gallery: item.gallery ?? [],
-    phoneNumbers: item.phoneNumbers ?? [],
-    tags: item.tags ?? [],
+    image: normalizedImage,
+    gallery: normalizedGallery.length > 0 ? normalizedGallery : [normalizedImage],
+    phoneNumbers: normalizedPhoneNumbers,
+    tags: normalizedTags,
     featured: item.featured ?? false,
     metadata: item.metadata ?? {},
   };
@@ -105,6 +127,7 @@ const mapServiceSectionCardForClient = (section: ServiceSection): ServiceSection
   order: section.order,
   isActive: section.isActive,
   shortDescription: section.shortDescription?.en,
+  description: section.description?.en,
   icon: section.icon,
   type: section.type,
 });
@@ -115,16 +138,14 @@ const mapServiceSectionCardForClientLanguage = (
 ): ServiceSectionCard => ({
   ...mapServiceSectionCardForClient(section),
   title: localizeMultilingualText(section.title, language) ?? section.title.en,
-  shortDescription: localizeMultilingualText(section.shortDescription, language),
+  shortDescription: localizeOptionalMultilingualText(section.shortDescription, language),
+  description: localizeOptionalMultilingualText(section.description, language),
 });
 
 const mapServiceSectionForPublic = (
   section: ServiceSection,
   language: Language,
-): PublicServiceSection => ({
-  ...mapServiceSectionCardForClientLanguage(section, language),
-  description: localizeMultilingualText(section.description, language),
-});
+): PublicServiceSection => mapServiceSectionCardForClientLanguage(section, language);
 
 const mapServiceItemForClient = (item: ServiceItem): ServiceItem => ({
   ...item,
@@ -132,29 +153,37 @@ const mapServiceItemForClient = (item: ServiceItem): ServiceItem => ({
   gallery: item.gallery.map(resolvePublicAssetUrl),
 });
 
-const mapServiceItemForPublic = (item: ServiceItem, language: Language): PublicServiceItem => ({
-  id: item.id,
-  sectionSlug: item.sectionSlug,
-  slug: item.slug,
-  title: localizeMultilingualText(item.title, language) ?? item.title.en,
-  shortDescription: localizeMultilingualText(item.shortDescription, language),
-  description: localizeMultilingualText(item.description, language),
-  image: item.image ? resolvePublicAssetUrl(item.image) : undefined,
-  gallery: item.gallery.map(resolvePublicAssetUrl),
-  address: item.address,
-  city: item.city,
-  phoneNumbers: item.phoneNumbers,
-  workingHours: item.workingHours,
-  district: item.district,
-  mapLink: item.mapLink,
-  emergencyNote: item.emergencyNote,
-  serviceType: item.serviceType,
-  coordinates: item.coordinates,
-  tags: item.tags,
-  featured: item.featured,
-  isActive: item.isActive,
-  metadata: item.metadata,
-});
+const mapServiceItemForPublic = (item: ServiceItem, language: Language): PublicServiceItem => {
+  const contentLanguage = getConsistentMultilingualLanguage(language, [
+    item.title,
+    item.shortDescription,
+    item.description,
+  ]);
+
+  return {
+    id: item.id,
+    sectionSlug: item.sectionSlug,
+    slug: item.slug,
+    title: localizeMultilingualText(item.title, contentLanguage) ?? item.title.en,
+    shortDescription: localizeMultilingualText(item.shortDescription, contentLanguage),
+    description: localizeMultilingualText(item.description, contentLanguage),
+    image: item.image ? resolvePublicAssetUrl(item.image) : undefined,
+    gallery: item.gallery.map(resolvePublicAssetUrl),
+    address: item.address,
+    city: item.city,
+    phoneNumbers: item.phoneNumbers,
+    workingHours: item.workingHours,
+    district: item.district,
+    mapLink: item.mapLink,
+    emergencyNote: item.emergencyNote,
+    serviceType: item.serviceType,
+    coordinates: item.coordinates,
+    tags: item.tags,
+    featured: item.featured,
+    isActive: item.isActive,
+    metadata: item.metadata,
+  };
+};
 
 const loadServiceSections = (): ServiceSection[] => {
   if (serviceSectionsCache) {

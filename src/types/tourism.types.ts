@@ -177,13 +177,11 @@ export interface ServiceSectionCard {
   order: number;
   isActive: boolean;
   shortDescription?: string;
+  description?: string;
   icon?: string;
   type?: ServiceSectionType;
 }
-
-export interface PublicServiceSection extends ServiceSectionCard {
-  description?: string;
-}
+export type PublicServiceSection = ServiceSectionCard;
 
 export interface ServiceItem {
   id: string;
@@ -306,6 +304,7 @@ export interface RouteStop {
 export interface GeneratedRoute {
   city: string;
   language: Language;
+  duration: RouteDuration;
   title: string;
   summary: string;
   totalDurationMinutes: number;

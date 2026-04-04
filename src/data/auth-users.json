@@ -1,9 +1,16 @@
 [
   {
-    "id": "b18d6099-9880-4199-90cf-d6f9b17c09c7",
-    "name": "Amina",
-    "email": "amina@example.com",
-    "passwordHash": "9bdfc2e1ce6cc56e3da12c7d7480d8e5:323e5474bffca090192a01769ed8f6bbd0cdac13218a2c53853ca45ccfff3b9f61c8124725c29d29e26e2c6ff6b8041a1efc32da9e991c76b524007ea9455354",
-    "createdAt": "2026-04-03T06:53:33.107Z"
+    "id": "52402290-a1b3-47af-999e-6d5e8933a3e6",
+    "name": "hjgj",
+    "email": "jarasalauatdinov@gmail.com",
+    "passwordHash": "b6901ddcc1e927de6312073d8ae0e07a:d22ed3cd312c1e51bed5a905d1e9a2baa31554a27a7e7d8e71b1bd6a5d91547ff8f27d0acd80fe040f5fa80a7fbaaaa12ef16097c4b2bfb3dd14278002ad0826",
+    "createdAt": "2026-04-03T10:21:53.055Z"
+  },
+  {
+    "id": "25553122-0770-419c-b9b7-ce3a57d7f970",
+    "name": "Jaras",
+    "email": "jarasalauatdinov7@gmail.com",
+    "passwordHash": "e0af58fa93b7f0954316d68b28e7f017:6af6ea1bce9b4ea7f977d34dbfa0bf841637ddf26f561a6fb6179679008b1eaf5be9226b401b7c79c76012ffaeae2b9d2743642dc709c2ccf3d6434f24a4235e",
+    "createdAt": "2026-04-03T11:59:58.876Z"
   }
 ]

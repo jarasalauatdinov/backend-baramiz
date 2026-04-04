@@ -1,161 +1,86 @@
 # Baramiz Backend
 
-Baramiz is an AI-assisted tourism platform focused on Karakalpakstan. This backend is a demo-ready MVP built for fast frontend integration, predictable JSON APIs, and easy future reuse in an Expo mobile app.
+Baramiz is an AI-assisted tourism backend for Karakalpakstan. This repository is intentionally a small MVP built for fast frontend integration and later Expo/mobile reuse.
 
-The backend intentionally stays simple:
+Core stack:
 
 - Node.js + Express
 - TypeScript
 - Zod validation
-- local JSON files for storage
-- 4-language content model direction (`uz`, `ru`, `en`, `kaa`)
+- local JSON storage
 - deterministic route generation
 - optional AI provider for chat and admin translation
+- lightweight bearer-token auth for profile-ready flows
 
-Public discovery, service browsing, routes, and chat work without login. Basic auth endpoints are available for profile-ready features such as saved items and future booking flows.
+The goal is contract clarity and demo stability, not enterprise complexity.
 
-## Why This MVP Is Intentionally Simple
+## Day 1 Contract Freeze
 
-This project is designed for competition speed and clarity, not enterprise scale. It avoids databases, auth complexity, background jobs, and heavy abstractions so the team can iterate quickly and keep the code beginner-readable.
+These are the backend contracts the current frontend can rely on right now:
 
-## Main Product Areas
+- `GET /api/service/sections` for the image-first Service grid
+- `GET /api/service/sections/:slug/items` for Service section item lists
+- `GET /api/service/sections/:slug/items/:itemSlug` for Service item detail screens
+- `GET /api/places` and `GET /api/places/:id` for discovery content
+- `POST /api/routes/generate` with `city`, `interests`, and `language`, while `duration` stays optional
+- `POST /api/auth/register`, `POST /api/auth/login`, `GET /api/auth/me`, `POST /api/auth/logout` for profile-ready flows
 
-- Home support data
-- Service tab content
-- Routes / itineraries
-- Saved and booking readiness
-- Profile readiness
+Public discovery does not require login.
 
-The new Service tab is backend-driven through sections and items. That makes it easy to grow later with more local utility content and tourism content without hardcoding the frontend.
+## Public vs Auth-Protected Thinking
 
-## Folder Structure
+Public and open now:
 
-```text
-C:\Users\HP\Desktop\backend-Baramiz
-?? .env.example
-?? package.json
-?? README.md
-?? scripts
-?  ?? npm-runner.cjs
-?? src
-   ?? app.ts
-   ?? server.ts
-   ?? config
-   ?  ?? env.ts
-   ?? constants
-   ?  ?? tourism.constants.ts
-   ?? controllers
-   ?  ?? admin-places.controller.ts
-   ?  ?? admin-translate.controller.ts
-   ?  ?? auth.controller.ts
-   ?  ?? categories.controller.ts
-   ?  ?? chat.controller.ts
-   ?  ?? events.controller.ts
-   ?  ?? guides.controller.ts
-   ?  ?? health.controller.ts
-   ?  ?? places.controller.ts
-   ?  ?? routes.controller.ts
-   ?  ?? service.controller.ts
-   ?  ?? services.controller.ts
-   ?? data
-   ?  ?? auth-sessions.json
-   ?  ?? auth-users.json
-   ?  ?? categories.json
-   ?  ?? events.json
-   ?  ?? guides.json
-   ?  ?? places.json
-   ?  ?? service-items.json
-   ?  ?? service-sections.json
-   ?? middleware
-   ?  ?? error-handler.middleware.ts
-   ?  ?? not-found.middleware.ts
-   ?? routes
-   ?  ?? admin-places.routes.ts
-   ?  ?? admin-service.routes.ts
-   ?  ?? admin-translate.routes.ts
-   ?  ?? auth.routes.ts
-   ?  ?? categories.routes.ts
-   ?  ?? chat.routes.ts
-   ?  ?? events.routes.ts
-   ?  ?? guides.routes.ts
-   ?  ?? health.routes.ts
-   ?  ?? index.ts
-   ?  ?? places.routes.ts
-   ?  ?? routes.routes.ts
-   ?  ?? service.routes.ts
-   ?  ?? services.routes.ts
-   ?? schemas
-   ?  ?? admin-places.schema.ts
-   ?  ?? admin-translate.schema.ts
-   ?  ?? auth.schema.ts
-   ?  ?? categories.schema.ts
-   ?  ?? chat.schema.ts
-   ?  ?? common.schema.ts
-   ?  ?? places.schema.ts
-   ?  ?? routes.schema.ts
-   ?  ?? service.schema.ts
-   ?  ?? tourism-data.schema.ts
-   ?? services
-   ?  ?? ai-provider.service.ts
-   ?  ?? auth.service.ts
-   ?  ?? categories.service.ts
-   ?  ?? chat.service.ts
-   ?  ?? events.service.ts
-   ?  ?? guides.service.ts
-   ?  ?? places.service.ts
-   ?  ?? route-generator.service.ts
-   ?  ?? services.service.ts
-   ?  ?? translation.service.ts
-   ?? types
-   ?  ?? tourism.types.ts
-   ?? utils
-      ?? app-error.ts
-      ?? async-handler.ts
-      ?? json-storage.ts
-      ?? route-helpers.ts
-      ?? text-helpers.ts
-      ?? url-helpers.ts
-```
+- health
+- categories
+- places
+- guides
+- services
+- events
+- service sections and items
+- route generation
+- chat
+
+Auth exists only for:
+
+- profile-ready flows
+- saved items later
+- booking-related user data later
+
+Auth does not block discovery, Service browsing, routes, or chat.
+
 ## Setup
-
-1. Install dependencies:
 
 ```bash
 npm install
-```
-
-2. Create `.env`:
-
-```bash
 cp .env.example .env
+npm run dev
 ```
 
 PowerShell:
 
 ```powershell
+npm install
 Copy-Item .env.example .env
-```
-
-3. Start the backend:
-
-```bash
 npm run dev
 ```
 
-Default API base:
+Local API base:
 
 ```text
 http://localhost:3000/api
 ```
 
-## Build And Start
+Build and start:
 
 ```bash
-npm run build
+npm.cmd run build
 npm start
 ```
 
 ## Environment Variables
+
+Example `.env`:
 
 ```env
 NODE_ENV=development
@@ -163,6 +88,7 @@ PORT=3000
 FRONTEND_URL=http://localhost:5176
 CORS_ALLOWED_ORIGINS=http://localhost:5176,http://10.95.4.27:5176,http://localhost:5173
 PUBLIC_BASE_URL=http://localhost:3000
+AUTH_TOKEN_TTL_DAYS=30
 PROVIDER_API_KEY=
 PROVIDER_MODEL=
 PROVIDER_BASE_URL=
@@ -171,23 +97,15 @@ OPENAI_MODEL=
 OPENAI_BASE_URL=
 ```
 
-### Env Notes
+Notes:
 
-- `PORT`: server port
-- `FRONTEND_URL`: simple local frontend fallback origin
-- `CORS_ALLOWED_ORIGINS`: comma-separated browser allowlist for Vite and LAN testing
-- `PUBLIC_BASE_URL`: backend base URL used to resolve image URLs
-- `AUTH_TOKEN_TTL_DAYS`: how long bearer sessions stay valid
-- `PROVIDER_API_KEY`: preferred server-side AI provider key
-- `PROVIDER_MODEL`: preferred server-side AI model
-- `PROVIDER_BASE_URL`: optional OpenAI-compatible provider base URL
-- `OPENAI_API_KEY`: fallback direct OpenAI key
-- `OPENAI_MODEL`: fallback OpenAI model
-- `OPENAI_BASE_URL`: optional OpenAI-compatible fallback base URL
+- `PUBLIC_BASE_URL` helps turn image paths into client-usable URLs.
+- `AUTH_TOKEN_TTL_DAYS` controls bearer session lifetime.
+- AI keys stay server-side only.
 
 ## Response Shapes
 
-Lists:
+List endpoints:
 
 ```json
 {
@@ -195,40 +113,7 @@ Lists:
 }
 ```
 
-## Multilingual Direction
-
-The backend is now prepared around four language codes:
-
-- `uz`
-- `ru`
-- `en`
-- `kaa`
-
-Where it is practical today, content models store text in this shape:
-
-```json
-{
-  "uz": "...",
-  "ru": "...",
-  "en": "...",
-  "kaa": "..."
-}
-```
-
-Current state:
-
-- `places` already return localized names and descriptions with `?language=...`
-- `service sections` now store multilingual `title`, `shortDescription`, and `description`
-- `service items` now store multilingual `title`, `shortDescription`, and `description`
-- `routes` return localized `title`, `summary`, and localized stop reasons
-- `categories` already support localized `name`
-
-Future-ready but still needing content curation:
-
-- many Service item descriptions currently reuse the same seed copy across languages
-- admin CRUD already accepts multilingual payloads, but the admin UI still needs full translation editing workflows later
-
-Single records:
+Single record endpoints:
 
 ```json
 {
@@ -236,7 +121,7 @@ Single records:
 }
 ```
 
-Simple mutations:
+Simple success mutations:
 
 ```json
 {
@@ -258,107 +143,124 @@ Validation errors:
 }
 ```
 
-## Service Tab Content Model
+## Folder Structure
 
-The Service tab is driven by two JSON stores:
+```text
+C:\Users\HP\Desktop\backend-Baramiz
+|- .env.example
+|- package.json
+|- README.md
+|- scripts
+|  \- npm-runner.cjs
+\- src
+   |- app.ts
+   |- server.ts
+   |- config
+   |  \- env.ts
+   |- constants
+   |  \- tourism.constants.ts
+   |- controllers
+   |  |- auth.controller.ts
+   |  |- categories.controller.ts
+   |  |- chat.controller.ts
+   |  |- places.controller.ts
+   |  |- routes.controller.ts
+   |  |- service.controller.ts
+   |  \- other active admin/content controllers
+   |- data
+   |  |- auth-sessions.json
+   |  |- auth-users.json
+   |  |- places.json
+   |  |- service-items.json
+   |  \- service-sections.json
+   |- routes
+   |  |- auth.routes.ts
+   |  |- places.routes.ts
+   |  |- routes.routes.ts
+   |  |- service.routes.ts
+   |  \- index.ts
+   |- schemas
+   |  |- auth.schema.ts
+   |  |- places.schema.ts
+   |  |- routes.schema.ts
+   |  |- service.schema.ts
+   |  \- tourism-data.schema.ts
+   |- services
+   |  |- auth.service.ts
+   |  |- chat.service.ts
+   |  |- places.service.ts
+   |  |- route-generator.service.ts
+   |  \- services.service.ts
+   |- types
+   |  \- tourism.types.ts
+   \- utils
+      |- app-error.ts
+      |- async-handler.ts
+      |- json-storage.ts
+      |- text-helpers.ts
+      \- url-helpers.ts
+```
 
-- `src/data/service-sections.json`
-- `src/data/service-items.json`
+## Language Support
 
-### Service Section Model
+The backend is prepared for 4-language content:
 
-- `id`
-- `slug`
-- `title` as multilingual text
-- `image`
-- `order`
-- `isActive`
-- `shortDescription` as multilingual text
-- `description` as multilingual text
-- `icon`
-- `type` (`discovery` or `utility`)
+- `uz`
+- `ru`
+- `en`
+- `kaa`
 
-For the main Service hub, the frontend should treat `title` and `image` as the primary fields. Long descriptions are available for detail/admin flows, but the listing endpoint stays card-friendly.
+Current localized output support:
 
-### Service Item Model
+- `GET /api/categories?language=...`
+- `GET /api/places?language=...`
+- `GET /api/places/:id?language=...`
+- `GET /api/service/sections?language=...`
+- `GET /api/service/sections/:slug?language=...`
+- `GET /api/service/sections/:slug/items?language=...`
+- `GET /api/service/sections/:slug/items/:itemSlug?language=...`
+- `GET /api/services?language=...`
+- `POST /api/routes/generate` via request body `language`
+- `POST /api/chat` via request body `language`
 
-- `id`
-- `sectionSlug`
-- `slug`
-- `title` as multilingual text
-- `shortDescription` as multilingual text
-- `description` as multilingual text
-- `image`
-- `gallery`
-- `address`
-- `city`
-- `phoneNumbers`
-- `workingHours`
-- `district`
-- `mapLink`
-- `emergencyNote`
-- `serviceType`
-- `coordinates`
-- `tags`
-- `featured`
-- `isActive`
-- `metadata`
+Active localized endpoints also accept language from headers:
 
-This lets one simple system power:
+- `X-Language: uz|ru|en|kaa`
+- `X-Lang: uz|ru|en|kaa`
+- `Accept-Language: uz`, `ru`, `en`, or `kaa`
 
-- tourism discovery content
-- hotels
-- restaurants
-- sightseeing
-- local help
-- taxi
-- hospitals
-- pharmacies
-- ATMs
+Resolution order is:
 
-## Seeded Service Sections
+1. explicit `language` query or request body field
+2. `X-Language`
+3. `X-Lang`
+4. `Accept-Language`
+5. default `en`
 
-The backend is seeded with these sections:
+Current model direction:
 
-- `services`
-- `history-and-culture`
-- `nature`
-- `museums-and-exhibitions`
-- `restaurants`
-- `sightseeing`
-- `hotels`
-- `taxi`
-- `hospitals`
-- `pharmacies`
-- `atms`
+- places already store multilingual names and descriptions
+- service sections store multilingual `title`, `shortDescription`, and `description`
+- service items store multilingual `title`, `shortDescription`, and `description`
+- route responses localize `title`, `summary`, and stop reasons
 
-## Seeded Example Service Items
+Current fallback behavior is intentionally predictable:
 
-Example seeded items include:
+- categories resolve `name` using requested language, then `uz`, then `en`
+- service section cards always localize `title`
+- service section optional text is omitted if that text is not meaningfully localized yet
+- service items and places fall back to one consistent content language instead of mixing title in one language and description in another
+- for places and service items, the consistent content fallback is:
+  - requested language when meaningfully translated
+  - otherwise `uz` when meaningfully translated
+  - otherwise `en`
+- route output uses the requested language for `title`, `summary`, and stop reasons
 
-- `smart-route-concierge`
-- `regional-transfer-desk`
-- `mizdakhan-memorial-complex`
-- `chilpik-dakhma`
-- `ustyurt-plateau-viewpoint`
-- `lower-amu-darya-outlook`
-- `savitsky-museum`
-- `state-museum-of-karakalpakstan`
-- `nukus-market-lunch`
-- `moynaq-fish-kitchen`
-- `ayaz-kala`
-- `topraq-kala`
-- `jipek-joli-city-stay`
-- `moynaq-route-guest-house`
-- `nukus-city-taxi-1050`
-- `regional-taxi-dispatch`
-- `nukus-emergency-hospital`
-- `dori-darmon-nukus-central`
-- `ipoteka-bank-nukus-center`
+The structure is ready. Some service seed copy still needs real human translation later, but the API now avoids mixed-language payloads more carefully.
 
-## Public Endpoints
+## Stable Public Endpoints
 
-Core public endpoints:
+These are the active frontend-safe endpoints:
 
 - `GET /api/health`
 - `GET /api/categories`
@@ -367,32 +269,38 @@ Core public endpoints:
 - `GET /api/guides`
 - `GET /api/services`
 - `GET /api/events`
-- `POST /api/routes/generate`
-- `POST /api/chat`
-
-### New Service Tab Endpoints
-
 - `GET /api/service/sections`
 - `GET /api/service/sections/:slug`
 - `GET /api/service/sections/:slug/items`
 - `GET /api/service/sections/:slug/items/:itemSlug`
+- `POST /api/routes/generate`
+- `POST /api/chat`
 
-Language-aware queries:
-
-- `GET /api/categories?language=ru`
-- `GET /api/places?language=kaa`
-- `GET /api/service/sections?language=uz`
-- `GET /api/service/sections/:slug?language=ru`
-- `GET /api/service/sections/:slug/items?language=en`
+## Service Contract Guarantees
 
 ### `GET /api/service/sections`
 
-Optional query:
+This is the stable Service tab grid contract.
 
-- `type=discovery|utility`
-- `language=uz|ru|en|kaa`
+Guaranteed fields on every item:
 
-Response:
+- `id`
+- `slug`
+- `title`
+- `image`
+- `order`
+- `isActive`
+
+Optional enhancement fields:
+
+- `shortDescription`
+- `description`
+- `icon`
+- `type`
+
+If optional descriptive text is not properly localized yet, it may be omitted instead of mixing languages inside one card payload.
+
+Example:
 
 ```json
 {
@@ -403,125 +311,150 @@ Response:
       "title": "Hotels",
       "image": "http://localhost:3000/assets/service/sections/hotels.svg",
       "order": 7,
-      "isActive": true
+      "isActive": true,
+      "shortDescription": "Places to stay in Nukus and key route towns.",
+      "description": "Accommodation options for travelers who need a reliable city base or route stop.",
+      "icon": "hotel",
+      "type": "discovery"
     }
   ]
 }
 ```
 
-Optional fields such as `shortDescription`, `icon`, and `type` may also be present, but the mobile category grid should not depend on long descriptions.
+This listing is intentionally image-first and card-friendly. Long descriptions are not required for the main grid.
+
+Localized output notes:
+
+- `title` is always a resolved string
+- `shortDescription` and `description` are resolved strings when the selected language has meaningful content
+- if optional descriptive text is not localized yet, it may be omitted instead of falling back field-by-field into mixed languages
 
 ### `GET /api/service/sections/:slug`
 
-Response:
-
-```json
-{
-  "item": {
-    "id": "service-section-taxi",
-    "slug": "taxi",
-    "title": "Taxi",
-    "shortDescription": "Local taxi and dispatch contacts for fast, practical movement.",
-    "type": "utility",
-    "isActive": true
-  }
-}
-```
+Returns one localized section record for section detail pages.
 
 ### `GET /api/service/sections/:slug/items`
 
-Optional query:
+Supports:
 
 - `city`
 - `featured=true|false`
 - `search`
 - `language=uz|ru|en|kaa`
 
-Response:
+### `GET /api/service/sections/:slug/items/:itemSlug`
+
+Returns one localized item with enough data for a mobile detail screen.
+
+Localized output notes:
+
+- `title`, `shortDescription`, and `description` are returned as resolved strings
+- the backend avoids mixing languages inside one item payload by using one consistent content language per item
+- `metadata` stays raw and language-agnostic
+
+### `GET /api/services`
+
+This is a flat helper endpoint across active service items. It stays available for convenience and compatibility.
+
+## Route Generator Contract
+
+### `POST /api/routes/generate`
+
+The frontend can send this minimal body:
 
 ```json
 {
-  "items": [
-    {
-      "id": "service-item-nukus-city-taxi-1050",
-      "sectionSlug": "taxi",
-      "slug": "nukus-city-taxi-1050",
-      "title": "Nukus city taxi 1050",
-      "shortDescription": "A simple city taxi contact for local rides in Nukus.",
-      "address": "Nukus city dispatch",
-      "city": "Nukus",
-      "phoneNumbers": ["1050", "+998 61 225 10 50"],
-      "workingHours": "24/7",
-      "serviceType": "taxi-dispatch",
-      "featured": true,
-      "isActive": true
-    }
-  ]
+  "city": "Nukus",
+  "interests": ["history", "culture"],
+  "language": "en"
 }
 ```
 
-### `GET /api/service/sections/:slug/items/:itemSlug`
+`duration` is still supported, but it is optional.
 
-Response:
+`language` can also come from `X-Language`, `X-Lang`, or `Accept-Language` if the frontend prefers a header-driven request flow.
+
+If `duration` is omitted, the backend defaults to:
+
+- `half_day`
+
+Supported durations when explicit control is needed:
+
+- `3_hours`
+- `half_day`
+- `1_day`
+
+Response shape:
 
 ```json
 {
   "item": {
-    "id": "service-item-savitsky-museum",
-    "sectionSlug": "museums-and-exhibitions",
-    "slug": "savitsky-museum",
-    "title": "Savitsky Museum",
-    "shortDescription": "The best-known museum stop in Nukus.",
-    "description": "A flagship museum in Nukus with one of the region's most memorable collections.",
-    "image": "https://placehold.co/1200x800?text=Savitsky+Museum",
-    "gallery": [],
-    "address": "Nukus city center",
     "city": "Nukus",
-    "phoneNumbers": ["+998 61 222 74 54"],
-    "workingHours": "10:00-18:00",
-    "district": "Nukus center",
-    "mapLink": "https://maps.google.com/?q=42.4601,59.6168",
-    "serviceType": "museum",
-    "coordinates": {
-      "lat": 42.4601,
-      "lng": 59.6168
-    },
-    "tags": ["museum", "art", "culture"],
-    "featured": true,
-    "isActive": true,
-    "metadata": {
-      "recommendedVisitMinutes": 120
-    }
+    "language": "en",
+    "duration": "half_day",
+    "title": "Nukus half-day itinerary",
+    "summary": "3 stops starting at 09:00 and ending around 13:40.",
+    "totalDurationMinutes": 280,
+    "stops": [
+      {
+        "id": "savitsky-museum",
+        "order": 1,
+        "name": "Savitsky Museum",
+        "city": "Nukus",
+        "category": "museum",
+        "description": "Savitsky Museum matches your museum interest and fits naturally inside Nukus.",
+        "estimatedDurationMinutes": 120,
+        "image": "http://localhost:3000/assets/..."
+      }
+    ]
   }
 }
 ```
 
-### `GET /api/services`
+Each stop is intentionally compact and frontend-friendly:
 
-This is kept as a flatter compatibility endpoint. It returns all active Service items across active sections and supports:
-
+- `id`
+- `order`
+- `name`
 - `city`
-- `featured=true|false`
-- `search`
-- `language=uz|ru|en|kaa`
+- `category`
+- `description`
+- `estimatedDurationMinutes`
+- `image`
+
+Frontend UX note:
+
+- the UI no longer needs to expose duration
+- the backend chooses a safe default when duration is hidden
+- if the UI later brings duration back, the endpoint already supports it
+
+Day 1 frontend rule:
+
+- send `city`, `interests`, and `language`
+- let the backend default `duration` unless the product explicitly needs a different trip length
+
+If the frontend uses a global language header already, it can omit `language` from the route body and let the backend resolve it from headers.
 
 ## Auth Endpoints
 
-Auth is lightweight and bearer-token based. It is intended for profile and future saved/booking features, not for blocking the public tourism flow.
+Auth is lightweight and optional for the public product flow.
 
 - `POST /api/auth/register`
 - `POST /api/auth/login`
 - `GET /api/auth/me`
 - `POST /api/auth/logout`
 
-### Auth Notes
+Auth uses:
 
-- public discovery endpoints remain open without login
-- auth uses `Authorization: Bearer <token>`
-- no cookies are required, which keeps web and Expo/mobile integration simpler
-- sessions are stored in local JSON files for MVP honesty
+- bearer token in `Authorization: Bearer <token>`
+- local JSON storage for users and sessions
+- no cookies
+- no impact on public discovery routes
+- `AUTH_TOKEN_TTL_DAYS` controls how long a session token stays valid
+- `GET /api/auth/me` is the session-restore check for the frontend
+- `POST /api/auth/logout` is safe to call during client cleanup, even if the session already expired
 
-### Register Body
+Register body:
 
 ```json
 {
@@ -531,7 +464,7 @@ Auth is lightweight and bearer-token based. It is intended for profile and futur
 }
 ```
 
-### Login Response
+Login or register response:
 
 ```json
 {
@@ -548,156 +481,174 @@ Auth is lightweight and bearer-token based. It is intended for profile and futur
 }
 ```
 
-## Admin Endpoints
-
-Existing admin endpoints:
-
-- `GET /api/admin/places`
-- `GET /api/admin/places/:id`
-- `POST /api/admin/places`
-- `PUT /api/admin/places/:id`
-- `PATCH /api/admin/places/:id`
-- `DELETE /api/admin/places/:id`
-- `POST /api/admin/translate`
-
-The public endpoints above remain open and do not require auth.
-
-### New Admin Service Endpoints
-
-- `GET /api/admin/service/sections`
-- `POST /api/admin/service/sections`
-- `PUT /api/admin/service/sections/:id`
-- `DELETE /api/admin/service/sections/:id`
-- `GET /api/admin/service/sections/:slug/items`
-- `POST /api/admin/service/sections/:slug/items`
-- `GET /api/admin/service/items/:id`
-- `PUT /api/admin/service/items/:id`
-- `DELETE /api/admin/service/items/:id`
-
-### Admin Section Create / Update Body
+`GET /api/auth/me` response:
 
 ```json
 {
-  "slug": "hospitals",
-  "title": {
-    "uz": "Shifoxonalar",
-    "ru": "Больницы",
-    "en": "Hospitals",
-    "kaa": "Aurıwxanalar"
-  },
-  "image": "/assets/service/sections/hospitals.svg",
-  "order": 9,
-  "isActive": true,
-  "shortDescription": {
-    "uz": "Muhim tibbiy kontaktlar.",
-    "ru": "Важные медицинские контакты.",
-    "en": "Important medical contacts.",
-    "kaa": "Mańızlı medicina baylanısları."
-  },
-  "description": {
-    "uz": "Sayohatchilar uchun amaliy tibbiy yo'nalishlar.",
-    "ru": "Практичные медицинские ориентиры для путешественников.",
-    "en": "Practical medical guidance for travelers.",
-    "kaa": "Sayaxatshılar ushın ámeliy medicina baǵdarları."
-  },
-  "icon": "hospital",
-  "type": "utility"
-}
-```
-
-### Admin Item Create / Update Body
-
-```json
-{
-  "title": {
-    "uz": "Nukus shahar taksi 1050",
-    "ru": "Такси Нукус 1050",
-    "en": "Nukus city taxi 1050",
-    "kaa": "Nókis qala taksi 1050"
-  },
-  "shortDescription": {
-    "uz": "Nukus ichidagi qatnovlar uchun oddiy taksi kontakti.",
-    "ru": "Простой контакт такси для поездок по Нукусу.",
-    "en": "A simple city taxi contact for local rides in Nukus.",
-    "kaa": "Nókis ishindegi qatnawlar ushın ápiwayı taksi baylanısı."
-  },
-  "description": {
-    "uz": "Tez shahar qatnovlari uchun amaliy taksi dispatch varianti.",
-    "ru": "Практичный вариант диспетчерской службы для быстрых поездок по городу.",
-    "en": "A practical taxi dispatch option for quick city rides.",
-    "kaa": "Tez qala qatnawları ushın ámeliy taksi dispatch variantı."
-  },
-  "image": "https://placehold.co/1200x800?text=Nukus+Taxi",
-  "gallery": [],
-  "address": "Nukus city dispatch",
-  "city": "Nukus",
-  "phoneNumbers": ["1050", "+998 61 225 10 50"],
-  "workingHours": "24/7",
-  "district": "Nukus city",
-  "mapLink": "https://maps.google.com/?q=42.4600,59.6150",
-  "serviceType": "taxi-dispatch",
-  "coordinates": {
-    "lat": 42.46,
-    "lng": 59.615
-  },
-  "tags": ["taxi", "city rides", "airport transfer"],
-  "featured": true,
-  "isActive": true,
-  "metadata": {
-    "paymentOptions": ["cash"],
-    "serviceArea": "Nukus"
+  "item": {
+    "user": {
+      "id": "user-id",
+      "name": "Amina",
+      "email": "amina@example.com",
+      "createdAt": "2026-04-03T09:00:00.000Z"
+    }
   }
 }
 ```
 
+`POST /api/auth/logout` request:
+
+```http
+Authorization: Bearer opaque-session-token
+```
+
+`POST /api/auth/logout` response:
+
+```json
+{
+  "message": "Logged out"
+}
+```
+
+Validation and auth error examples:
+
+```json
+{
+  "message": "Validation failed",
+  "errors": [
+    {
+      "path": "email",
+      "message": "Enter a valid email"
+    }
+  ]
+}
+```
+
+```json
+{
+  "message": "Invalid email or password"
+}
+```
+
+```json
+{
+  "message": "Session expired or invalid"
+}
+```
+
+Frontend auth notes:
+
+- keep the token on the client after register or login
+- send `Authorization: Bearer <token>` to `/api/auth/me` and `/api/auth/logout`
+- do not require auth for categories, places, service browsing, routes, or chat
+- use auth only when the user enters profile, saved, or booking-ready flows
+- if the token expires, the frontend can clear local auth state and ask the user to sign in again
+- if a token exists on app start, call `/api/auth/me` to restore the signed-in state
+- if `/api/auth/me` returns `401`, treat the client as signed out and clear the stored token
+- `logout` can be used as a best-effort cleanup call before clearing local auth state
+
+What Profile can realistically show now:
+
+- user `id`
+- `name`
+- `email`
+- `createdAt`
+
+What Saved / Booking can realistically do now:
+
+- show guest messaging when there is no valid session
+- show signed-in messaging when `/api/auth/me` succeeds
+- prepare UI flows that require login before future saved or booking persistence exists
+- not persist favorites or bookings yet on the backend
+
+Current MVP auth limits:
+
+- no OAuth
+- no refresh tokens
+- no password reset flow
+- no role system
+- session storage is local JSON, which is fine for demo use but not for production scale
+
+Public discovery stays open even if the user never signs in.
+
+## Public vs Future-Ready
+
+Public and actively usable now:
+
+- categories
+- places
+- service sections and items
+- guides
+- services
+- events
+- route generation
+- chat
+- auth basics
+
+Future-ready but not fully built yet:
+
+- saved items
+- booking data attached to users
+- admin UI for multilingual editing
+- richer human-curated translations for all service records
+
 ## Frontend Integration Notes
 
-- Use `GET /api/service/sections` to build the Service tab entry screen.
-- Each service section card already includes the key mobile UI fields: `id`, `slug`, `title`, `image`, `order`, and `isActive`.
-- Pass `language` in query strings when the client switches locale.
-- Use `GET /api/service/sections/:slug/items` to load each section page.
+- Use `GET /api/service/sections` for the Service hub grid.
+- Use `GET /api/service/sections/:slug/items` for section screens.
 - Use `GET /api/service/sections/:slug/items/:itemSlug` for detail screens.
-- Use `GET /api/services` only as a helper or compatibility endpoint when a flat list is easier.
-- All endpoints return JSON only.
-- List responses use `{ "items": [...] }`.
-- Detail responses use `{ "item": {...} }`.
-- Mutation responses use `{ "message": "..." }` where appropriate.
-- The Service content model is designed to grow over time with more sections and more items.
-- Public endpoints do not require login.
-- Only profile-oriented features should use `/api/auth/*`.
+- Use `GET /api/places` and `GET /api/places/:id` for discovery content.
+- Use `POST /api/routes/generate` with only `city`, `interests`, and `language` if the UI hides duration.
+- Prefer one shared frontend locale source. Either:
+  - pass `language` in query/body explicitly
+  - or send `X-Language` consistently from the client
+- Keep all requests JSON-based.
+- Do not require auth for discovery, service browsing, routes, or chat.
+- Only use auth when the user enters profile or saved/booking-oriented flows.
+
+Useful Day 2 examples:
+
+```text
+GET /api/service/sections?language=uz
+GET /api/service/sections/hotels/items?language=ru
+GET /api/places?city=Nukus&language=en
+GET /api/categories with X-Language: kaa
+```
+
+Minimal route body:
+
+```json
+{
+  "city": "Nukus",
+  "interests": ["history", "culture"],
+  "language": "en"
+}
+```
+
+Day 3 stability notes:
+
+- service section images are backed by local assets, so the Service grid does not depend on third-party placeholder hosts
+- service item placeholder images fall back to stable local section assets
+- place and service responses avoid `null` optional fields in public JSON
+- active localized endpoints now support both query/body language and header-driven language resolution
 
 ## Expo Integration Notes
 
-- The API is framework-agnostic and works for Vite web and future Expo mobile.
-- Use absolute backend API URLs in production and LAN URLs for local phone demos.
-- `PUBLIC_BASE_URL` should be set so image URLs stay easy to render on mobile.
-- Store the bearer token from `/api/auth/login` or `/api/auth/register` on the client only when the user signs in.
-- Service item detail endpoints return enough data for mobile detail screens without requiring extra stitching.
-- The utility sections like `taxi`, `hospitals`, `pharmacies`, and `atms` are shaped to work well in mobile cards and quick-action lists.
+- Use LAN or production API URLs, not browser-only assumptions.
+- `PUBLIC_BASE_URL` should be set so image fields are easy to render on mobile.
+- Bearer auth is mobile-friendly because it does not depend on cookies.
+- Service and place detail endpoints already return enough data for standalone mobile screens.
 
-## Notes On AI
+## AI Notes
 
-- Provider keys stay server-side only.
-- `/api/chat` uses the provider when configured.
-- If provider config is missing or the request fails, chat falls back to local tourism logic.
-- `/api/admin/translate` is optional and returns a clean controlled error when provider config is missing.
-
-## Sample cURL Commands
-
-```bash
-curl "http://localhost:3000/api/service/sections"
-curl "http://localhost:3000/api/service/sections/taxi"
-curl "http://localhost:3000/api/service/sections/taxi/items"
-curl "http://localhost:3000/api/service/sections/museums-and-exhibitions/items/savitsky-museum"
-curl "http://localhost:3000/api/services?city=Nukus"
-curl "http://localhost:3000/api/admin/service/sections"
-curl "http://localhost:3000/api/admin/service/sections/taxi/items"
-```
+- Provider keys stay on the server only.
+- `/api/chat` uses AI when configured.
+- If provider config is missing or fails, chat falls back to local tourism logic.
+- `/api/admin/translate` stays optional and returns a controlled error when the provider is not configured.
 
 ## Current MVP Limits
 
-- Storage is local JSON, so this is not concurrency-safe for heavy multi-user admin usage.
-- Admin CRUD has no auth gate in this demo pass.
-- Content is curated sample data for frontend development and jury demos.
-- The Service model is deliberately simple and flexible rather than a full CMS.
-- Booking and profile flows are not implemented yet, but the backend shape is ready to support them later.
+- local JSON storage is not concurrency-safe for heavy multi-admin usage
+- admin endpoints are still open in this demo pass
+- multilingual structure is ready, but some non-English service copy still needs real editorial improvement
+- auth is intentionally basic and not production-grade

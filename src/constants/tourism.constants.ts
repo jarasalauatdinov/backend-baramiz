@@ -15,6 +15,8 @@ export const ROUTE_DURATION_MINUTES = {
   "1_day": 480,
 } as const;
 
+export const DEFAULT_ROUTE_DURATION = "half_day" as const;
+
 export const ROUTE_START_TIME = "09:00";
 export const TRANSFER_BUFFER_MINUTES = 20;
 export const CROSS_CITY_TRAVEL_SPEED_KMH = 55;

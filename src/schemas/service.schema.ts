@@ -48,6 +48,14 @@ export const serviceItemsQuerySchema = z.object({
   language: languageSchema.optional(),
 });
 
+export const serviceSectionDetailQuerySchema = z.object({
+  language: languageSchema.optional(),
+});
+
+export const serviceItemDetailQuerySchema = z.object({
+  language: languageSchema.optional(),
+});
+
 export const serviceSectionSlugParamsSchema = z.object({
   slug: z.preprocess(trimString, z.string().min(1, "slug is required")),
 });

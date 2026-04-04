@@ -237,6 +237,7 @@ export const generateRoute = (input: RouteGenerationInput): GeneratedRoute => {
   return {
     city: resolvedCity,
     language: input.language,
+    duration: input.duration,
     title: localizedTitle,
     summary: localizedSummary,
     totalDurationMinutes: elapsedMinutes,

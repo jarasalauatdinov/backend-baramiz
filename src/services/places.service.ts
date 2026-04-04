@@ -16,8 +16,8 @@ import { readJsonFile, writeJsonFile } from "../utils/json-storage";
 import { calculateDistanceKm } from "../utils/route-helpers";
 import {
   createShortDescription,
+  getConsistentPlaceLanguage,
   getLocalizedPlaceDescription,
-  getLocalizedPlaceName,
   localizePlace,
   normalizeText,
   resolveCityName,
@@ -29,16 +29,63 @@ const placesFilePath = path.join(process.cwd(), "src", "data", "places.json");
 
 let placesCache: Place[] | null = null;
 
+const PLACE_CATEGORY_IMAGE_FALLBACKS: Record<CategoryId, string> = {
+  history: "/assets/service/sections/history-and-culture.svg",
+  culture: "/assets/service/sections/history-and-culture.svg",
+  museum: "/assets/service/sections/museums-and-exhibitions.svg",
+  nature: "/assets/service/sections/nature.svg",
+  adventure: "/assets/service/sections/sightseeing.svg",
+  food: "/assets/service/sections/restaurants.svg",
+};
+const isPlaceholderImageUrl = (value: string | undefined): boolean => {
+  return Boolean(value && /^https?:\/\/placehold\.co\//i.test(value.trim()));
+};
+
+const normalizeOptionalString = (value: string | undefined | null): string | undefined => {
+  if (typeof value !== "string") {
+    return undefined;
+  }
+
+  const trimmedValue = value.trim();
+  return trimmedValue.length > 0 ? trimmedValue : undefined;
+};
+
+const uniqueNonEmptyStrings = (values: Array<string | undefined>): string[] => {
+  return Array.from(new Set(values.map((value) => normalizeOptionalString(value)).filter((value): value is string => Boolean(value))));
+};
+
+const normalizeStoredShortDescription = (value: string | undefined, fallbackDescription: string): string => {
+  const trimmedValue = normalizeOptionalString(value);
+
+  if (!trimmedValue || trimmedValue.endsWith("...")) {
+    return createShortDescription(fallbackDescription);
+  }
+
+  return trimmedValue;
+};
+
 const normalizeStoredPlace = (place: Place): Place => {
-  const gallery = place.gallery.length > 0 ? place.gallery : [place.image];
-  const tags = place.tags.length > 0 ? place.tags : [place.category, place.city, place.region];
+  const fallbackImage = PLACE_CATEGORY_IMAGE_FALLBACKS[place.category];
+  const image = !normalizeOptionalString(place.image) || isPlaceholderImageUrl(place.image)
+    ? fallbackImage
+    : place.image.trim();
+  const gallery = uniqueNonEmptyStrings(place.gallery);
+  const tags = uniqueNonEmptyStrings(place.tags);
+  const fallbackDescription = normalizeOptionalString(place.description_en)
+    || normalizeOptionalString(place.description_uz)
+    || normalizeOptionalString(place.description)
+    || "";
 
   return {
     ...place,
     slug: place.slug || slugify(place.id || place.name_uz),
-    shortDescription: place.shortDescription || createShortDescription(place.description_en || place.description_uz),
-    gallery,
-    tags,
+    shortDescription: normalizeStoredShortDescription(place.shortDescription, fallbackDescription),
+    address: normalizeOptionalString(place.address),
+    image,
+    gallery: gallery.length > 0 ? gallery : [image],
+    tags: tags.length > 0 ? tags : [place.category, place.city, place.region],
+    workingHours: normalizeOptionalString(place.workingHours),
+    price: normalizeOptionalString(place.price),
   };
 };
 
@@ -80,11 +127,12 @@ const toPublicPlace = (place: Place): PublicPlace => ({
 });
 
 const localizeStoredPlace = (place: Place, language: Language = "en"): Place => {
-  const localizedPlace = localizePlace(place, language);
+  const contentLanguage = getConsistentPlaceLanguage(place, language);
+  const localizedPlace = localizePlace(place, contentLanguage);
 
   return {
     ...localizedPlace,
-    shortDescription: createShortDescription(getLocalizedPlaceDescription(place, language)),
+    shortDescription: createShortDescription(getLocalizedPlaceDescription(place, contentLanguage)),
   };
 };
 

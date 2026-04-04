@@ -1,446 +1,398 @@
 [
-    {
-        "id":  "savitsky-museum",
-        "slug":  "savitsky-museum",
-        "city":  "Nukus",
-        "region":  "Karakalpakstan",
-        "category":  "museum",
-        "name":  "Savitsky Museum",
-        "name_kaa":  "Savitsky Museum",
-        "name_uz":  "Savitsky Museum",
-        "name_ru":  "Savitsky Museum",
-        "name_en":  "Savitsky Museum",
-        "description":  "The famous museum in Nukus with one of the most remarkable collections of avant-garde art in Central Asia.",
-        "description_kaa":  "The famous museum in Nukus with one of the most remarkable collections of avant-garde art in Central Asia.",
-        "description_uz":  "The famous museum in Nukus with one of the most remarkable collections of avant-garde art in Central Asia.",
-        "description_ru":  "The famous museum in Nukus with one of the most remarkable collections of avant-garde art in Central Asia.",
-        "description_en":  "The famous museum in Nukus with one of the most remarkable collections of avant-garde art in Central Asia.",
-        "shortDescription":  "The famous museum in Nukus with one of the most remarkable collections of avant-garde art in...",
-        "address":  null,
-        "coordinates":  {
-                            "lat":  42.4601,
-                            "lng":  59.6168
-                        },
-        "duration":  120,
-        "image":  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmFg6iH4oKd5vbwQYB59gEldNSzS3O-qPX4w\u0026s",
-        "gallery":  [
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmFg6iH4oKd5vbwQYB59gEldNSzS3O-qPX4w\u0026s"
-                    ],
-        "tags":  [
-                     "museum",
-                     "Nukus",
-                     "Karakalpakstan"
-                 ],
-        "featured":  true,
-        "rating":  null,
-        "workingHours":  null,
-        "price":  null
+  {
+    "id": "savitsky-museum",
+    "slug": "savitsky-museum",
+    "city": "Nukus",
+    "region": "Karakalpakstan",
+    "category": "museum",
+    "name": "Savitsky Museum",
+    "name_kaa": "Savitsky Museum",
+    "name_uz": "Savitsky Museum",
+    "name_ru": "Savitsky Museum",
+    "name_en": "Savitsky Museum",
+    "description": "The famous museum in Nukus with one of the most remarkable collections of avant-garde art in Central Asia.",
+    "description_kaa": "The famous museum in Nukus with one of the most remarkable collections of avant-garde art in Central Asia.",
+    "description_uz": "The famous museum in Nukus with one of the most remarkable collections of avant-garde art in Central Asia.",
+    "description_ru": "The famous museum in Nukus with one of the most remarkable collections of avant-garde art in Central Asia.",
+    "description_en": "The famous museum in Nukus with one of the most remarkable collections of avant-garde art in Central Asia.",
+    "shortDescription": "The famous museum in Nukus with one of the most remarkable collections of avant-garde art in Central Asia.",
+    "coordinates": {
+      "lat": 42.4601,
+      "lng": 59.6168
     },
-    {
-        "id":  "state-museum-karakalpakstan",
-        "slug":  "state-museum-karakalpakstan",
-        "city":  "Nukus",
-        "region":  "Karakalpakstan",
-        "category":  "history",
-        "name":  "State Museum of Karakalpakstan",
-        "name_kaa":  "State Museum of Karakalpakstan",
-        "name_uz":  "State Museum of Karakalpakstan",
-        "name_ru":  "State Museum of Karakalpakstan",
-        "name_en":  "State Museum of Karakalpakstan",
-        "description":  "A useful stop for understanding the history, archaeology, and identity of the wider Karakalpak region.",
-        "description_kaa":  "A useful stop for understanding the history, archaeology, and identity of the wider Karakalpak region.",
-        "description_uz":  "A useful stop for understanding the history, archaeology, and identity of the wider Karakalpak region.",
-        "description_ru":  "A useful stop for understanding the history, archaeology, and identity of the wider Karakalpak region.",
-        "description_en":  "A useful stop for understanding the history, archaeology, and identity of the wider Karakalpak region.",
-        "shortDescription":  "A useful stop for understanding the history, archaeology, and identity of the wider Karakalpa...",
-        "address":  null,
-        "coordinates":  {
-                            "lat":  42.4613,
-                            "lng":  59.6119
-                        },
-        "duration":  90,
-        "image":  "https://placehold.co/1200x800/png?text=State+Museum+of+Karakalpakstan",
-        "gallery":  [
-                        "https://placehold.co/1200x800/png?text=State+Museum+of+Karakalpakstan"
-                    ],
-        "tags":  [
-                     "history",
-                     "Nukus",
-                     "Karakalpakstan"
-                 ],
-        "featured":  true,
-        "rating":  null,
-        "workingHours":  null,
-        "price":  null
+    "duration": 120,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmFg6iH4oKd5vbwQYB59gEldNSzS3O-qPX4w&s",
+    "gallery": [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmFg6iH4oKd5vbwQYB59gEldNSzS3O-qPX4w&s"
+    ],
+    "tags": [
+      "museum",
+      "Nukus",
+      "Karakalpakstan"
+    ],
+    "featured": true
+  },
+  {
+    "id": "state-museum-karakalpakstan",
+    "slug": "state-museum-karakalpakstan",
+    "city": "Nukus",
+    "region": "Karakalpakstan",
+    "category": "history",
+    "name": "State Museum of Karakalpakstan",
+    "name_kaa": "State Museum of Karakalpakstan",
+    "name_uz": "State Museum of Karakalpakstan",
+    "name_ru": "State Museum of Karakalpakstan",
+    "name_en": "State Museum of Karakalpakstan",
+    "description": "A useful stop for understanding the history, archaeology, and identity of the wider Karakalpak region.",
+    "description_kaa": "A useful stop for understanding the history, archaeology, and identity of the wider Karakalpak region.",
+    "description_uz": "A useful stop for understanding the history, archaeology, and identity of the wider Karakalpak region.",
+    "description_ru": "A useful stop for understanding the history, archaeology, and identity of the wider Karakalpak region.",
+    "description_en": "A useful stop for understanding the history, archaeology, and identity of the wider Karakalpak region.",
+    "shortDescription": "A useful stop for understanding the history, archaeology, and identity of the wider Karakalpak region.",
+    "coordinates": {
+      "lat": 42.4613,
+      "lng": 59.6119
     },
-    {
-        "id":  "berdakh-theater",
-        "slug":  "berdakh-theater",
-        "city":  "Nukus",
-        "region":  "Karakalpakstan",
-        "category":  "culture",
-        "name":  "Berdakh Theater",
-        "name_kaa":  "Berdakh Theater",
-        "name_uz":  "Berdakh Theater",
-        "name_ru":  "Berdakh Theater",
-        "name_en":  "Berdakh Theater",
-        "description":  "A cultural landmark that reflects the performing arts tradition of Karakalpakstan.",
-        "description_kaa":  "A cultural landmark that reflects the performing arts tradition of Karakalpakstan.",
-        "description_uz":  "A cultural landmark that reflects the performing arts tradition of Karakalpakstan.",
-        "description_ru":  "A cultural landmark that reflects the performing arts tradition of Karakalpakstan.",
-        "description_en":  "A cultural landmark that reflects the performing arts tradition of Karakalpakstan.",
-        "shortDescription":  "A cultural landmark that reflects the performing arts tradition of Karakalpakstan.",
-        "address":  null,
-        "coordinates":  {
-                            "lat":  42.4652,
-                            "lng":  59.6132
-                        },
-        "duration":  75,
-        "image":  "https://upload.wikimedia.org/wikipedia/commons/b/ba/Karakalpak_State_Academic_Musical_Theatre_named_after_Berdakh_%28Stanislavski%29.jpg",
-        "gallery":  [
-                        "https://upload.wikimedia.org/wikipedia/commons/b/ba/Karakalpak_State_Academic_Musical_Theatre_named_after_Berdakh_%28Stanislavski%29.jpg"
-                    ],
-        "tags":  [
-                     "culture",
-                     "Nukus",
-                     "Karakalpakstan"
-                 ],
-        "featured":  false,
-        "rating":  null,
-        "workingHours":  null,
-        "price":  null
+    "duration": 90,
+    "image": "/assets/service/sections/history-and-culture.svg",
+    "gallery": [
+      "/assets/service/sections/history-and-culture.svg"
+    ],
+    "tags": [
+      "history",
+      "Nukus",
+      "Karakalpakstan"
+    ],
+    "featured": true
+  },
+  {
+    "id": "berdakh-theater",
+    "slug": "berdakh-theater",
+    "city": "Nukus",
+    "region": "Karakalpakstan",
+    "category": "culture",
+    "name": "Berdakh Theater",
+    "name_kaa": "Berdakh Theater",
+    "name_uz": "Berdakh Theater",
+    "name_ru": "Berdakh Theater",
+    "name_en": "Berdakh Theater",
+    "description": "A cultural landmark that reflects the performing arts tradition of Karakalpakstan.",
+    "description_kaa": "A cultural landmark that reflects the performing arts tradition of Karakalpakstan.",
+    "description_uz": "A cultural landmark that reflects the performing arts tradition of Karakalpakstan.",
+    "description_ru": "A cultural landmark that reflects the performing arts tradition of Karakalpakstan.",
+    "description_en": "A cultural landmark that reflects the performing arts tradition of Karakalpakstan.",
+    "shortDescription": "A cultural landmark that reflects the performing arts tradition of Karakalpakstan.",
+    "coordinates": {
+      "lat": 42.4652,
+      "lng": 59.6132
     },
-    {
-        "id":  "nukus-central-bazaar",
-        "slug":  "nukus-central-bazaar",
-        "city":  "Nukus",
-        "region":  "Karakalpakstan",
-        "category":  "food",
-        "name":  "Nukus Central Bazaar",
-        "name_kaa":  "Nukus Central Bazaar",
-        "name_uz":  "Nukus Central Bazaar",
-        "name_ru":  "Nukus Central Bazaar",
-        "name_en":  "Nukus Central Bazaar",
-        "description":  "A lively market where visitors can sample local snacks and get a feel for daily life in Nukus.",
-        "description_kaa":  "A lively market where visitors can sample local snacks and get a feel for daily life in Nukus.",
-        "description_uz":  "A lively market where visitors can sample local snacks and get a feel for daily life in Nukus.",
-        "description_ru":  "A lively market where visitors can sample local snacks and get a feel for daily life in Nukus.",
-        "description_en":  "A lively market where visitors can sample local snacks and get a feel for daily life in Nukus.",
-        "shortDescription":  "A lively market where visitors can sample local snacks and get a feel for daily life in Nukus.",
-        "address":  null,
-        "coordinates":  {
-                            "lat":  42.4679,
-                            "lng":  59.6054
-                        },
-        "duration":  60,
-        "image":  "https://pbs.twimg.com/media/HDpXlJAXEAAGFYN.jpg",
-        "gallery":  [
-                        "https://pbs.twimg.com/media/HDpXlJAXEAAGFYN.jpg"
-                    ],
-        "tags":  [
-                     "food",
-                     "Nukus",
-                     "Karakalpakstan"
-                 ],
-        "featured":  true,
-        "rating":  null,
-        "workingHours":  null,
-        "price":  null
+    "duration": 75,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Karakalpak_State_Academic_Musical_Theatre_named_after_Berdakh_%28Stanislavski%29.jpg",
+    "gallery": [
+      "https://upload.wikimedia.org/wikipedia/commons/b/ba/Karakalpak_State_Academic_Musical_Theatre_named_after_Berdakh_%28Stanislavski%29.jpg"
+    ],
+    "tags": [
+      "culture",
+      "Nukus",
+      "Karakalpakstan"
+    ],
+    "featured": false
+  },
+  {
+    "id": "nukus-central-bazaar",
+    "slug": "nukus-central-bazaar",
+    "city": "Nukus",
+    "region": "Karakalpakstan",
+    "category": "food",
+    "name": "Nukus Central Bazaar",
+    "name_kaa": "Nukus Central Bazaar",
+    "name_uz": "Nukus Central Bazaar",
+    "name_ru": "Nukus Central Bazaar",
+    "name_en": "Nukus Central Bazaar",
+    "description": "A lively market where visitors can sample local snacks and get a feel for daily life in Nukus.",
+    "description_kaa": "A lively market where visitors can sample local snacks and get a feel for daily life in Nukus.",
+    "description_uz": "A lively market where visitors can sample local snacks and get a feel for daily life in Nukus.",
+    "description_ru": "A lively market where visitors can sample local snacks and get a feel for daily life in Nukus.",
+    "description_en": "A lively market where visitors can sample local snacks and get a feel for daily life in Nukus.",
+    "shortDescription": "A lively market where visitors can sample local snacks and get a feel for daily life in Nukus.",
+    "coordinates": {
+      "lat": 42.4679,
+      "lng": 59.6054
     },
-    {
-        "id":  "mizdakhan-complex",
-        "slug":  "mizdakhan-complex",
-        "city":  "Xojeli",
-        "region":  "Karakalpakstan",
-        "category":  "history",
-        "name":  "Mizdakhan Memorial Complex",
-        "name_kaa":  "Mizdakhan Memorial Complex",
-        "name_uz":  "Mizdakhan Memorial Complex",
-        "name_ru":  "Mizdakhan Memorial Complex",
-        "name_en":  "Mizdakhan Memorial Complex",
-        "description":  "An atmospheric necropolis and pilgrimage site with layers of regional history and legend.",
-        "description_kaa":  "An atmospheric necropolis and pilgrimage site with layers of regional history and legend.",
-        "description_uz":  "An atmospheric necropolis and pilgrimage site with layers of regional history and legend.",
-        "description_ru":  "An atmospheric necropolis and pilgrimage site with layers of regional history and legend.",
-        "description_en":  "An atmospheric necropolis and pilgrimage site with layers of regional history and legend.",
-        "shortDescription":  "An atmospheric necropolis and pilgrimage site with layers of regional history and legend.",
-        "address":  null,
-        "coordinates":  {
-                            "lat":  42.3482,
-                            "lng":  59.345
-                        },
-        "duration":  90,
-        "image":  "https://eurasia.travel/wp-content/uploads/2025/02/1.-Mizdakhan-necropolis-Karakalpakstan.jpg",
-        "gallery":  [
-                        "https://eurasia.travel/wp-content/uploads/2025/02/1.-Mizdakhan-necropolis-Karakalpakstan.jpg"
-                    ],
-        "tags":  [
-                     "history",
-                     "Xojeli",
-                     "Karakalpakstan"
-                 ],
-        "featured":  true,
-        "rating":  null,
-        "workingHours":  null,
-        "price":  null
+    "duration": 60,
+    "image": "https://pbs.twimg.com/media/HDpXlJAXEAAGFYN.jpg",
+    "gallery": [
+      "https://pbs.twimg.com/media/HDpXlJAXEAAGFYN.jpg"
+    ],
+    "tags": [
+      "food",
+      "Nukus",
+      "Karakalpakstan"
+    ],
+    "featured": true
+  },
+  {
+    "id": "mizdakhan-complex",
+    "slug": "mizdakhan-complex",
+    "city": "Xojeli",
+    "region": "Karakalpakstan",
+    "category": "history",
+    "name": "Mizdakhan Memorial Complex",
+    "name_kaa": "Mizdakhan Memorial Complex",
+    "name_uz": "Mizdakhan Memorial Complex",
+    "name_ru": "Mizdakhan Memorial Complex",
+    "name_en": "Mizdakhan Memorial Complex",
+    "description": "An atmospheric necropolis and pilgrimage site with layers of regional history and legend.",
+    "description_kaa": "An atmospheric necropolis and pilgrimage site with layers of regional history and legend.",
+    "description_uz": "An atmospheric necropolis and pilgrimage site with layers of regional history and legend.",
+    "description_ru": "An atmospheric necropolis and pilgrimage site with layers of regional history and legend.",
+    "description_en": "An atmospheric necropolis and pilgrimage site with layers of regional history and legend.",
+    "shortDescription": "An atmospheric necropolis and pilgrimage site with layers of regional history and legend.",
+    "coordinates": {
+      "lat": 42.3482,
+      "lng": 59.345
     },
-    {
-        "id":  "chilpik-dakhma",
-        "slug":  "chilpik-dakhma",
-        "city":  "Xojeli",
-        "region":  "Karakalpakstan",
-        "category":  "history",
-        "name":  "Chilpik Dakhma",
-        "name_kaa":  "Chilpik Dakhma",
-        "name_uz":  "Chilpik Dakhma",
-        "name_ru":  "Chilpik Dakhma",
-        "name_en":  "Chilpik Dakhma",
-        "description":  "A circular hilltop tower connected to ancient Zoroastrian burial traditions and striking desert views.",
-        "description_kaa":  "A circular hilltop tower connected to ancient Zoroastrian burial traditions and striking desert views.",
-        "description_uz":  "A circular hilltop tower connected to ancient Zoroastrian burial traditions and striking desert views.",
-        "description_ru":  "A circular hilltop tower connected to ancient Zoroastrian burial traditions and striking desert views.",
-        "description_en":  "A circular hilltop tower connected to ancient Zoroastrian burial traditions and striking desert views.",
-        "shortDescription":  "A circular hilltop tower connected to ancient Zoroastrian burial traditions and striking dese...",
-        "address":  null,
-        "coordinates":  {
-                            "lat":  42.3972,
-                            "lng":  59.1678
-                        },
-        "duration":  60,
-        "image":  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdzluOSVHQNBSNULPORRe6gEzdTL-sNjJu4w\u0026s",
-        "gallery":  [
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdzluOSVHQNBSNULPORRe6gEzdTL-sNjJu4w\u0026s"
-                    ],
-        "tags":  [
-                     "history",
-                     "Xojeli",
-                     "Karakalpakstan"
-                 ],
-        "featured":  false,
-        "rating":  null,
-        "workingHours":  null,
-        "price":  null
+    "duration": 90,
+    "image": "https://eurasia.travel/wp-content/uploads/2025/02/1.-Mizdakhan-necropolis-Karakalpakstan.jpg",
+    "gallery": [
+      "https://eurasia.travel/wp-content/uploads/2025/02/1.-Mizdakhan-necropolis-Karakalpakstan.jpg"
+    ],
+    "tags": [
+      "history",
+      "Xojeli",
+      "Karakalpakstan"
+    ],
+    "featured": true
+  },
+  {
+    "id": "chilpik-dakhma",
+    "slug": "chilpik-dakhma",
+    "city": "Xojeli",
+    "region": "Karakalpakstan",
+    "category": "history",
+    "name": "Chilpik Dakhma",
+    "name_kaa": "Chilpik Dakhma",
+    "name_uz": "Chilpik Dakhma",
+    "name_ru": "Chilpik Dakhma",
+    "name_en": "Chilpik Dakhma",
+    "description": "A circular hilltop tower connected to ancient Zoroastrian burial traditions and striking desert views.",
+    "description_kaa": "A circular hilltop tower connected to ancient Zoroastrian burial traditions and striking desert views.",
+    "description_uz": "A circular hilltop tower connected to ancient Zoroastrian burial traditions and striking desert views.",
+    "description_ru": "A circular hilltop tower connected to ancient Zoroastrian burial traditions and striking desert views.",
+    "description_en": "A circular hilltop tower connected to ancient Zoroastrian burial traditions and striking desert views.",
+    "shortDescription": "A circular hilltop tower connected to ancient Zoroastrian burial traditions and striking desert views.",
+    "coordinates": {
+      "lat": 42.3972,
+      "lng": 59.1678
     },
-    {
-        "id":  "ayaz-kala",
-        "slug":  "ayaz-kala",
-        "city":  "Ellikqala",
-        "region":  "Karakalpakstan",
-        "category":  "adventure",
-        "name":  "Ayaz Kala",
-        "name_kaa":  "Ayaz Kala",
-        "name_uz":  "Ayaz Kala",
-        "name_ru":  "Ayaz Kala",
-        "name_en":  "Ayaz Kala",
-        "description":  "A desert fortress complex that feels best as a scenic road-trip stop with time to explore the surroundings.",
-        "description_kaa":  "A desert fortress complex that feels best as a scenic road-trip stop with time to explore the surroundings.",
-        "description_uz":  "A desert fortress complex that feels best as a scenic road-trip stop with time to explore the surroundings.",
-        "description_ru":  "A desert fortress complex that feels best as a scenic road-trip stop with time to explore the surroundings.",
-        "description_en":  "A desert fortress complex that feels best as a scenic road-trip stop with time to explore the surroundings.",
-        "shortDescription":  "A desert fortress complex that feels best as a scenic road-trip stop with time to explore the...",
-        "address":  null,
-        "coordinates":  {
-                            "lat":  42.0092,
-                            "lng":  61.0274
-                        },
-        "duration":  120,
-        "image":  "https://centralasia-adventures.com/image/new/ayaz-kala.html-n.jpg",
-        "gallery":  [
-                        "https://centralasia-adventures.com/image/new/ayaz-kala.html-n.jpg"
-                    ],
-        "tags":  [
-                     "adventure",
-                     "Ellikqala",
-                     "Karakalpakstan"
-                 ],
-        "featured":  true,
-        "rating":  null,
-        "workingHours":  null,
-        "price":  null
+    "duration": 60,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdzluOSVHQNBSNULPORRe6gEzdTL-sNjJu4w&s",
+    "gallery": [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdzluOSVHQNBSNULPORRe6gEzdTL-sNjJu4w&s"
+    ],
+    "tags": [
+      "history",
+      "Xojeli",
+      "Karakalpakstan"
+    ],
+    "featured": false
+  },
+  {
+    "id": "ayaz-kala",
+    "slug": "ayaz-kala",
+    "city": "Ellikqala",
+    "region": "Karakalpakstan",
+    "category": "adventure",
+    "name": "Ayaz Kala",
+    "name_kaa": "Ayaz Kala",
+    "name_uz": "Ayaz Kala",
+    "name_ru": "Ayaz Kala",
+    "name_en": "Ayaz Kala",
+    "description": "A desert fortress complex that feels best as a scenic road-trip stop with time to explore the surroundings.",
+    "description_kaa": "A desert fortress complex that feels best as a scenic road-trip stop with time to explore the surroundings.",
+    "description_uz": "A desert fortress complex that feels best as a scenic road-trip stop with time to explore the surroundings.",
+    "description_ru": "A desert fortress complex that feels best as a scenic road-trip stop with time to explore the surroundings.",
+    "description_en": "A desert fortress complex that feels best as a scenic road-trip stop with time to explore the surroundings.",
+    "shortDescription": "A desert fortress complex that feels best as a scenic road-trip stop with time to explore the surroundings.",
+    "coordinates": {
+      "lat": 42.0092,
+      "lng": 61.0274
     },
-    {
-        "id":  "topraq-kala",
-        "slug":  "topraq-kala",
-        "city":  "Ellikqala",
-        "region":  "Karakalpakstan",
-        "category":  "history",
-        "name":  "Topraq Kala",
-        "name_kaa":  "Topraq Kala",
-        "name_uz":  "Topraq Kala",
-        "name_ru":  "Topraq Kala",
-        "name_en":  "Topraq Kala",
-        "description":  "One of the best known ancient Khorezm fortresses, ideal for travelers interested in archaeology and early urban history.",
-        "description_kaa":  "One of the best known ancient Khorezm fortresses, ideal for travelers interested in archaeology and early urban history.",
-        "description_uz":  "One of the best known ancient Khorezm fortresses, ideal for travelers interested in archaeology and early urban history.",
-        "description_ru":  "One of the best known ancient Khorezm fortresses, ideal for travelers interested in archaeology and early urban history.",
-        "description_en":  "One of the best known ancient Khorezm fortresses, ideal for travelers interested in archaeology and early urban history.",
-        "shortDescription":  "One of the best known ancient Khorezm fortresses, ideal for travelers interested in archaeolo...",
-        "address":  null,
-        "coordinates":  {
-                            "lat":  41.9286,
-                            "lng":  60.8198
-                        },
-        "duration":  90,
-        "image":  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzr99LHFeT4W9skOkHbc1urpolB-BMTZYZ9Q\u0026s",
-        "gallery":  [
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzr99LHFeT4W9skOkHbc1urpolB-BMTZYZ9Q\u0026s"
-                    ],
-        "tags":  [
-                     "history",
-                     "Ellikqala",
-                     "Karakalpakstan"
-                 ],
-        "featured":  true,
-        "rating":  null,
-        "workingHours":  null,
-        "price":  null
+    "duration": 120,
+    "image": "https://centralasia-adventures.com/image/new/ayaz-kala.html-n.jpg",
+    "gallery": [
+      "https://centralasia-adventures.com/image/new/ayaz-kala.html-n.jpg"
+    ],
+    "tags": [
+      "adventure",
+      "Ellikqala",
+      "Karakalpakstan"
+    ],
+    "featured": true
+  },
+  {
+    "id": "topraq-kala",
+    "slug": "topraq-kala",
+    "city": "Ellikqala",
+    "region": "Karakalpakstan",
+    "category": "history",
+    "name": "Topraq Kala",
+    "name_kaa": "Topraq Kala",
+    "name_uz": "Topraq Kala",
+    "name_ru": "Topraq Kala",
+    "name_en": "Topraq Kala",
+    "description": "One of the best known ancient Khorezm fortresses, ideal for travelers interested in archaeology and early urban history.",
+    "description_kaa": "One of the best known ancient Khorezm fortresses, ideal for travelers interested in archaeology and early urban history.",
+    "description_uz": "One of the best known ancient Khorezm fortresses, ideal for travelers interested in archaeology and early urban history.",
+    "description_ru": "One of the best known ancient Khorezm fortresses, ideal for travelers interested in archaeology and early urban history.",
+    "description_en": "One of the best known ancient Khorezm fortresses, ideal for travelers interested in archaeology and early urban history.",
+    "shortDescription": "One of the best known ancient Khorezm fortresses, ideal for travelers interested in archaeology and early urban history.",
+    "coordinates": {
+      "lat": 41.9286,
+      "lng": 60.8198
     },
-    {
-        "id":  "kyzyl-kala",
-        "slug":  "kyzyl-kala",
-        "city":  "Ellikqala",
-        "region":  "Karakalpakstan",
-        "category":  "history",
-        "name":  "Kyzyl Kala",
-        "name_kaa":  "Kyzyl Kala",
-        "name_uz":  "Kyzyl Kala",
-        "name_ru":  "Kyzyl Kala",
-        "name_en":  "Kyzyl Kala",
-        "description":  "A restored fortress stop that pairs well with Topraq Kala for a focused history route in Ellikqala district.",
-        "description_kaa":  "A restored fortress stop that pairs well with Topraq Kala for a focused history route in Ellikqala district.",
-        "description_uz":  "A restored fortress stop that pairs well with Topraq Kala for a focused history route in Ellikqala district.",
-        "description_ru":  "A restored fortress stop that pairs well with Topraq Kala for a focused history route in Ellikqala district.",
-        "description_en":  "A restored fortress stop that pairs well with Topraq Kala for a focused history route in Ellikqala district.",
-        "shortDescription":  "A restored fortress stop that pairs well with Topraq Kala for a focused history route in Elli...",
-        "address":  null,
-        "coordinates":  {
-                            "lat":  41.9326,
-                            "lng":  60.8131
-                        },
-        "duration":  60,
-        "image":  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQ5NPYOS6h_cILO2kLHPy1xv3eY-DD-HXIcg\u0026s",
-        "gallery":  [
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQ5NPYOS6h_cILO2kLHPy1xv3eY-DD-HXIcg\u0026s"
-                    ],
-        "tags":  [
-                     "history",
-                     "Ellikqala",
-                     "Karakalpakstan"
-                 ],
-        "featured":  false,
-        "rating":  null,
-        "workingHours":  null,
-        "price":  null
+    "duration": 90,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzr99LHFeT4W9skOkHbc1urpolB-BMTZYZ9Q&s",
+    "gallery": [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzr99LHFeT4W9skOkHbc1urpolB-BMTZYZ9Q&s"
+    ],
+    "tags": [
+      "history",
+      "Ellikqala",
+      "Karakalpakstan"
+    ],
+    "featured": true
+  },
+  {
+    "id": "kyzyl-kala",
+    "slug": "kyzyl-kala",
+    "city": "Ellikqala",
+    "region": "Karakalpakstan",
+    "category": "history",
+    "name": "Kyzyl Kala",
+    "name_kaa": "Kyzyl Kala",
+    "name_uz": "Kyzyl Kala",
+    "name_ru": "Kyzyl Kala",
+    "name_en": "Kyzyl Kala",
+    "description": "A restored fortress stop that pairs well with Topraq Kala for a focused history route in Ellikqala district.",
+    "description_kaa": "A restored fortress stop that pairs well with Topraq Kala for a focused history route in Ellikqala district.",
+    "description_uz": "A restored fortress stop that pairs well with Topraq Kala for a focused history route in Ellikqala district.",
+    "description_ru": "A restored fortress stop that pairs well with Topraq Kala for a focused history route in Ellikqala district.",
+    "description_en": "A restored fortress stop that pairs well with Topraq Kala for a focused history route in Ellikqala district.",
+    "shortDescription": "A restored fortress stop that pairs well with Topraq Kala for a focused history route in Ellikqala district.",
+    "coordinates": {
+      "lat": 41.9326,
+      "lng": 60.8131
     },
-    {
-        "id":  "moynaq-ship-cemetery",
-        "slug":  "moynaq-ship-cemetery",
-        "city":  "Moynaq",
-        "region":  "Karakalpakstan",
-        "category":  "history",
-        "name":  "Moynaq Ship Cemetery",
-        "name_kaa":  "Moynaq Ship Cemetery",
-        "name_uz":  "Moynaq Ship Cemetery",
-        "name_ru":  "Moynaq Ship Cemetery",
-        "name_en":  "Moynaq Ship Cemetery",
-        "description":  "The iconic former seaport site that tells the story of the Aral Sea disaster in a powerful and visual way.",
-        "description_kaa":  "The iconic former seaport site that tells the story of the Aral Sea disaster in a powerful and visual way.",
-        "description_uz":  "The iconic former seaport site that tells the story of the Aral Sea disaster in a powerful and visual way.",
-        "description_ru":  "The iconic former seaport site that tells the story of the Aral Sea disaster in a powerful and visual way.",
-        "description_en":  "The iconic former seaport site that tells the story of the Aral Sea disaster in a powerful and visual way.",
-        "shortDescription":  "The iconic former seaport site that tells the story of the Aral Sea disaster in a powerful an...",
-        "address":  null,
-        "coordinates":  {
-                            "lat":  43.7705,
-                            "lng":  59.0214
-                        },
-        "duration":  75,
-        "image":  "https://www.civitatis.com/f/uzbekistan/nukus/excursion-cementerio-barcos-moynaq-589x392.jpg",
-        "gallery":  [
-                        "https://www.civitatis.com/f/uzbekistan/nukus/excursion-cementerio-barcos-moynaq-589x392.jpg"
-                    ],
-        "tags":  [
-                     "history",
-                     "Moynaq",
-                     "Karakalpakstan"
-                 ],
-        "featured":  true,
-        "rating":  null,
-        "workingHours":  null,
-        "price":  null
+    "duration": 60,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQ5NPYOS6h_cILO2kLHPy1xv3eY-DD-HXIcg&s",
+    "gallery": [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQ5NPYOS6h_cILO2kLHPy1xv3eY-DD-HXIcg&s"
+    ],
+    "tags": [
+      "history",
+      "Ellikqala",
+      "Karakalpakstan"
+    ],
+    "featured": false
+  },
+  {
+    "id": "moynaq-ship-cemetery",
+    "slug": "moynaq-ship-cemetery",
+    "city": "Moynaq",
+    "region": "Karakalpakstan",
+    "category": "history",
+    "name": "Moynaq Ship Cemetery",
+    "name_kaa": "Moynaq Ship Cemetery",
+    "name_uz": "Moynaq Ship Cemetery",
+    "name_ru": "Moynaq Ship Cemetery",
+    "name_en": "Moynaq Ship Cemetery",
+    "description": "The iconic former seaport site that tells the story of the Aral Sea disaster in a powerful and visual way.",
+    "description_kaa": "The iconic former seaport site that tells the story of the Aral Sea disaster in a powerful and visual way.",
+    "description_uz": "The iconic former seaport site that tells the story of the Aral Sea disaster in a powerful and visual way.",
+    "description_ru": "The iconic former seaport site that tells the story of the Aral Sea disaster in a powerful and visual way.",
+    "description_en": "The iconic former seaport site that tells the story of the Aral Sea disaster in a powerful and visual way.",
+    "shortDescription": "The iconic former seaport site that tells the story of the Aral Sea disaster in a powerful and visual way.",
+    "coordinates": {
+      "lat": 43.7705,
+      "lng": 59.0214
     },
-    {
-        "id":  "aral-sea-museum",
-        "slug":  "aral-sea-museum",
-        "city":  "Moynaq",
-        "region":  "Karakalpakstan",
-        "category":  "museum",
-        "name":  "Moynaq Regional Museum",
-        "name_kaa":  "Moynaq Regional Museum",
-        "name_uz":  "Moynaq Regional Museum",
-        "name_ru":  "Moynaq Regional Museum",
-        "name_en":  "Moynaq Regional Museum",
-        "description":  "A compact museum that adds social and environmental context to a visit to Moynaq and the former Aral coastline.",
-        "description_kaa":  "A compact museum that adds social and environmental context to a visit to Moynaq and the former Aral coastline.",
-        "description_uz":  "A compact museum that adds social and environmental context to a visit to Moynaq and the former Aral coastline.",
-        "description_ru":  "A compact museum that adds social and environmental context to a visit to Moynaq and the former Aral coastline.",
-        "description_en":  "A compact museum that adds social and environmental context to a visit to Moynaq and the former Aral coastline.",
-        "shortDescription":  "A compact museum that adds social and environmental context to a visit to Moynaq and the form...",
-        "address":  null,
-        "coordinates":  {
-                            "lat":  43.7683,
-                            "lng":  59.0179
-                        },
-        "duration":  60,
-        "image":  "https://www.journalofnomads.com/wp-content/uploads/2022/12/Moynaq-museum-Uzbekistan.jpg",
-        "gallery":  [
-                        "https://www.journalofnomads.com/wp-content/uploads/2022/12/Moynaq-museum-Uzbekistan.jpg"
-                    ],
-        "tags":  [
-                     "museum",
-                     "Moynaq",
-                     "Karakalpakstan"
-                 ],
-        "featured":  false,
-        "rating":  null,
-        "workingHours":  null,
-        "price":  null
+    "duration": 75,
+    "image": "https://www.civitatis.com/f/uzbekistan/nukus/excursion-cementerio-barcos-moynaq-589x392.jpg",
+    "gallery": [
+      "https://www.civitatis.com/f/uzbekistan/nukus/excursion-cementerio-barcos-moynaq-589x392.jpg"
+    ],
+    "tags": [
+      "history",
+      "Moynaq",
+      "Karakalpakstan"
+    ],
+    "featured": true
+  },
+  {
+    "id": "aral-sea-museum",
+    "slug": "aral-sea-museum",
+    "city": "Moynaq",
+    "region": "Karakalpakstan",
+    "category": "museum",
+    "name": "Moynaq Regional Museum",
+    "name_kaa": "Moynaq Regional Museum",
+    "name_uz": "Moynaq Regional Museum",
+    "name_ru": "Moynaq Regional Museum",
+    "name_en": "Moynaq Regional Museum",
+    "description": "A compact museum that adds social and environmental context to a visit to Moynaq and the former Aral coastline.",
+    "description_kaa": "A compact museum that adds social and environmental context to a visit to Moynaq and the former Aral coastline.",
+    "description_uz": "A compact museum that adds social and environmental context to a visit to Moynaq and the former Aral coastline.",
+    "description_ru": "A compact museum that adds social and environmental context to a visit to Moynaq and the former Aral coastline.",
+    "description_en": "A compact museum that adds social and environmental context to a visit to Moynaq and the former Aral coastline.",
+    "shortDescription": "A compact museum that adds social and environmental context to a visit to Moynaq and the former Aral coastline.",
+    "coordinates": {
+      "lat": 43.7683,
+      "lng": 59.0179
     },
-    {
-        "id":  "ustyurt-plateau-viewpoint",
-        "slug":  "ustyurt-plateau-viewpoint",
-        "city":  "Qonirat",
-        "region":  "Karakalpakstan",
-        "category":  "nature",
-        "name":  "Ustyurt Plateau Viewpoint",
-        "name_kaa":  "Ustyurt Plateau Viewpoint",
-        "name_uz":  "Ustyurt Plateau Viewpoint",
-        "name_ru":  "Ustyurt Plateau Viewpoint",
-        "name_en":  "Ustyurt Plateau Viewpoint",
-        "description":  "A remote landscape stop for travelers who want wide desert views and a memorable nature-heavy detour.",
-        "description_kaa":  "A remote landscape stop for travelers who want wide desert views and a memorable nature-heavy detour.",
-        "description_uz":  "A remote landscape stop for travelers who want wide desert views and a memorable nature-heavy detour.",
-        "description_ru":  "A remote landscape stop for travelers who want wide desert views and a memorable nature-heavy detour.",
-        "description_en":  "A remote landscape stop for travelers who want wide desert views and a memorable nature-heavy detour.",
-        "shortDescription":  "A remote landscape stop for travelers who want wide desert views and a memorable nature-heavy...",
-        "address":  null,
-        "coordinates":  {
-                            "lat":  43.1586,
-                            "lng":  58.9797
-                        },
-        "duration":  120,
-        "image":  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_iGINe-ubOuuwvfZ3iMmDyaxwfL11PPF92Q\u0026s",
-        "gallery":  [
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_iGINe-ubOuuwvfZ3iMmDyaxwfL11PPF92Q\u0026s"
-                    ],
-        "tags":  [
-                     "nature",
-                     "Qonirat",
-                     "Karakalpakstan"
-                 ],
-        "featured":  true,
-        "rating":  null,
-        "workingHours":  null,
-        "price":  null
-    }
+    "duration": 60,
+    "image": "https://www.journalofnomads.com/wp-content/uploads/2022/12/Moynaq-museum-Uzbekistan.jpg",
+    "gallery": [
+      "https://www.journalofnomads.com/wp-content/uploads/2022/12/Moynaq-museum-Uzbekistan.jpg"
+    ],
+    "tags": [
+      "museum",
+      "Moynaq",
+      "Karakalpakstan"
+    ],
+    "featured": false
+  },
+  {
+    "id": "ustyurt-plateau-viewpoint",
+    "slug": "ustyurt-plateau-viewpoint",
+    "city": "Qonirat",
+    "region": "Karakalpakstan",
+    "category": "nature",
+    "name": "Ustyurt Plateau Viewpoint",
+    "name_kaa": "Ustyurt Plateau Viewpoint",
+    "name_uz": "Ustyurt Plateau Viewpoint",
+    "name_ru": "Ustyurt Plateau Viewpoint",
+    "name_en": "Ustyurt Plateau Viewpoint",
+    "description": "A remote landscape stop for travelers who want wide desert views and a memorable nature-heavy detour.",
+    "description_kaa": "A remote landscape stop for travelers who want wide desert views and a memorable nature-heavy detour.",
+    "description_uz": "A remote landscape stop for travelers who want wide desert views and a memorable nature-heavy detour.",
+    "description_ru": "A remote landscape stop for travelers who want wide desert views and a memorable nature-heavy detour.",
+    "description_en": "A remote landscape stop for travelers who want wide desert views and a memorable nature-heavy detour.",
+    "shortDescription": "A remote landscape stop for travelers who want wide desert views and a memorable nature-heavy detour.",
+    "coordinates": {
+      "lat": 43.1586,
+      "lng": 58.9797
+    },
+    "duration": 120,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_iGINe-ubOuuwvfZ3iMmDyaxwfL11PPF92Q&s",
+    "gallery": [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_iGINe-ubOuuwvfZ3iMmDyaxwfL11PPF92Q&s"
+    ],
+    "tags": [
+      "nature",
+      "Qonirat",
+      "Karakalpakstan"
+    ],
+    "featured": true
+  }
 ]

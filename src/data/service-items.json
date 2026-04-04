@@ -21,8 +21,10 @@
       "ru": "One of the most recognizable sightseeing stops in the region, especially good for road-trip style itineraries.",
       "en": "One of the most recognizable sightseeing stops in the region, especially good for road-trip style itineraries."
     },
-    "image": "https://placehold.co/1200x800?text=Ayaz+Kala",
-    "gallery": [],
+    "image": "/assets/service/sections/sightseeing.svg",
+    "gallery": [
+      "/assets/service/sections/sightseeing.svg"
+    ],
     "address": "Ellikqala district",
     "city": "Ellikqala",
     "phoneNumbers": [],
@@ -67,8 +69,10 @@
       "ru": "A practical pharmacy stop for medicine, small health essentials, and routine needs during a city stay.",
       "en": "A practical pharmacy stop for medicine, small health essentials, and routine needs during a city stay."
     },
-    "image": "https://placehold.co/1200x800?text=Pharmacy",
-    "gallery": [],
+    "image": "/assets/service/sections/pharmacies.svg",
+    "gallery": [
+      "/assets/service/sections/pharmacies.svg"
+    ],
     "address": "Central Nukus",
     "city": "Nukus",
     "phoneNumbers": [
@@ -115,8 +119,10 @@
       "ru": "A simple ATM reference point for withdrawing cash before transport, meals, or day routes.",
       "en": "A simple ATM reference point for withdrawing cash before transport, meals, or day routes."
     },
-    "image": "https://placehold.co/1200x800?text=ATM",
-    "gallery": [],
+    "image": "/assets/service/sections/atms.svg",
+    "gallery": [
+      "/assets/service/sections/atms.svg"
+    ],
     "address": "Nukus center",
     "city": "Nukus",
     "phoneNumbers": [],
@@ -162,8 +168,10 @@
       "ru": "A city-base accommodation option for museum visitors and travelers starting longer Karakalpakstan routes.",
       "en": "A city-base accommodation option for museum visitors and travelers starting longer Karakalpakstan routes."
     },
-    "image": "https://placehold.co/1200x800?text=Nukus+Hotel",
-    "gallery": [],
+    "image": "/assets/service/sections/hotels.svg",
+    "gallery": [
+      "/assets/service/sections/hotels.svg"
+    ],
     "address": "Central Nukus",
     "city": "Nukus",
     "phoneNumbers": [
@@ -211,8 +219,10 @@
       "ru": "An atmospheric historic complex that blends sacred history, local memory, and a strong sense of place.",
       "en": "An atmospheric historic complex that blends sacred history, local memory, and a strong sense of place."
     },
-    "image": "https://placehold.co/1200x800?text=Mizdakhan",
-    "gallery": [],
+    "image": "/assets/service/sections/history-and-culture.svg",
+    "gallery": [
+      "/assets/service/sections/history-and-culture.svg"
+    ],
     "address": "Near Xojeli, Karakalpakstan",
     "city": "Xojeli",
     "phoneNumbers": [],
@@ -257,8 +267,10 @@
       "ru": "A practical taxi dispatch option for quick city rides, station pickups, and hotel transfers in Nukus.",
       "en": "A practical taxi dispatch option for quick city rides, station pickups, and hotel transfers in Nukus."
     },
-    "image": "https://placehold.co/1200x800?text=Nukus+Taxi",
-    "gallery": [],
+    "image": "/assets/service/sections/taxi.svg",
+    "gallery": [
+      "/assets/service/sections/taxi.svg"
+    ],
     "address": "Nukus city dispatch",
     "city": "Nukus",
     "phoneNumbers": [
@@ -309,8 +321,10 @@
       "ru": "A practical hospital reference for urgent situations, basic medical support, and quick routing during travel.",
       "en": "A practical hospital reference for urgent situations, basic medical support, and quick routing during travel."
     },
-    "image": "https://placehold.co/1200x800?text=Emergency+Hospital",
-    "gallery": [],
+    "image": "/assets/service/sections/hospitals.svg",
+    "gallery": [
+      "/assets/service/sections/hospitals.svg"
+    ],
     "address": "Nukus city medical district",
     "city": "Nukus",
     "phoneNumbers": [
@@ -363,8 +377,10 @@
       "ru": "A practical option for travelers who want a local-style lunch between museum visits and city walking.",
       "en": "A practical option for travelers who want a local-style lunch between museum visits and city walking."
     },
-    "image": "https://placehold.co/1200x800?text=Nukus+Lunch",
-    "gallery": [],
+    "image": "/assets/service/sections/restaurants.svg",
+    "gallery": [
+      "/assets/service/sections/restaurants.svg"
+    ],
     "address": "Near Nukus central bazaar",
     "city": "Nukus",
     "phoneNumbers": [],
@@ -409,8 +425,10 @@
       "ru": "A practical support point for travelers who need intercity transport coordination across the main Karakalpakstan tourism flow.",
       "en": "A practical support point for travelers who need intercity transport coordination across the main Karakalpakstan tourism flow."
     },
-    "image": "https://placehold.co/1200x800?text=Regional+Transfer",
-    "gallery": [],
+    "image": "/assets/service/sections/services.svg",
+    "gallery": [
+      "/assets/service/sections/services.svg"
+    ],
     "address": "Nukus transport support desk",
     "city": "Nukus",
     "phoneNumbers": [
@@ -461,8 +479,10 @@
       "ru": "A flagship museum in Nukus with one of the region's most memorable collections for culture-first visitors.",
       "en": "A flagship museum in Nukus with one of the region's most memorable collections for culture-first visitors."
     },
-    "image": "https://placehold.co/1200x800?text=Savitsky+Museum",
-    "gallery": [],
+    "image": "/assets/service/sections/museums-and-exhibitions.svg",
+    "gallery": [
+      "/assets/service/sections/museums-and-exhibitions.svg"
+    ],
     "address": "Nukus city center",
     "city": "Nukus",
     "phoneNumbers": [
@@ -509,8 +529,10 @@
       "ru": "A simple planning support contact for travelers who want to turn a generated route into a practical day plan with stops, timing, and local tips.",
       "en": "A simple planning support contact for travelers who want to turn a generated route into a practical day plan with stops, timing, and local tips."
     },
-    "image": "https://placehold.co/1200x800?text=Route+Concierge",
-    "gallery": [],
+    "image": "/assets/service/sections/services.svg",
+    "gallery": [
+      "/assets/service/sections/services.svg"
+    ],
     "address": "Remote support based in Nukus",
     "city": "Nukus",
     "phoneNumbers": [
@@ -561,8 +583,10 @@
       "ru": "A practical companion stop to Ayaz Kala for travelers interested in archaeology, ruins, and heritage landscapes.",
       "en": "A practical companion stop to Ayaz Kala for travelers interested in archaeology, ruins, and heritage landscapes."
     },
-    "image": "https://placehold.co/1200x800?text=Topraq+Kala",
-    "gallery": [],
+    "image": "/assets/service/sections/sightseeing.svg",
+    "gallery": [
+      "/assets/service/sections/sightseeing.svg"
+    ],
     "address": "Ellikqala district",
     "city": "Ellikqala",
     "phoneNumbers": [],
@@ -607,8 +631,10 @@
       "ru": "A nature-heavy stop suited to travelers who want a more remote landscape experience beyond city visits.",
       "en": "A nature-heavy stop suited to travelers who want a more remote landscape experience beyond city visits."
     },
-    "image": "https://placehold.co/1200x800?text=Ustyurt+Plateau",
-    "gallery": [],
+    "image": "/assets/service/sections/nature.svg",
+    "gallery": [
+      "/assets/service/sections/nature.svg"
+    ],
     "address": "Qonirat direction, Karakalpakstan",
     "city": "Qonirat",
     "phoneNumbers": [],
@@ -653,8 +679,10 @@
       "ru": "A memorable historic landmark with wide desert views and strong storytelling value for heritage-focused travelers.",
       "en": "A memorable historic landmark with wide desert views and strong storytelling value for heritage-focused travelers."
     },
-    "image": "https://placehold.co/1200x800?text=Chilpik+Dakhma",
-    "gallery": [],
+    "image": "/assets/service/sections/history-and-culture.svg",
+    "gallery": [
+      "/assets/service/sections/history-and-culture.svg"
+    ],
     "address": "Xojeli district, Karakalpakstan",
     "city": "Xojeli",
     "phoneNumbers": [],
@@ -699,8 +727,10 @@
       "ru": "A simple natural stop for travelers who want a softer contrast to the desert and fortress route landscapes.",
       "en": "A simple natural stop for travelers who want a softer contrast to the desert and fortress route landscapes."
     },
-    "image": "https://placehold.co/1200x800?text=Amu+Darya",
-    "gallery": [],
+    "image": "/assets/service/sections/nature.svg",
+    "gallery": [
+      "/assets/service/sections/nature.svg"
+    ],
     "address": "River outlook near Nukus",
     "city": "Nukus",
     "phoneNumbers": [],
@@ -745,8 +775,10 @@
       "ru": "A practical dining option for travelers making the longer trip to Moynaq and wanting a reliable food stop nearby.",
       "en": "A practical dining option for travelers making the longer trip to Moynaq and wanting a reliable food stop nearby."
     },
-    "image": "https://placehold.co/1200x800?text=Moynaq+Kitchen",
-    "gallery": [],
+    "image": "/assets/service/sections/restaurants.svg",
+    "gallery": [
+      "/assets/service/sections/restaurants.svg"
+    ],
     "address": "Moynaq center",
     "city": "Moynaq",
     "phoneNumbers": [
@@ -793,8 +825,10 @@
       "ru": "A route-focused guest house option for travelers spending more time around Moynaq and nearby landscapes.",
       "en": "A route-focused guest house option for travelers spending more time around Moynaq and nearby landscapes."
     },
-    "image": "https://placehold.co/1200x800?text=Moynaq+Guest+House",
-    "gallery": [],
+    "image": "/assets/service/sections/hotels.svg",
+    "gallery": [
+      "/assets/service/sections/hotels.svg"
+    ],
     "address": "Moynaq center",
     "city": "Moynaq",
     "phoneNumbers": [
@@ -841,8 +875,10 @@
       "ru": "A regional taxi contact that is more suitable for longer trips outside the city, including fortress and Moynaq directions.",
       "en": "A regional taxi contact that is more suitable for longer trips outside the city, including fortress and Moynaq directions."
     },
-    "image": "https://placehold.co/1200x800?text=Regional+Taxi",
-    "gallery": [],
+    "image": "/assets/service/sections/taxi.svg",
+    "gallery": [
+      "/assets/service/sections/taxi.svg"
+    ],
     "address": "Nukus transfer point",
     "city": "Nukus",
     "phoneNumbers": [
@@ -890,8 +926,10 @@
       "ru": "A strong museum visit for travelers who want a broader understanding of Karakalpakstan before heading out on longer routes.",
       "en": "A strong museum visit for travelers who want a broader understanding of Karakalpakstan before heading out on longer routes."
     },
-    "image": "https://placehold.co/1200x800?text=State+Museum",
-    "gallery": [],
+    "image": "/assets/service/sections/museums-and-exhibitions.svg",
+    "gallery": [
+      "/assets/service/sections/museums-and-exhibitions.svg"
+    ],
     "address": "Nukus city center",
     "city": "Nukus",
     "phoneNumbers": [],

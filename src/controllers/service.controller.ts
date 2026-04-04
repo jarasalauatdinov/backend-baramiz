@@ -5,7 +5,9 @@ import {
   adminServiceSectionBodySchema,
   adminServiceSectionIdParamsSchema,
   adminServiceSectionSlugParamsSchema,
+  serviceItemDetailQuerySchema,
   serviceItemsQuerySchema,
+  serviceSectionDetailQuerySchema,
   serviceSectionItemParamsSchema,
   serviceSectionsQuerySchema,
   serviceSectionSlugParamsSchema,
@@ -26,16 +28,19 @@ import {
   updateServiceSection,
 } from "../services/services.service";
 import { AppError } from "../utils/app-error";
+import { resolveRequestLanguage } from "../utils/request-language";
 
 export const listServiceSections = (request: Request, response: Response): void => {
   const query = serviceSectionsQuerySchema.parse(request.query);
-  response.json({ items: getServiceSections(query.type, query.language) });
+  const language = resolveRequestLanguage(request, query.language);
+  response.json({ items: getServiceSections(query.type, language) });
 };
 
 export const getServiceSection = (request: Request, response: Response): void => {
   const params = serviceSectionSlugParamsSchema.parse(request.params);
-  const query = serviceSectionsQuerySchema.parse(request.query);
-  const section = getServiceSectionBySlug(params.slug, query.language);
+  const query = serviceSectionDetailQuerySchema.parse(request.query);
+  const language = resolveRequestLanguage(request, query.language);
+  const section = getServiceSectionBySlug(params.slug, language);
 
   if (!section) {
     throw new AppError(404, "Service section not found");
@@ -47,13 +52,15 @@ export const getServiceSection = (request: Request, response: Response): void =>
 export const listServiceSectionItems = (request: Request, response: Response): void => {
   const params = serviceSectionSlugParamsSchema.parse(request.params);
   const query = serviceItemsQuerySchema.parse(request.query);
-  response.json({ items: getServiceItemsBySection(params.slug, query) });
+  const language = resolveRequestLanguage(request, query.language);
+  response.json({ items: getServiceItemsBySection(params.slug, { ...query, language }) });
 };
 
 export const getServiceSectionItem = (request: Request, response: Response): void => {
   const params = serviceSectionItemParamsSchema.parse(request.params);
-  const query = serviceItemsQuerySchema.parse(request.query);
-  const item = getServiceItemBySectionAndSlug(params.slug, params.itemSlug, query.language);
+  const query = serviceItemDetailQuerySchema.parse(request.query);
+  const language = resolveRequestLanguage(request, query.language);
+  const item = getServiceItemBySectionAndSlug(params.slug, params.itemSlug, language);
 
   if (!item) {
     throw new AppError(404, "Service item not found");

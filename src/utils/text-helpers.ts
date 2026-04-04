@@ -94,22 +94,158 @@ export const localizeMultilingualText = (
   return localize(language, value);
 };
 
-export const getLocalizedPlaceName = (place: Place, language: Language): string => {
-  return localize(language, {
-    kaa: place.name_kaa || place.name || place.name_uz || place.name_en,
-    uz: place.name_uz || place.name || place.name_en,
-    ru: place.name_ru || place.name || place.name_uz,
-    en: place.name_en || place.name || place.name_uz,
+const getMeaningfulLocalizedString = (
+  value: MultilingualText | undefined,
+  language: Language,
+): string | undefined => {
+  if (!value) {
+    return undefined;
+  }
+
+  const localizedValue = coerceLocalizedString(value[language]);
+
+  if (!localizedValue) {
+    return undefined;
+  }
+
+  if (language === "en") {
+    return localizedValue;
+  }
+
+  const englishValue = coerceLocalizedString(value.en);
+
+  if (!englishValue) {
+    return localizedValue;
+  }
+
+  return normalizeText(localizedValue) === normalizeText(englishValue) ? undefined : localizedValue;
+};
+
+export const localizeOptionalMultilingualText = (
+  value: MultilingualText | undefined,
+  language: Language,
+): string | undefined => {
+  if (language === "en") {
+    return localizeMultilingualText(value, "en");
+  }
+
+  return getMeaningfulLocalizedString(value, language);
+};
+
+export const getConsistentMultilingualLanguage = (
+  requestedLanguage: Language,
+  values: Array<MultilingualText | undefined>,
+): Language => {
+  if (requestedLanguage === "en") {
+    return "en";
+  }
+
+  const hasRequestedLanguageContent = values.every((value) => {
+    return !value || Boolean(getMeaningfulLocalizedString(value, requestedLanguage));
   });
+
+  if (hasRequestedLanguageContent) {
+    return requestedLanguage;
+  }
+
+  const hasUzContent = values.every((value) => {
+    return !value || Boolean(getMeaningfulLocalizedString(value, "uz"));
+  });
+
+  if (hasUzContent) {
+    return "uz";
+  }
+
+  return "en";
+};
+
+const placeTextByLanguage = (place: Place, field: "name" | "description"): Record<Language, string | undefined> => {
+  if (field === "name") {
+    return {
+      kaa: place.name_kaa,
+      uz: place.name_uz,
+      ru: place.name_ru,
+      en: place.name_en,
+    };
+  }
+
+  return {
+    kaa: place.description_kaa,
+    uz: place.description_uz,
+    ru: place.description_ru,
+    en: place.description_en,
+  };
+};
+
+const getMeaningfulPlaceField = (
+  place: Place,
+  field: "name" | "description",
+  language: Language,
+): string | undefined => {
+  const values = placeTextByLanguage(place, field);
+  const localizedValue = coerceLocalizedString(values[language]);
+
+  if (!localizedValue) {
+    return undefined;
+  }
+
+  if (language === "en") {
+    return localizedValue;
+  }
+
+  const englishValue = coerceLocalizedString(values.en);
+
+  if (!englishValue) {
+    return localizedValue;
+  }
+
+  return normalizeText(localizedValue) === normalizeText(englishValue) ? undefined : localizedValue;
+};
+
+export const getConsistentPlaceLanguage = (place: Place, requestedLanguage: Language): Language => {
+  if (requestedLanguage === "en") {
+    return "en";
+  }
+
+  const hasRequestedLanguageContent = ["name", "description"].every((field) => {
+    return Boolean(getMeaningfulPlaceField(place, field as "name" | "description", requestedLanguage));
+  });
+
+  if (hasRequestedLanguageContent) {
+    return requestedLanguage;
+  }
+
+  const hasUzContent = ["name", "description"].every((field) => {
+    return Boolean(getMeaningfulPlaceField(place, field as "name" | "description", "uz"));
+  });
+
+  if (hasUzContent) {
+    return "uz";
+  }
+
+  return "en";
+};
+
+export const getLocalizedPlaceName = (place: Place, language: Language): string => {
+  const values = placeTextByLanguage(place, "name");
+
+  return values[language]
+    || values.uz
+    || values.en
+    || values.ru
+    || values.kaa
+    || place.name;
 };
 
 export const getLocalizedPlaceDescription = (place: Place, language: Language): string => {
-  return localize(language, {
-    kaa: place.description_kaa || place.description || place.description_uz || place.description_en,
-    uz: place.description_uz || place.description || place.description_en,
-    ru: place.description_ru || place.description || place.description_uz,
-    en: place.description_en || place.description || place.description_uz,
-  });
+  const values = placeTextByLanguage(place, "description");
+
+  return values[language]
+    || values.uz
+    || values.en
+    || values.ru
+    || values.kaa
+    || place.description;
 };
 
 export const localizePlace = (place: Place, language: Language): Place => {
