@@ -37,8 +37,15 @@ const PLACE_CATEGORY_IMAGE_FALLBACKS: Record<CategoryId, string> = {
   adventure: "/assets/service/sections/sightseeing.svg",
   food: "/assets/service/sections/restaurants.svg",
 };
+const UNRELIABLE_IMAGE_HOST_PATTERNS = [
+  /^https?:\/\/encrypted-tbn0\.gstatic\.com\//i,
+  /^https?:\/\/pbs\.twimg\.com\/media\//i,
+];
 const isPlaceholderImageUrl = (value: string | undefined): boolean => {
   return Boolean(value && /^https?:\/\/placehold\.co\//i.test(value.trim()));
+};
+const isUnreliableImageUrl = (value: string | undefined): boolean => {
+  return Boolean(value && UNRELIABLE_IMAGE_HOST_PATTERNS.some((pattern) => pattern.test(value.trim())));
 };
 
 const normalizeOptionalString = (value: string | undefined | null): string | undefined => {
@@ -53,6 +60,13 @@ const normalizeOptionalString = (value: string | undefined | null): string | und
 const uniqueNonEmptyStrings = (values: Array<string | undefined>): string[] => {
   return Array.from(new Set(values.map((value) => normalizeOptionalString(value)).filter((value): value is string => Boolean(value))));
 };
+const normalizeGalleryImages = (gallery: Array<string | undefined>, fallbackImage: string): string[] => {
+  const normalizedGallery = uniqueNonEmptyStrings(gallery).filter((value) => {
+    return !isPlaceholderImageUrl(value) && !isUnreliableImageUrl(value);
+  });
+
+  return normalizedGallery.length > 0 ? normalizedGallery : [fallbackImage];
+};
 
 const normalizeStoredShortDescription = (value: string | undefined, fallbackDescription: string): string => {
   const trimmedValue = normalizeOptionalString(value);
@@ -66,10 +80,12 @@ const normalizeStoredShortDescription = (value: string | undefined, fallbackDesc
 
 const normalizeStoredPlace = (place: Place): Place => {
   const fallbackImage = PLACE_CATEGORY_IMAGE_FALLBACKS[place.category];
-  const image = !normalizeOptionalString(place.image) || isPlaceholderImageUrl(place.image)
+  const image = !normalizeOptionalString(place.image)
+    || isPlaceholderImageUrl(place.image)
+    || isUnreliableImageUrl(place.image)
     ? fallbackImage
     : place.image.trim();
-  const gallery = uniqueNonEmptyStrings(place.gallery);
+  const gallery = normalizeGalleryImages(place.gallery, image);
   const tags = uniqueNonEmptyStrings(place.tags);
   const fallbackDescription = normalizeOptionalString(place.description_en)
     || normalizeOptionalString(place.description_uz)
@@ -82,7 +98,7 @@ const normalizeStoredPlace = (place: Place): Place => {
     shortDescription: normalizeStoredShortDescription(place.shortDescription, fallbackDescription),
     address: normalizeOptionalString(place.address),
     image,
-    gallery: gallery.length > 0 ? gallery : [image],
+    gallery,
     tags: tags.length > 0 ? tags : [place.category, place.city, place.region],
     workingHours: normalizeOptionalString(place.workingHours),
     price: normalizeOptionalString(place.price),
@@ -254,7 +270,8 @@ export const getPublicPlaces = (filters: PlaceFilters = {}): PublicPlace[] => {
 };
 
 export const getPublicPlaceById = (id: string, language: Language = "en"): PublicPlace | undefined => {
-  const place = loadPlaces().find((item) => item.id === id);
+  const normalizedId = normalizeText(id);
+  const place = loadPlaces().find((item) => item.id === id || normalizeText(item.slug) === normalizedId);
   return place ? toPublicPlace(localizeStoredPlace(place, language)) : undefined;
 };
 
@@ -265,7 +282,8 @@ export const getPlaces = (filters: PlaceFilters = {}): Place[] => {
 };
 
 export const getPlaceById = (id: string, language: Language = "en"): Place | undefined => {
-  const place = loadPlaces().find((item) => item.id === id);
+  const normalizedId = normalizeText(id);
+  const place = loadPlaces().find((item) => item.id === id || normalizeText(item.slug) === normalizedId);
   return place ? localizeStoredPlace(place, language) : undefined;
 };
 

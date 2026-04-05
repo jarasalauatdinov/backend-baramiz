@@ -98,7 +98,7 @@ export const buildRouteReason = ({
 
   if (place.featured) {
     return localize(language, {
-      kaa: `${place.name} tanılǵan highlight bolıp, marşruttı isenimli etedi.`,
+      kaa: `${place.name} tanılǵan highlight bolıp, marshruttı isenimli etedi.`,
       uz: `${place.name} taniqli highlight bo'lib, marshrutni ishonchli qiladi.`,
       ru: `${place.name} является заметной ключевой точкой и укрепляет маршрут.`,
       en: `${place.name} is a featured highlight, so it keeps the itinerary strong and easy to present.`,
@@ -106,7 +106,7 @@ export const buildRouteReason = ({
   }
 
   return localize(language, {
-    kaa: `${place.name} qalıp qalǵan waqıtqa say keledi hám marşruttı teńsalmaqlı etedi.`,
+    kaa: `${place.name} qalıp qalǵan waqıtqa say keledi hám marshruttı teńsalmaqlı etedi.`,
     uz: `${place.name} qolgan vaqtga mos keladi va marshrutni muvozanatli qiladi.`,
     ru: `${place.name} хорошо вписывается по времени и делает маршрут более сбалансированным.`,
     en: `${place.name} fits the remaining time well and keeps the route balanced.`,

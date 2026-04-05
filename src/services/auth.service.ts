@@ -123,13 +123,13 @@ const parseBearerToken = (authorizationHeader?: string): string => {
     throw new AppError(401, "Authentication required");
   }
 
-  const [scheme, token] = authorizationHeader.split(" ");
+  const matchedToken = authorizationHeader.trim().match(/^Bearer\s+(.+)$/i)?.[1]?.trim();
 
-  if (!scheme || scheme.toLowerCase() !== "bearer" || !token?.trim()) {
+  if (!matchedToken) {
     throw new AppError(401, "Use a Bearer token in the Authorization header");
   }
 
-  return token.trim();
+  return matchedToken;
 };
 
 export const registerUser = (input: {

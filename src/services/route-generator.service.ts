@@ -1,4 +1,4 @@
-import {
+﻿import {
   ROUTE_CITY_CLUSTERS,
   ROUTE_DURATION_MINUTES,
   ROUTE_IDEAL_STOP_COUNT,
@@ -122,6 +122,19 @@ const buildCandidatePlaces = (
   });
 };
 
+const resolveRequestedInterests = (candidatePlaces: Place[], requestedInterests: CategoryId[]): CategoryId[] => {
+  if (requestedInterests.length > 0) {
+    return requestedInterests;
+  }
+
+  const rankedCategories = [...candidatePlaces]
+    .sort((left, right) => Number(right.featured) - Number(left.featured) || left.duration - right.duration)
+    .map((place) => place.category)
+    .filter((category, index, sourceCategories) => sourceCategories.indexOf(category) === index);
+
+  return rankedCategories.slice(0, 2);
+};
+
 export const generateRoute = (input: RouteGenerationInput): GeneratedRoute => {
   const resolvedCity = resolveKnownCityName(input.city);
 
@@ -136,6 +149,7 @@ export const generateRoute = (input: RouteGenerationInput): GeneratedRoute => {
   }
 
   const candidatePlaces = buildCandidatePlaces(resolvedCity, input, requestedCityPlaces);
+  const interests = resolveRequestedInterests(candidatePlaces, input.interests);
   const totalBudgetMinutes = ROUTE_DURATION_MINUTES[input.duration];
   const usedCategories = new Set<CategoryId>();
   const routeStops: GeneratedRoute["stops"] = [];
@@ -157,7 +171,7 @@ export const generateRoute = (input: RouteGenerationInput): GeneratedRoute => {
           score: scoreCandidate({
             place,
             resolvedCity,
-            interests: input.interests,
+            interests,
             duration: input.duration,
             remainingMinutes: totalBudgetMinutes - elapsedMinutes,
             usedCategories,
@@ -199,7 +213,7 @@ export const generateRoute = (input: RouteGenerationInput): GeneratedRoute => {
       ...toRouteStop(nextCandidate.place, routeStops.length + 1),
       description: buildRouteReason({
         place: nextCandidate.place,
-        interests: input.interests,
+        interests,
         language: input.language,
         requestedCity: resolvedCity,
         transferMinutes: nextCandidate.transferMinutes,
@@ -221,19 +235,19 @@ export const generateRoute = (input: RouteGenerationInput): GeneratedRoute => {
   const endMinutes = timeToMinutes(ROUTE_START_TIME) + elapsedMinutes;
   const formattedEndTime = formatClockTime(endMinutes);
   const formattedDuration = localize(input.language, {
-    kaa: input.duration === "3_hours" ? "3 saatlıq" : input.duration === "half_day" ? "jarım kúnlik" : "1 kúnlik",
+    kaa: input.duration === "3_hours" ? "3 saatliq" : input.duration === "half_day" ? "jarim kunlik" : "1 kunlik",
     uz: input.duration === "3_hours" ? "3 soatlik" : input.duration === "half_day" ? "yarim kunlik" : "1 kunlik",
     ru: input.duration === "3_hours" ? "3 часа" : input.duration === "half_day" ? "полдня" : "1 день",
     en: input.duration === "3_hours" ? "3-hour" : input.duration === "half_day" ? "half-day" : "1-day",
   });
   const localizedTitle = localize(input.language, {
-    kaa: `${resolvedCity} ushın ${formattedDuration} marshrut`,
+    kaa: `${resolvedCity} ushin ${formattedDuration} marshrut`,
     uz: `${resolvedCity} uchun ${formattedDuration} marshrut`,
     ru: `Маршрут по ${resolvedCity} на ${formattedDuration}`,
     en: `${resolvedCity} ${formattedDuration} itinerary`,
   });
   const localizedSummary = localize(input.language, {
-    kaa: `${routeStops.length} stop ${ROUTE_START_TIME} de baslanıp shamamen ${formattedEndTime} da juwmaqlanadı.`,
+    kaa: `${routeStops.length} stop ${ROUTE_START_TIME} de baslanip, shamamen ${formattedEndTime} da juwmaqlanadi.`,
     uz: `${routeStops.length} ta stop ${ROUTE_START_TIME} da boshlanib taxminan ${formattedEndTime} da yakunlanadi.`,
     ru: `${routeStops.length} остановки, старт в ${ROUTE_START_TIME} и завершение примерно в ${formattedEndTime}.`,
     en: `${routeStops.length} stops starting at ${ROUTE_START_TIME} and ending around ${formattedEndTime}.`,

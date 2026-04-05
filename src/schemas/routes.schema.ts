@@ -10,6 +10,6 @@ const routeDurationKeys = Object.keys(ROUTE_DURATION_MINUTES) as [
 export const generateRouteBodySchema = z.object({
   city: z.string().trim().min(1, "city is required"),
   duration: z.enum(routeDurationKeys).optional().default(DEFAULT_ROUTE_DURATION),
-  interests: z.array(categoryIdSchema).min(1, "at least one interest is required"),
+  interests: z.array(categoryIdSchema).optional().default([]),
   language: languageSchema.optional(),
 });

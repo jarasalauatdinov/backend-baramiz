@@ -37,6 +37,8 @@ interface ServiceItemFilters {
   language?: Language;
 }
 
+const NEARBY_PRIORITY_SECTION_SLUGS = new Set(["pharmacies", "hospitals", "atms", "taxi"]);
+
 let serviceSectionsCache: ServiceSection[] | null = null;
 let serviceItemsCache: ServiceItem[] | null = null;
 
@@ -77,7 +79,19 @@ const roundDistanceKm = (value: number): number => {
 };
 
 const formatDistanceText = (distanceKm: number): string => {
+  if (distanceKm < 1) {
+    return `${Math.round(distanceKm * 1000)} m`;
+  }
+
   return `${distanceKm.toFixed(1)} km`;
+};
+
+const createMapLinkFromCoordinates = (coordinates: Coordinates | undefined): string | undefined => {
+  if (!coordinates) {
+    return undefined;
+  }
+
+  return `https://maps.google.com/?q=${coordinates.lat},${coordinates.lng}`;
 };
 
 const normalizeServiceSection = (section: ServiceSection): ServiceSection => {
@@ -128,7 +142,7 @@ const normalizeServiceItem = (item: ServiceItem): ServiceItem => {
     city: normalizeOptionalString(item.city),
     workingHours: normalizeOptionalString(item.workingHours),
     district: normalizeOptionalString(item.district),
-    mapLink: normalizeOptionalString(item.mapLink),
+    mapLink: normalizeOptionalString(item.mapLink) ?? createMapLinkFromCoordinates(item.coordinates),
     instagram: normalizeOptionalString(item.instagram),
     telegram: normalizeOptionalString(item.telegram),
     website: normalizeOptionalString(item.website),
@@ -368,12 +382,21 @@ const applyNearbySortingAndFiltering = (
   items: ServiceItem[],
   filters: ServiceItemFilters,
 ): Array<{ item: ServiceItem; distanceKm?: number }> => {
+  const nearbyItems = filters.coordinates
+    ? items.filter((item) => item.coordinates)
+    : items;
   const withDistances = items.map((item) => ({
     item,
     distanceKm: getDistanceKm(item, filters.coordinates),
   }));
+  const candidatesWithCoordinates = filters.coordinates
+    ? nearbyItems.map((item) => ({
+        item,
+        distanceKm: getDistanceKm(item, filters.coordinates),
+      }))
+    : withDistances;
 
-  const withinRadius = withDistances.filter((candidate) => {
+  const withinRadius = candidatesWithCoordinates.filter((candidate) => {
     if (filters.radiusKm === undefined) {
       return true;
     }
@@ -516,11 +539,16 @@ export const getServiceItemsBySection = (
     throw new AppError(404, `Service section "${sectionSlug}" not found`);
   }
 
+  const sectionItems = loadServiceItems()
+    .filter((item) => item.isActive)
+    .filter((item) => item.sectionSlug === normalizedSectionSlug)
+    .filter((item) => matchesServiceItemFilters(item, filters));
+  const filteredItems = filters.coordinates && NEARBY_PRIORITY_SECTION_SLUGS.has(normalizedSectionSlug)
+    ? sectionItems.filter((item) => item.coordinates)
+    : sectionItems;
+
   return applyNearbySortingAndFiltering(
-    loadServiceItems()
-      .filter((item) => item.isActive)
-      .filter((item) => item.sectionSlug === normalizedSectionSlug)
-      .filter((item) => matchesServiceItemFilters(item, filters)),
+    filteredItems,
     filters,
   ).map((candidate) => {
     return mapServiceItemForPublic(

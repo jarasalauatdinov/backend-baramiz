@@ -22,7 +22,7 @@ These are the backend contracts the current frontend can rely on right now:
 - `GET /api/service/sections/:slug/items` for Service section item lists
 - `GET /api/service/sections/:slug/items/:itemSlug` for Service item detail screens
 - `GET /api/places` and `GET /api/places/:id` for discovery content
-- `POST /api/routes/generate` with `city`, `interests`, and `language`, while `duration` stays optional
+- `POST /api/routes/generate` with `city` and `language`, while `interests` and `duration` stay optional
 - `POST /api/auth/register`, `POST /api/auth/login`, `GET /api/auth/me`, `POST /api/auth/logout` for profile-ready flows
 
 Public discovery does not require login.
@@ -255,6 +255,7 @@ Current fallback behavior is intentionally predictable:
   - otherwise `uz` when meaningfully translated
   - otherwise `en`
 - route output uses the requested language for `title`, `summary`, and stop reasons
+- service section and category Russian labels are curated for stable localized headers in demo paths
 
 The structure is ready. Some service seed copy still needs real human translation later, but the API now avoids mixed-language payloads more carefully.
 
@@ -275,6 +276,10 @@ These are the active frontend-safe endpoints:
 - `GET /api/service/sections/:slug/items/:itemSlug`
 - `POST /api/routes/generate`
 - `POST /api/chat`
+
+Practical note:
+
+- `GET /api/places/:id` accepts either the stable place `id` or the place `slug`
 
 ## Live Demo Notes
 
@@ -299,6 +304,7 @@ Practical demo advice:
 - public discovery, Service browsing, and routes work without login
 - if a stored token fails on `/api/auth/me`, clear it locally and continue as guest
 - logout is safe as a cleanup call even if the session already expired
+- nearby utility demos look strongest on `pharmacies`, `hospitals`, and `atms`
 
 ## Service Contract Guarantees
 
@@ -374,7 +380,8 @@ Nearby behavior:
 - if `lat` and `lng` are provided, items are sorted nearest first
 - if `radiusKm` is also provided, only items within that radius are returned
 - `distanceKm` is included on each returned item when location is provided
-- items without coordinates stay out of radius filtering and sort after items with distances
+- `distanceText` is included together with `distanceKm`
+- in nearby mode, utility-first sections like `pharmacies`, `hospitals`, `atms`, and `taxi` return only items with coordinates
 - utility items need valid `coordinates` in the JSON data to participate in nearby search
 
 Example:
@@ -407,7 +414,7 @@ Example response:
         "lng": 59.6125
       },
       "distanceKm": 0.3,
-      "distanceText": "0.3 km",
+      "distanceText": "300 m",
       "serviceType": "pharmacy",
       "featured": true,
       "isActive": true,
@@ -448,18 +455,19 @@ The frontend can send this minimal body:
 ```json
 {
   "city": "Nukus",
-  "interests": ["history", "culture"],
   "language": "en"
 }
 ```
 
-`duration` is still supported, but it is optional.
+`interests` and `duration` are still supported, but both are optional.
 
 `language` can also come from `X-Language`, `X-Lang`, or `Accept-Language` if the frontend prefers a header-driven request flow.
 
 If `duration` is omitted, the backend defaults to:
 
 - `half_day`
+
+If `interests` is omitted or an empty array, the backend derives a sensible city-first route mix instead of failing the request.
 
 Supported durations when explicit control is needed:
 
@@ -513,7 +521,8 @@ Frontend UX note:
 
 Day 1 frontend rule:
 
-- send `city`, `interests`, and `language`
+- send `city` and `language`
+- optionally send `interests`
 - let the backend default `duration` unless the product explicitly needs a different trip length
 
 If the frontend uses a global language header already, it can omit `language` from the route body and let the backend resolve it from headers.
@@ -681,7 +690,7 @@ Future-ready but not fully built yet:
 - Use `GET /api/service/sections/:slug/items` for section screens.
 - Use `GET /api/service/sections/:slug/items/:itemSlug` for detail screens.
 - Use `GET /api/places` and `GET /api/places/:id` for discovery content.
-- Use `POST /api/routes/generate` with only `city`, `interests`, and `language` if the UI hides duration.
+- Use `POST /api/routes/generate` with only `city` and `language` if the UI hides duration and interests.
 - Prefer one shared frontend locale source. Either:
   - pass `language` in query/body explicitly
   - or send `X-Language` consistently from the client
@@ -712,6 +721,7 @@ Day 3 stability notes:
 
 - service section images are backed by local assets, so the Service grid does not depend on third-party placeholder hosts
 - service item placeholder images fall back to stable local section assets
+- unstable place card images fall back to stable local section assets
 - place and service responses avoid `null` optional fields in public JSON
 - active localized endpoints now support both query/body language and header-driven language resolution
 
