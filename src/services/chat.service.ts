@@ -1,4 +1,13 @@
-import type { CategoryId, ChatRequest, ChatResponse, Language, Place, RouteDuration } from "../types/tourism.types";
+import type {
+  AssistantReference,
+  AssistantCatalogSnapshot,
+  CategoryId,
+  ChatRequest,
+  ChatResponse,
+  Language,
+  Place,
+  RouteDuration,
+} from "../types/tourism.types";
 import {
   buildChatSuggestions,
   detectCityFromMessage,
@@ -11,9 +20,12 @@ import {
 } from "../utils/text-helpers";
 import { createAiChatReply, isAiProviderEnabled } from "./ai-provider.service";
 import { generateRoute } from "./route-generator.service";
-import { getAllPlaces, getFeaturedPlaces, getPlacesByCity } from "./places.service";
+import { getFeaturedPlaces, getPlacesByCity } from "./places.service";
+import { getAssistantCatalogSnapshot } from "./tourism-catalog.service";
+import { resolvePublicAssetUrl } from "../utils/url-helpers";
 
 interface ChatInsights {
+  assistantCatalog: AssistantCatalogSnapshot;
   allPlaces: Place[];
   detectedCity?: string;
   detectedDuration?: RouteDuration;
@@ -21,6 +33,33 @@ interface ChatInsights {
   detectedPlace?: Place;
   relevantPlaces: Place[];
 }
+
+const toPlaceReference = (place: Place): AssistantReference => ({
+  type: "place",
+  id: place.id,
+  slug: place.slug,
+  title: place.name,
+  subtitle: `${place.city} - ${getCategoryLabel(place.category, "en")}`,
+  image: resolvePublicAssetUrl(place.image),
+});
+
+const toServiceReference = (service: AssistantCatalogSnapshot["services"][number]): AssistantReference => ({
+  type: "service",
+  id: service.id,
+  slug: service.slug,
+  title: service.title,
+  subtitle: [service.city, service.categoryLabel].filter(Boolean).join(" - ") || service.categoryLabel,
+  image: service.image,
+});
+
+const toTourReference = (tour: AssistantCatalogSnapshot["tours"][number]): AssistantReference => ({
+  type: "tour",
+  id: tour.id,
+  slug: tour.slug,
+  title: tour.title,
+  subtitle: tour.subtitle,
+  image: tour.image,
+});
 
 const scorePlace = (
   place: Place,
@@ -74,7 +113,8 @@ const buildRelevantContext = (
 };
 
 const buildInsights = (input: ChatRequest): ChatInsights => {
-  const allPlaces = getAllPlaces(input.language);
+  const assistantCatalog = getAssistantCatalogSnapshot(input.language);
+  const allPlaces = assistantCatalog.places;
   const detectedCity = detectCityFromMessage(input.message, allPlaces);
   const detectedDuration = detectDurationFromMessage(input.message);
   const detectedInterests = detectInterestsFromMessage(input.message);
@@ -82,6 +122,7 @@ const buildInsights = (input: ChatRequest): ChatInsights => {
   const relevantPlaces = buildRelevantContext(allPlaces, detectedCity, detectedInterests, detectedPlace);
 
   return {
+    assistantCatalog,
     allPlaces,
     detectedCity,
     detectedDuration,
@@ -91,12 +132,40 @@ const buildInsights = (input: ChatRequest): ChatInsights => {
   };
 };
 
+const buildAssistantReferences = (language: Language, insights: ChatInsights): AssistantReference[] => {
+  const normalizedDetectedCity = insights.detectedCity?.toLowerCase();
+  const detectedInterestLabels = new Set(insights.detectedInterests.map((interest) => getCategoryLabel(interest, language).toLowerCase()));
+  const placeReferences = insights.relevantPlaces
+    .slice(0, 2)
+    .map((place) => ({
+      ...toPlaceReference(place),
+      subtitle: `${place.city} - ${getCategoryLabel(place.category, language)}`,
+    }));
+  const tourReferences = insights.assistantCatalog.tours
+    .filter((tour) => !normalizedDetectedCity || tour.city.toLowerCase() === normalizedDetectedCity)
+    .slice(0, 2)
+    .map(toTourReference);
+  const serviceReferences = insights.assistantCatalog.services
+    .filter((service) => {
+      if (normalizedDetectedCity && service.city?.toLowerCase() === normalizedDetectedCity) {
+        return true;
+      }
+
+      return service.categoryLabel ? detectedInterestLabels.has(service.categoryLabel.toLowerCase()) : false;
+    })
+    .slice(0, 2)
+    .map(toServiceReference);
+
+  return [...placeReferences, ...tourReferences, ...serviceReferences].slice(0, 6);
+};
+
 const buildPromptInstructions = (): string[] => {
   return [
     "Answer as a Baramiz travel assistant for Karakalpakstan.",
     "Keep the answer short, practical, and tourism-focused.",
-    "Prefer the provided local places over generic advice.",
-    "Use exact local place names from the context when possible.",
+    "Prefer the provided local places, services, and tours over generic advice.",
+    "Use exact place, service, and tour names from the context when possible.",
+    "Do not suggest unsupported products or unavailable bookings.",
     "If the request is vague, ask for city or available time in one short sentence.",
   ];
 };
@@ -148,14 +217,14 @@ const buildSpecificPlaceReply = (language: Language, place: Place, allPlaces: Pl
   });
 };
 
-const buildRouteReply = (
+const buildRouteReply = async (
   language: Language,
   city: string,
   duration: RouteDuration,
   detectedInterests: CategoryId[],
-): string | null => {
+): Promise<string | null> => {
   try {
-    const route = generateRoute({
+    const route = await generateRoute({
       city,
       duration,
       interests: resolvePreferredInterests(city, detectedInterests, language),
@@ -248,7 +317,7 @@ const buildGeneralReply = (language: Language): string => {
   });
 };
 
-const buildFallbackReply = (language: Language, insights: ChatInsights): string => {
+const buildFallbackReply = async (language: Language, insights: ChatInsights): Promise<string> => {
   const { allPlaces, detectedCity, detectedDuration, detectedInterests, detectedPlace } = insights;
 
   if (detectedPlace) {
@@ -256,7 +325,7 @@ const buildFallbackReply = (language: Language, insights: ChatInsights): string 
   }
 
   if (detectedCity && detectedDuration) {
-    const routeReply = buildRouteReply(language, detectedCity, detectedDuration, detectedInterests);
+    const routeReply = await buildRouteReply(language, detectedCity, detectedDuration, detectedInterests);
 
     if (routeReply) {
       return routeReply;
@@ -276,13 +345,18 @@ const buildFallbackReply = (language: Language, insights: ChatInsights): string 
 
 export const replyToChat = async (input: ChatRequest): Promise<ChatResponse> => {
   const insights = buildInsights(input);
+  const references = buildAssistantReferences(input.language, insights);
 
   if (isAiProviderEnabled()) {
     try {
       const providerReply = await createAiChatReply({
         message: input.message,
         language: input.language,
-        contextPlaces: insights.relevantPlaces,
+        context: {
+          places: insights.relevantPlaces,
+          services: insights.assistantCatalog.services,
+          tours: insights.assistantCatalog.tours,
+        },
         instructions: buildPromptInstructions(),
       });
 
@@ -291,6 +365,7 @@ export const replyToChat = async (input: ChatRequest): Promise<ChatResponse> => 
           reply: providerReply,
           source: "openai",
           suggestions: buildChatSuggestions(input.language),
+          references,
         };
       }
     } catch (error) {
@@ -299,8 +374,9 @@ export const replyToChat = async (input: ChatRequest): Promise<ChatResponse> => 
   }
 
   return {
-    reply: buildFallbackReply(input.language, insights),
+    reply: await buildFallbackReply(input.language, insights),
     source: "fallback",
     suggestions: buildChatSuggestions(input.language),
+    references,
   };
 };

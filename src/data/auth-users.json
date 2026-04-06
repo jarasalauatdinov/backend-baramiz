@@ -5,5 +5,12 @@
     "email": "jarasalauatdindfsfov@gmail.com",
     "passwordHash": "85698f0a54dd5788bdfb4ef07a83fd6d:4813cced7d0ec75ce97cd0db0366b1fc6e2b6b5749bf503f36b37259c72607bbbcd4098633e696647ad30692e43ddaabc5a58741151e83ec86909eb613931ca6",
     "createdAt": "2026-04-04T08:57:20.701Z"
+  },
+  {
+    "id": "9f9410e6-d04d-4459-b0bb-914271e8fa80",
+    "name": "Jaras",
+    "email": "jarasalauatdinov12@gmail.com",
+    "passwordHash": "16b0c3a904fa56a51549dac63296c6d3:131555d348dd8cfbe3cea68a48e0da36cfdf7aeffda341a3bbbe66b135ca5407fdf73b35aae370db961e9d4800b7128f782d516be6fc9e09b67c2c1d96c9eea6",
+    "createdAt": "2026-04-05T06:34:28.181Z"
   }
 ]

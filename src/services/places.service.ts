@@ -16,6 +16,7 @@ import { readJsonFile, writeJsonFile } from "../utils/json-storage";
 import { calculateDistanceKm } from "../utils/route-helpers";
 import {
   createShortDescription,
+  getCategoryLabel,
   getConsistentPlaceLanguage,
   getLocalizedPlaceDescription,
   localizePlace,
@@ -121,15 +122,18 @@ const savePlaces = (places: Place[]): Place[] => {
   return placesCache;
 };
 
-const toPublicPlace = (place: Place): PublicPlace => ({
+const toPublicPlace = (place: Place, language: Language = "en"): PublicPlace => ({
   id: place.id,
   slug: place.slug,
   city: place.city,
   region: place.region,
   category: place.category,
+  categoryLabel: getCategoryLabel(place.category, language),
   name: place.name,
   description: place.description,
   shortDescription: place.shortDescription,
+  excerpt: place.shortDescription,
+  subtitle: `${place.city} - ${getCategoryLabel(place.category, language)}`,
   address: place.address,
   coordinates: place.coordinates,
   duration: place.duration,
@@ -266,13 +270,13 @@ export const getPublicPlaces = (filters: PlaceFilters = {}): PublicPlace[] => {
   return loadPlaces()
     .filter((place) => matchesFilters(place, filters))
     .map((place) => localizeStoredPlace(place, filters.language))
-    .map(toPublicPlace);
+    .map((place) => toPublicPlace(place, filters.language));
 };
 
 export const getPublicPlaceById = (id: string, language: Language = "en"): PublicPlace | undefined => {
   const normalizedId = normalizeText(id);
   const place = loadPlaces().find((item) => item.id === id || normalizeText(item.slug) === normalizedId);
-  return place ? toPublicPlace(localizeStoredPlace(place, language)) : undefined;
+  return place ? toPublicPlace(localizeStoredPlace(place, language), language) : undefined;
 };
 
 export const getPlaces = (filters: PlaceFilters = {}): Place[] => {

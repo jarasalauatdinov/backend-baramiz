@@ -3,6 +3,7 @@ import { CATEGORY_IDS, LANGUAGE_CODES, ROUTE_DURATION_MINUTES } from "../constan
 export type CategoryId = (typeof CATEGORY_IDS)[number];
 export type Language = (typeof LANGUAGE_CODES)[number];
 export type RouteDuration = keyof typeof ROUTE_DURATION_MINUTES;
+export type RouteGenerationMode = "ai_enriched" | "deterministic";
 
 export interface LocalizedValue<T> {
   kaa?: T;
@@ -16,6 +17,13 @@ export interface MultilingualText {
   uz: string;
   ru: string;
   en: string;
+}
+
+export interface MultilingualStringList {
+  kaa: string[];
+  uz: string[];
+  ru: string[];
+  en: string[];
 }
 
 export type MultilingualTextInput = string | Partial<Record<Language, string>>;
@@ -81,9 +89,12 @@ export interface PublicPlace {
   city: string;
   region: string;
   category: CategoryId;
+  categoryLabel: string;
   name: string;
   description: string;
   shortDescription: string;
+  excerpt: string;
+  subtitle: string;
   address?: string;
   coordinates: Coordinates;
   duration: number;
@@ -177,6 +188,8 @@ export interface ServiceSectionCard {
   order: number;
   isActive: boolean;
   shortDescription?: string;
+  excerpt?: string;
+  subtitle?: string;
   description?: string;
   icon?: string;
   type?: ServiceSectionType;
@@ -217,7 +230,10 @@ export interface PublicServiceItem {
   sectionSlug: string;
   slug: string;
   title: string;
+  categoryLabel: string;
   shortDescription?: string;
+  excerpt?: string;
+  subtitle?: string;
   description?: string;
   image?: string;
   gallery: string[];
@@ -239,6 +255,59 @@ export interface PublicServiceItem {
   featured: boolean;
   isActive: boolean;
   metadata: ServiceMetadata;
+}
+
+export interface TourStopPreview {
+  id: string;
+  slug: string;
+  name: string;
+  city: string;
+  category: CategoryId;
+  image: string;
+}
+
+export interface TourRecord {
+  id: string;
+  slug: string;
+  city: string;
+  title: MultilingualText;
+  shortDescription: MultilingualText;
+  image: string;
+  durationLabel: MultilingualText;
+  type: string;
+  priceLabel?: MultilingualText;
+  featured: boolean;
+  bookingReady: boolean;
+  includedItems: MultilingualStringList;
+  placeIds: string[];
+}
+
+export interface TourProduct {
+  id: string;
+  slug: string;
+  city: string;
+  title: string;
+  shortDescription: string;
+  excerpt: string;
+  subtitle: string;
+  image: string;
+  gallery: string[];
+  durationLabel: string;
+  type: string;
+  categoryLabel: string;
+  priceLabel?: string;
+  featured: boolean;
+  bookingReady: boolean;
+  includedItems: string[];
+  placeIds: string[];
+  stops: TourStopPreview[];
+}
+
+export interface AssistantCatalogSnapshot {
+  places: Place[];
+  featuredPlaces: Place[];
+  services: PublicServiceItem[];
+  tours: TourProduct[];
 }
 
 export interface AdminServiceSectionInput {
@@ -316,8 +385,10 @@ export interface GeneratedRoute {
   city: string;
   language: Language;
   duration: RouteDuration;
+  mode: RouteGenerationMode;
   title: string;
   summary: string;
+  tips: string[];
   totalDurationMinutes: number;
   stops: RouteStop[];
 }
@@ -334,10 +405,20 @@ export interface ChatRequest {
   language: Language;
 }
 
+export interface AssistantReference {
+  type: "place" | "service" | "tour";
+  id: string;
+  slug: string;
+  title: string;
+  subtitle?: string;
+  image?: string;
+}
+
 export interface ChatResponse {
   reply: string;
   source: "fallback" | "openai";
   suggestions?: string[];
+  references?: AssistantReference[];
 }
 
 export interface AuthUser {

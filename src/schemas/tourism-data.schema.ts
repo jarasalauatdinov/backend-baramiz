@@ -14,6 +14,13 @@ export const multilingualTextSchema = z.object({
   en: z.string().trim().min(1),
 });
 
+export const multilingualStringListSchema = z.object({
+  kaa: z.array(z.string().trim().min(1)),
+  uz: z.array(z.string().trim().min(1)),
+  ru: z.array(z.string().trim().min(1)),
+  en: z.array(z.string().trim().min(1)),
+});
+
 const localizedTextDataSchema = z.preprocess((value) => {
   return normalizeMultilingualTextInput(value as never) ?? value;
 }, multilingualTextSchema);
@@ -185,3 +192,21 @@ export const eventDataSchema = z.object({
 });
 
 export const eventsDataSchema = z.array(eventDataSchema);
+
+export const tourDataSchema = z.object({
+  id: z.string().trim().min(1),
+  slug: z.string().trim().min(1),
+  city: z.string().trim().min(1),
+  title: localizedTextDataSchema,
+  shortDescription: localizedTextDataSchema,
+  image: z.string().trim().min(1),
+  durationLabel: localizedTextDataSchema,
+  type: z.string().trim().min(1),
+  priceLabel: optionalLocalizedTextDataSchema,
+  featured: z.boolean().default(false),
+  bookingReady: z.boolean().default(false),
+  includedItems: multilingualStringListSchema,
+  placeIds: z.array(z.string().trim().min(1)).default([]),
+});
+
+export const toursDataSchema = z.array(tourDataSchema);

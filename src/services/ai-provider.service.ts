@@ -1,7 +1,7 @@
 import OpenAI from "openai";
 import { z } from "zod";
 import { env } from "../config/env";
-import type { Language, Place, TranslationResponse } from "../types/tourism.types";
+import type { Language, Place, PublicServiceItem, TourProduct, TranslationResponse } from "../types/tourism.types";
 
 const translationResponseSchema = z.object({
   name_ru: z.string().trim().min(1),
@@ -13,7 +13,11 @@ const translationResponseSchema = z.object({
 interface ChatProviderRequest {
   message: string;
   language: Language;
-  contextPlaces: Place[];
+  context: {
+    places: Place[];
+    services: PublicServiceItem[];
+    tours: TourProduct[];
+  };
   instructions: string[];
 }
 
@@ -53,10 +57,22 @@ export const createAiChatReply = async (request: ChatProviderRequest): Promise<s
     return null;
   }
 
-  const compactContext = request.contextPlaces
+  const compactPlaces = request.context.places
     .slice(0, 6)
     .map((place) => {
       return `- ${place.name} | city: ${place.city} | category: ${place.category} | duration: ${place.duration} min | ${place.shortDescription}`;
+    })
+    .join("\n");
+  const compactServices = request.context.services
+    .slice(0, 4)
+    .map((service) => {
+      return `- ${service.title} | section: ${service.sectionSlug} | city: ${service.city ?? "unknown"} | serviceType: ${service.serviceType ?? "general"} | address: ${service.address ?? "n/a"}`;
+    })
+    .join("\n");
+  const compactTours = request.context.tours
+    .slice(0, 3)
+    .map((tour) => {
+      return `- ${tour.title} | city: ${tour.city} | duration: ${tour.durationLabel} | type: ${tour.type} | summary: ${tour.shortDescription} | stops: ${tour.stops.map((stop) => stop.name).join(", ")}`;
     })
     .join("\n");
 
@@ -73,9 +89,9 @@ export const createAiChatReply = async (request: ChatProviderRequest): Promise<s
               type: "input_text",
               text: [
                 "You are Baramiz AI, a helpful travel assistant for Karakalpakstan.",
-                "Use the supplied local place data first.",
+                "Use the supplied local place, service, and tour data first.",
                 "Reply in the requested language.",
-                "Do not invent places outside the provided context unless giving one brief general travel tip.",
+                "Do not invent places, services, or tours outside the provided context unless giving one brief general travel tip.",
                 "Keep the answer concise, practical, and tourism-focused.",
               ].join(" "),
             },
@@ -90,7 +106,9 @@ export const createAiChatReply = async (request: ChatProviderRequest): Promise<s
                 `Language: ${request.language}`,
                 `Prompt instructions:\n${promptInstructions}`,
                 `User question: ${request.message}`,
-                `Local tourism context:\n${compactContext}`,
+                `Local places:\n${compactPlaces || "- none"}`,
+                `Local services:\n${compactServices || "- none"}`,
+                `Tour ideas:\n${compactTours || "- none"}`,
               ].join("\n\n"),
             },
           ],

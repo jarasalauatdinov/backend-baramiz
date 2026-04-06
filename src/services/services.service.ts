@@ -53,6 +53,20 @@ const normalizeOptionalString = (value: string | undefined): string | undefined 
   const trimmedValue = value?.trim();
   return trimmedValue ? trimmedValue : undefined;
 };
+const titleCase = (value: string): string => {
+  return value
+    .split(/[-_\s]+/)
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+};
+const getSectionTypeLabel = (type: ServiceSectionType | undefined): string | undefined => {
+  if (!type) {
+    return undefined;
+  }
+
+  return type === "utility" ? "Utility" : "Discovery";
+};
 
 const sortSections = (sections: ServiceSection[]): ServiceSection[] => {
   return [...sections].sort((left, right) => {
@@ -167,6 +181,8 @@ const mapServiceSectionCardForClient = (section: ServiceSection): ServiceSection
   order: section.order,
   isActive: section.isActive,
   shortDescription: section.shortDescription?.en,
+  excerpt: section.shortDescription?.en,
+  subtitle: getSectionTypeLabel(section.type),
   description: section.description?.en,
   icon: section.icon,
   type: section.type,
@@ -179,6 +195,7 @@ const mapServiceSectionCardForClientLanguage = (
   ...mapServiceSectionCardForClient(section),
   title: localizeMultilingualText(section.title, language) ?? section.title.en,
   shortDescription: localizeOptionalMultilingualText(section.shortDescription, language),
+  excerpt: localizeOptionalMultilingualText(section.shortDescription, language),
   description: localizeOptionalMultilingualText(section.description, language),
 });
 
@@ -198,18 +215,27 @@ const mapServiceItemForPublic = (
   language: Language,
   distanceKm?: number,
 ): PublicServiceItem => {
+  const section = loadServiceSections().find((currentSection) => currentSection.slug === item.sectionSlug);
   const contentLanguage = getConsistentMultilingualLanguage(language, [
     item.title,
     item.shortDescription,
     item.description,
   ]);
+  const categoryLabel = section
+    ? localizeMultilingualText(section.title, language) ?? section.title.en
+    : titleCase(item.sectionSlug);
+  const excerpt = localizeMultilingualText(item.shortDescription, contentLanguage);
+  const subtitleParts = [item.city, categoryLabel].filter(Boolean);
 
   return {
     id: item.id,
     sectionSlug: item.sectionSlug,
     slug: item.slug,
     title: localizeMultilingualText(item.title, contentLanguage) ?? item.title.en,
+    categoryLabel,
     shortDescription: localizeMultilingualText(item.shortDescription, contentLanguage),
+    excerpt,
+    subtitle: subtitleParts.length > 0 ? subtitleParts.join(" - ") : undefined,
     description: localizeMultilingualText(item.description, contentLanguage),
     image: item.image ? resolvePublicAssetUrl(item.image) : undefined,
     gallery: item.gallery.map(resolvePublicAssetUrl),

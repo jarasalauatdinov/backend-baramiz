@@ -1,0 +1,162 @@
+﻿[
+  {
+    "id": "tour-nukus-art-heritage",
+    "slug": "nukus-art-heritage",
+    "city": "Nukus",
+    "title": {
+      "kaa": "Nukus art and heritage tour",
+      "uz": "Nukus art and heritage tour",
+      "ru": "Nukus art and heritage tour",
+      "en": "Nukus art and heritage tour"
+    },
+    "shortDescription": {
+      "kaa": "A compact city tour focused on museums, history, and a local market stop.",
+      "uz": "A compact city tour focused on museums, history, and a local market stop.",
+      "ru": "A compact city tour focused on museums, history, and a local market stop.",
+      "en": "A compact city tour focused on museums, history, and a local market stop."
+    },
+    "image": "/assets/service/sections/museums-and-exhibitions.svg",
+    "durationLabel": {
+      "kaa": "half-day tour",
+      "uz": "half-day tour",
+      "ru": "half-day tour",
+      "en": "half-day tour"
+    },
+    "type": "cultural",
+    "priceLabel": {
+      "kaa": "from 450000 UZS",
+      "uz": "from 450000 UZS",
+      "ru": "from 450000 UZS",
+      "en": "from 450000 UZS"
+    },
+    "featured": true,
+    "bookingReady": true,
+    "includedItems": {
+      "kaa": ["guide support", "museum entry planning", "city transfer support"],
+      "uz": ["guide support", "museum entry planning", "city transfer support"],
+      "ru": ["guide support", "museum entry planning", "city transfer support"],
+      "en": ["guide support", "museum entry planning", "city transfer support"]
+    },
+    "placeIds": ["savitsky-museum", "state-museum-karakalpakstan", "nukus-central-bazaar"]
+  },
+  {
+    "id": "tour-moynaq-aral-story",
+    "slug": "moynaq-aral-story",
+    "city": "Moynaq",
+    "title": {
+      "kaa": "Moynaq and Aral story tour",
+      "uz": "Moynaq and Aral story tour",
+      "ru": "Moynaq and Aral story tour",
+      "en": "Moynaq and Aral story tour"
+    },
+    "shortDescription": {
+      "kaa": "A practical tour combining the ship cemetery and local museum context.",
+      "uz": "A practical tour combining the ship cemetery and local museum context.",
+      "ru": "A practical tour combining the ship cemetery and local museum context.",
+      "en": "A practical tour combining the ship cemetery and local museum context."
+    },
+    "image": "/assets/service/sections/history-and-culture.svg",
+    "durationLabel": {
+      "kaa": "short tour",
+      "uz": "short tour",
+      "ru": "short tour",
+      "en": "short tour"
+    },
+    "type": "history",
+    "priceLabel": {
+      "kaa": "from 380000 UZS",
+      "uz": "from 380000 UZS",
+      "ru": "from 380000 UZS",
+      "en": "from 380000 UZS"
+    },
+    "featured": true,
+    "bookingReady": true,
+    "includedItems": {
+      "kaa": ["driver coordination", "museum stop", "photo stop planning"],
+      "uz": ["driver coordination", "museum stop", "photo stop planning"],
+      "ru": ["driver coordination", "museum stop", "photo stop planning"],
+      "en": ["driver coordination", "museum stop", "photo stop planning"]
+    },
+    "placeIds": ["moynaq-ship-cemetery", "aral-sea-museum"]
+  },
+  {
+    "id": "tour-ellikqala-fortresses",
+    "slug": "ellikqala-fortresses",
+    "city": "Ellikqala",
+    "title": {
+      "kaa": "Ellikqala fortress road tour",
+      "uz": "Ellikqala fortress road tour",
+      "ru": "Ellikqala fortress road tour",
+      "en": "Ellikqala fortress road tour"
+    },
+    "shortDescription": {
+      "kaa": "A road trip route covering the main desert fortresses in one practical loop.",
+      "uz": "A road trip route covering the main desert fortresses in one practical loop.",
+      "ru": "A road trip route covering the main desert fortresses in one practical loop.",
+      "en": "A road trip route covering the main desert fortresses in one practical loop."
+    },
+    "image": "/assets/service/sections/sightseeing.svg",
+    "durationLabel": {
+      "kaa": "full-day tour",
+      "uz": "full-day tour",
+      "ru": "full-day tour",
+      "en": "full-day tour"
+    },
+    "type": "adventure",
+    "priceLabel": {
+      "kaa": "from 900000 UZS",
+      "uz": "from 900000 UZS",
+      "ru": "from 900000 UZS",
+      "en": "from 900000 UZS"
+    },
+    "featured": true,
+    "bookingReady": true,
+    "includedItems": {
+      "kaa": ["driver support", "fortress route planning", "water stop guidance"],
+      "uz": ["driver support", "fortress route planning", "water stop guidance"],
+      "ru": ["driver support", "fortress route planning", "water stop guidance"],
+      "en": ["driver support", "fortress route planning", "water stop guidance"]
+    },
+    "placeIds": ["ayaz-kala", "topraq-kala", "kyzyl-kala"]
+  },
+  {
+    "id": "tour-xojeli-sacred-sites",
+    "slug": "xojeli-sacred-sites",
+    "city": "Xojeli",
+    "title": {
+      "kaa": "Xojeli sacred sites tour",
+      "uz": "Xojeli sacred sites tour",
+      "ru": "Xojeli sacred sites tour",
+      "en": "Xojeli sacred sites tour"
+    },
+    "shortDescription": {
+      "kaa": "A focused heritage tour combining Mizdakhan and Chilpik in one route.",
+      "uz": "A focused heritage tour combining Mizdakhan and Chilpik in one route.",
+      "ru": "A focused heritage tour combining Mizdakhan and Chilpik in one route.",
+      "en": "A focused heritage tour combining Mizdakhan and Chilpik in one route."
+    },
+    "image": "/assets/service/sections/history-and-culture.svg",
+    "durationLabel": {
+      "kaa": "half-day tour",
+      "uz": "half-day tour",
+      "ru": "half-day tour",
+      "en": "half-day tour"
+    },
+    "type": "heritage",
+    "priceLabel": {
+      "kaa": "from 520000 UZS",
+      "uz": "from 520000 UZS",
+      "ru": "from 520000 UZS",
+      "en": "from 520000 UZS"
+    },
+    "featured": false,
+    "bookingReady": true,
+    "includedItems": {
+      "kaa": ["driver support", "heritage route briefing", "photo stop planning"],
+      "uz": ["driver support", "heritage route briefing", "photo stop planning"],
+      "ru": ["driver support", "heritage route briefing", "photo stop planning"],
+      "en": ["driver support", "heritage route briefing", "photo stop planning"]
+    },
+    "placeIds": ["mizdakhan-complex", "chilpik-dakhma"]
+  }
+]
