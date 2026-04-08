@@ -1,13 +1,13 @@
 import OpenAI from "openai";
 import { z } from "zod";
 import { env } from "../config/env";
-import type { CategoryId, GeneratedRoute, Language } from "../types/tourism.types";
-import { getCategoryLabel } from "../utils/text-helpers";
+import type { GeneratedRoute, Language, RecommendationPreferenceId } from "../types/tourism.types";
+import { getRecommendationPreferenceLabel } from "../utils/recommendation-preferences";
 
 interface RouteAiEnrichmentInput {
   resolvedCity: string;
   language: Language;
-  interests: CategoryId[];
+  preferences: RecommendationPreferenceId[];
   generatedRoute: GeneratedRoute;
 }
 
@@ -129,9 +129,9 @@ export const enrichRouteWithAi = async (
     return null;
   }
 
-  const localizedInterests = input.interests.length > 0
-    ? input.interests.map((interest) => getCategoryLabel(interest, input.language)).join(", ")
-    : "auto-selected city highlights";
+  const localizedPreferences = input.preferences.length > 0
+    ? input.preferences.map((preference) => getRecommendationPreferenceLabel(preference, input.language)).join(", ")
+    : "best city matches";
   const compactStops = input.generatedRoute.stops
     .map((stop) => {
       return `- ${stop.order}. ${stop.name} | city: ${stop.city} | category: ${stop.category} | duration: ${stop.estimatedDurationMinutes} min | reason: ${stop.description}`;
@@ -158,7 +158,7 @@ export const enrichRouteWithAi = async (
               {
                 type: "input_text",
                 text: [
-                  "You enrich a pre-planned Baramiz travel route for Karakalpakstan.",
+                  "You enrich a pre-selected Baramiz recommendation set for Karakalpakstan.",
                   "Do not choose stops. Do not remove stops. Do not invent stops, cities, or activities.",
                   "Use only the provided city and stop names.",
                   "Reply in the requested language.",
@@ -177,13 +177,13 @@ export const enrichRouteWithAi = async (
                   `Language: ${input.language}`,
                   `City: ${input.resolvedCity}`,
                   `Duration: ${input.generatedRoute.duration}`,
-                  `Interests: ${localizedInterests}`,
+                  `Preferences: ${localizedPreferences}`,
                   `Total duration minutes: ${input.generatedRoute.totalDurationMinutes}`,
                   `Current deterministic title: ${input.generatedRoute.title}`,
                   `Current deterministic summary: ${input.generatedRoute.summary}`,
                   `Allowed stop names: ${input.generatedRoute.stops.map((stop) => stop.name).join(", ")}`,
                   `Stops:\n${compactStops}`,
-                  "Generate a stronger but grounded title, summary, and 2 to 4 practical tips.",
+                  "Generate a stronger but grounded title, summary, and 2 to 4 practical recommendation tips.",
                 ].join("\n\n"),
               },
             ],

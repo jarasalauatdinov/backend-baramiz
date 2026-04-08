@@ -13,6 +13,7 @@ import placesRouter from "./places.routes";
 import routesRouter from "./routes.routes";
 import serviceRouter from "./service.routes";
 import servicesRouter from "./services.routes";
+import suyleAIRouter from "./suyle-ai.routes";
 import toursRouter from "./tours.routes";
 
 const apiRouter = Router();
@@ -29,6 +30,7 @@ apiRouter.use("/events", eventsRouter);
 apiRouter.use("/service", serviceRouter);
 apiRouter.use("/routes", routesRouter);
 apiRouter.use("/chat", chatRouter);
+apiRouter.use("/suyle-ai", suyleAIRouter);
 apiRouter.use("/admin/places", adminPlacesRouter);
 apiRouter.use("/admin/service", adminServiceRouter);
 apiRouter.use("/admin/translate", adminTranslateRouter);

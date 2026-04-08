@@ -15,7 +15,7 @@
       "ru": "A compact city tour focused on museums, history, and a local market stop.",
       "en": "A compact city tour focused on museums, history, and a local market stop."
     },
-    "image": "/assets/service/sections/museums-and-exhibitions.svg",
+    "image": "/assets/service/sections/museums-and-exhibitions.webp",
     "durationLabel": {
       "kaa": "half-day tour",
       "uz": "half-day tour",
@@ -55,7 +55,7 @@
       "ru": "A practical tour combining the ship cemetery and local museum context.",
       "en": "A practical tour combining the ship cemetery and local museum context."
     },
-    "image": "/assets/service/sections/history-and-culture.svg",
+    "image": "/assets/service/sections/history-and-culture.jpg",
     "durationLabel": {
       "kaa": "short tour",
       "uz": "short tour",
@@ -95,7 +95,7 @@
       "ru": "A road trip route covering the main desert fortresses in one practical loop.",
       "en": "A road trip route covering the main desert fortresses in one practical loop."
     },
-    "image": "/assets/service/sections/sightseeing.svg",
+    "image": "/assets/service/sections/sightseeing.jpg",
     "durationLabel": {
       "kaa": "full-day tour",
       "uz": "full-day tour",
@@ -135,7 +135,7 @@
       "ru": "A focused heritage tour combining Mizdakhan and Chilpik in one route.",
       "en": "A focused heritage tour combining Mizdakhan and Chilpik in one route."
     },
-    "image": "/assets/service/sections/history-and-culture.svg",
+    "image": "/assets/service/sections/history-and-culture.jpg",
     "durationLabel": {
       "kaa": "half-day tour",
       "uz": "half-day tour",

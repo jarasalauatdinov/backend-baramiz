@@ -6,6 +6,7 @@ import type {
   ChatResponse,
   Language,
   Place,
+  RecommendationPreferenceId,
   RouteDuration,
 } from "../types/tourism.types";
 import {
@@ -170,28 +171,33 @@ const buildPromptInstructions = (): string[] => {
   ];
 };
 
-const resolvePreferredInterests = (
+const resolvePreferredPreferences = (
   city: string,
   detectedInterests: CategoryId[],
   language: Language,
-): CategoryId[] => {
-  if (detectedInterests.length > 0) {
-    return detectedInterests;
+): RecommendationPreferenceId[] => {
+  if (detectedInterests.includes("nature") || detectedInterests.includes("adventure")) {
+    return ["scenic_views", "hidden_gems"];
+  }
+
+  if (
+    detectedInterests.includes("history")
+    || detectedInterests.includes("culture")
+    || detectedInterests.includes("museum")
+  ) {
+    return ["cultural_spots", "popular_places"];
+  }
+
+  if (detectedInterests.includes("food")) {
+    return ["popular_places", "easy_to_reach"];
   }
 
   const cityPlaces = getPlacesByCity(city, language);
-  const categoryCounts = new Map<CategoryId, number>();
+  const hasFeaturedCityPlaces = cityPlaces.some((place) => place.featured);
 
-  for (const place of cityPlaces) {
-    const existingCount = categoryCounts.get(place.category) ?? 0;
-    categoryCounts.set(place.category, existingCount + (place.featured ? 2 : 1));
-  }
-
-  const rankedCategories = [...categoryCounts.entries()]
-    .sort((left, right) => right[1] - left[1])
-    .map(([category]) => category);
-
-  return rankedCategories.slice(0, 2).length > 0 ? rankedCategories.slice(0, 2) : ["history", "culture"];
+  return hasFeaturedCityPlaces
+    ? ["popular_places", "easy_to_reach"]
+    : ["hidden_gems", "easy_to_reach"];
 };
 
 const buildSpecificPlaceReply = (language: Language, place: Place, allPlaces: Place[]): string => {
@@ -220,14 +226,12 @@ const buildSpecificPlaceReply = (language: Language, place: Place, allPlaces: Pl
 const buildRouteReply = async (
   language: Language,
   city: string,
-  duration: RouteDuration,
   detectedInterests: CategoryId[],
 ): Promise<string | null> => {
   try {
     const route = await generateRoute({
       city,
-      duration,
-      interests: resolvePreferredInterests(city, detectedInterests, language),
+      preferences: resolvePreferredPreferences(city, detectedInterests, language),
       language,
     });
 
@@ -325,7 +329,7 @@ const buildFallbackReply = async (language: Language, insights: ChatInsights): P
   }
 
   if (detectedCity && detectedDuration) {
-    const routeReply = await buildRouteReply(language, detectedCity, detectedDuration, detectedInterests);
+    const routeReply = await buildRouteReply(language, detectedCity, detectedInterests);
 
     if (routeReply) {
       return routeReply;

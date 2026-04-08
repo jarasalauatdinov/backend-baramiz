@@ -31,12 +31,12 @@ const placesFilePath = path.join(process.cwd(), "src", "data", "places.json");
 let placesCache: Place[] | null = null;
 
 const PLACE_CATEGORY_IMAGE_FALLBACKS: Record<CategoryId, string> = {
-  history: "/assets/service/sections/history-and-culture.svg",
-  culture: "/assets/service/sections/history-and-culture.svg",
-  museum: "/assets/service/sections/museums-and-exhibitions.svg",
-  nature: "/assets/service/sections/nature.svg",
-  adventure: "/assets/service/sections/sightseeing.svg",
-  food: "/assets/service/sections/restaurants.svg",
+  history: "/assets/service/sections/history-and-culture.jpg",
+  culture: "/assets/service/sections/history-and-culture.jpg",
+  museum: "/assets/service/sections/museums-and-exhibitions.webp",
+  nature: "/assets/service/sections/nature.png",
+  adventure: "/assets/service/sections/sightseeing.jpg",
+  food: "/assets/service/sections/restaurants.webp",
 };
 const UNRELIABLE_IMAGE_HOST_PATTERNS = [
   /^https?:\/\/encrypted-tbn0\.gstatic\.com\//i,

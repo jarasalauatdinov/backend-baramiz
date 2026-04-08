@@ -37,7 +37,7 @@ export const generateRoute = async (input: RouteGenerationInput): Promise<Genera
     const enrichment = await enrichRouteWithAi({
       resolvedCity: plannedRoute.resolvedCity,
       language: plannedRoute.language,
-      interests: plannedRoute.interests,
+      preferences: plannedRoute.preferences,
       generatedRoute,
     });
 

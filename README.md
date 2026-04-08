@@ -339,7 +339,7 @@ Example:
       "id": "service-section-hotels",
       "slug": "hotels",
       "title": "Hotels",
-      "image": "http://localhost:3000/assets/service/sections/hotels.svg",
+      "image": "http://localhost:3000/assets/service/sections/hotels.jpg",
       "order": 7,
       "isActive": true,
       "shortDescription": "Places to stay in Nukus and key route towns.",

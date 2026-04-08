@@ -12,5 +12,33 @@
     "email": "jarasalauatdinov12@gmail.com",
     "passwordHash": "16b0c3a904fa56a51549dac63296c6d3:131555d348dd8cfbe3cea68a48e0da36cfdf7aeffda341a3bbbe66b135ca5407fdf73b35aae370db961e9d4800b7128f782d516be6fc9e09b67c2c1d96c9eea6",
     "createdAt": "2026-04-05T06:34:28.181Z"
+  },
+  {
+    "id": "aa8e3841-3cad-4233-aa5a-bd31ef809721",
+    "name": "jxfklsdfjsdklf",
+    "email": "fjksdlfjkldf@gmai.comjfsdklsjfkd",
+    "passwordHash": "43996ae3d03609a23dfc9c39b5046814:b40fc16b08244a14d3c309e837b55f9d834677824197ec763a7086fac098a802970f1965ab70870ecaa0a34742a3c8cc315acfeb829a77aa76a5e87bbcbb5e9f",
+    "createdAt": "2026-04-06T09:19:28.229Z"
+  },
+  {
+    "id": "2b65de25-71cd-4a4d-b58b-fd09a37e90cc",
+    "name": "Jaras Alauatdinov",
+    "email": "jarasalauatdinov111@gmail.com",
+    "passwordHash": "7391b9b5d1a739a065430dfaa082726b:b8a20a09c4240d3c0bc7d019caa4d51f68a3c9429713dba672a6d02df976d0490b9a8df17f0eb83193c3aa6133816f160632f45d125f646e254be01e7405ef6e",
+    "createdAt": "2026-04-06T10:18:40.844Z"
+  },
+  {
+    "id": "7e92d1e5-4abd-4076-9c77-4bf50105a1f8",
+    "name": "cbcbvcb",
+    "email": "jarasalau463453atdinov@gmail.com",
+    "passwordHash": "c637d989ad22aa0dccad40b44f2ebfc1:b2ea7afae332e75e48e8a6133143ea1eb4ce1902b1d74fe278745930d654a6bd7155cc213e1430ffde2a51c3826550c5443cdffe6500922187e6569b9cd6a7aa",
+    "createdAt": "2026-04-07T10:41:07.304Z"
+  },
+  {
+    "id": "eae53a0d-6255-4adc-aaab-b05ee7096541",
+    "name": "Jaras Alauatdinov",
+    "email": "jarasalauatdinov1@gmail.com",
+    "passwordHash": "fd8f9a13800177e98e8f8f4c17d999c5:00bf5e928d7a4857923313b237639921096598587af78888225cb1628353e61ba74ab5d7cdf146771628950e5d4a11fa0caeddbc83bffe517b43e3124ad33c0d",
+    "createdAt": "2026-04-08T06:48:36.555Z"
   }
 ]

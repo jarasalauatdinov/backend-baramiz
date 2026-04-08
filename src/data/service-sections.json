@@ -20,7 +20,7 @@
       "ru": "A mix of planning help, transfer support, and practical services for travelers.",
       "en": "A mix of planning help, transfer support, and practical services for travelers."
     },
-    "image": "/assets/service/sections/services.svg",
+    "image": "/assets/service/sections/services.png",
     "icon": "briefcase",
     "order": 1,
     "isActive": true,
@@ -47,7 +47,7 @@
       "ru": "Historic and cultural landmarks that help visitors understand local identity, memory, and heritage.",
       "en": "Historic and cultural landmarks that help visitors understand local identity, memory, and heritage."
     },
-    "image": "/assets/service/sections/history-and-culture.svg",
+    "image": "/assets/service/sections/history-and-culture.jpg",
     "icon": "landmark",
     "order": 2,
     "isActive": true,
@@ -74,7 +74,7 @@
       "ru": "Natural stops for travelers interested in landscapes, open skies, and remote Karakalpakstan scenery.",
       "en": "Natural stops for travelers interested in landscapes, open skies, and remote Karakalpakstan scenery."
     },
-    "image": "/assets/service/sections/nature.svg",
+    "image": "/assets/service/sections/nature.png",
     "icon": "leaf",
     "order": 3,
     "isActive": true,
@@ -101,7 +101,7 @@
       "ru": "A curated set of museums and exhibition-focused stops for culture-first visitors.",
       "en": "A curated set of museums and exhibition-focused stops for culture-first visitors."
     },
-    "image": "/assets/service/sections/museums-and-exhibitions.svg",
+    "image": "/assets/service/sections/museums-and-exhibitions.webp",
     "icon": "museum",
     "order": 4,
     "isActive": true,
@@ -128,7 +128,7 @@
       "ru": "Reliable places for lunch, dinner, and local cuisine during travel days.",
       "en": "Reliable places for lunch, dinner, and local cuisine during travel days."
     },
-    "image": "/assets/service/sections/restaurants.svg",
+    "image": "/assets/service/sections/restaurants.webp",
     "icon": "utensils",
     "order": 5,
     "isActive": true,
@@ -155,7 +155,7 @@
       "ru": "Popular scenic and heritage stops that work well for day trips and road routes.",
       "en": "Popular scenic and heritage stops that work well for day trips and road routes."
     },
-    "image": "/assets/service/sections/sightseeing.svg",
+    "image": "/assets/service/sections/sightseeing.jpg",
     "icon": "binoculars",
     "order": 6,
     "isActive": true,
@@ -182,7 +182,7 @@
       "ru": "Accommodation options for travelers who need a reliable city base or route stop.",
       "en": "Accommodation options for travelers who need a reliable city base or route stop."
     },
-    "image": "/assets/service/sections/hotels.svg",
+    "image": "/assets/service/sections/hotels.jpg",
     "icon": "hotel",
     "order": 7,
     "isActive": true,

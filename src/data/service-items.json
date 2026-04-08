@@ -78,9 +78,9 @@
       "ru": "One of the most recognizable sightseeing stops in the region, especially good for road-trip style itineraries.",
       "en": "One of the most recognizable sightseeing stops in the region, especially good for road-trip style itineraries."
     },
-    "image": "/assets/service/sections/sightseeing.svg",
+    "image": "/assets/service/sections/sightseeing.jpg",
     "gallery": [
-      "/assets/service/sections/sightseeing.svg"
+      "/assets/service/sections/sightseeing.jpg"
     ],
     "address": "Ellikqala district",
     "city": "Ellikqala",
@@ -242,9 +242,9 @@
       "ru": "A city-base accommodation option for museum visitors and travelers starting longer Karakalpakstan routes.",
       "en": "A city-base accommodation option for museum visitors and travelers starting longer Karakalpakstan routes."
     },
-    "image": "/assets/service/sections/hotels.svg",
+    "image": "/assets/service/sections/hotels.jpg",
     "gallery": [
-      "/assets/service/sections/hotels.svg"
+      "/assets/service/sections/hotels.jpg"
     ],
     "address": "Central Nukus",
     "city": "Nukus",
@@ -353,9 +353,9 @@
       "ru": "An atmospheric historic complex that blends sacred history, local memory, and a strong sense of place.",
       "en": "An atmospheric historic complex that blends sacred history, local memory, and a strong sense of place."
     },
-    "image": "/assets/service/sections/history-and-culture.svg",
+    "image": "/assets/service/sections/history-and-culture.jpg",
     "gallery": [
-      "/assets/service/sections/history-and-culture.svg"
+      "/assets/service/sections/history-and-culture.jpg"
     ],
     "address": "Near Xojeli, Karakalpakstan",
     "city": "Xojeli",
@@ -517,9 +517,9 @@
       "ru": "A practical option for travelers who want a local-style lunch between museum visits and city walking.",
       "en": "A practical option for travelers who want a local-style lunch between museum visits and city walking."
     },
-    "image": "/assets/service/sections/restaurants.svg",
+    "image": "/assets/service/sections/restaurants.webp",
     "gallery": [
-      "/assets/service/sections/restaurants.svg"
+      "/assets/service/sections/restaurants.webp"
     ],
     "address": "Near Nukus central bazaar",
     "city": "Nukus",
@@ -625,9 +625,9 @@
       "ru": "A practical support point for travelers who need intercity transport coordination across the main Karakalpakstan tourism flow.",
       "en": "A practical support point for travelers who need intercity transport coordination across the main Karakalpakstan tourism flow."
     },
-    "image": "/assets/service/sections/services.svg",
+    "image": "/assets/service/sections/services.png",
     "gallery": [
-      "/assets/service/sections/services.svg"
+      "/assets/service/sections/services.png"
     ],
     "address": "Nukus transport support desk",
     "city": "Nukus",
@@ -679,9 +679,9 @@
       "ru": "A flagship museum in Nukus with one of the region's most memorable collections for culture-first visitors.",
       "en": "A flagship museum in Nukus with one of the region's most memorable collections for culture-first visitors."
     },
-    "image": "/assets/service/sections/museums-and-exhibitions.svg",
+    "image": "/assets/service/sections/museums-and-exhibitions.webp",
     "gallery": [
-      "/assets/service/sections/museums-and-exhibitions.svg"
+      "/assets/service/sections/museums-and-exhibitions.webp"
     ],
     "address": "Nukus city center",
     "city": "Nukus",
@@ -729,9 +729,9 @@
       "ru": "A simple planning support contact for travelers who want to turn a generated route into a practical day plan with stops, timing, and local tips.",
       "en": "A simple planning support contact for travelers who want to turn a generated route into a practical day plan with stops, timing, and local tips."
     },
-    "image": "/assets/service/sections/services.svg",
+    "image": "/assets/service/sections/services.png",
     "gallery": [
-      "/assets/service/sections/services.svg"
+      "/assets/service/sections/services.png"
     ],
     "address": "Remote support based in Nukus",
     "city": "Nukus",
@@ -783,9 +783,9 @@
       "ru": "A practical companion stop to Ayaz Kala for travelers interested in archaeology, ruins, and heritage landscapes.",
       "en": "A practical companion stop to Ayaz Kala for travelers interested in archaeology, ruins, and heritage landscapes."
     },
-    "image": "/assets/service/sections/sightseeing.svg",
+    "image": "/assets/service/sections/sightseeing.jpg",
     "gallery": [
-      "/assets/service/sections/sightseeing.svg"
+      "/assets/service/sections/sightseeing.jpg"
     ],
     "address": "Ellikqala district",
     "city": "Ellikqala",
@@ -831,9 +831,9 @@
       "ru": "A nature-heavy stop suited to travelers who want a more remote landscape experience beyond city visits.",
       "en": "A nature-heavy stop suited to travelers who want a more remote landscape experience beyond city visits."
     },
-    "image": "/assets/service/sections/nature.svg",
+    "image": "/assets/service/sections/nature.pbg",
     "gallery": [
-      "/assets/service/sections/nature.svg"
+      "/assets/service/sections/nature.png"
     ],
     "address": "Qonirat direction, Karakalpakstan",
     "city": "Qonirat",
@@ -879,9 +879,9 @@
       "ru": "A memorable historic landmark with wide desert views and strong storytelling value for heritage-focused travelers.",
       "en": "A memorable historic landmark with wide desert views and strong storytelling value for heritage-focused travelers."
     },
-    "image": "/assets/service/sections/history-and-culture.svg",
+    "image": "/assets/service/sections/history-and-culture.jpg",
     "gallery": [
-      "/assets/service/sections/history-and-culture.svg"
+      "/assets/service/sections/history-and-culture.jpg"
     ],
     "address": "Xojeli district, Karakalpakstan",
     "city": "Xojeli",
@@ -927,9 +927,9 @@
       "ru": "A simple natural stop for travelers who want a softer contrast to the desert and fortress route landscapes.",
       "en": "A simple natural stop for travelers who want a softer contrast to the desert and fortress route landscapes."
     },
-    "image": "/assets/service/sections/nature.svg",
+    "image": "/assets/service/sections/nature.png",
     "gallery": [
-      "/assets/service/sections/nature.svg"
+      "/assets/service/sections/nature.png"
     ],
     "address": "River outlook near Nukus",
     "city": "Nukus",
@@ -975,9 +975,9 @@
       "ru": "A practical dining option for travelers making the longer trip to Moynaq and wanting a reliable food stop nearby.",
       "en": "A practical dining option for travelers making the longer trip to Moynaq and wanting a reliable food stop nearby."
     },
-    "image": "/assets/service/sections/restaurants.svg",
+    "image": "/assets/service/sections/restaurants.webp",
     "gallery": [
-      "/assets/service/sections/restaurants.svg"
+      "/assets/service/sections/restaurants.webp"
     ],
     "address": "Moynaq center",
     "city": "Moynaq",
@@ -1026,9 +1026,9 @@
       "ru": "A route-focused guest house option for travelers spending more time around Moynaq and nearby landscapes.",
       "en": "A route-focused guest house option for travelers spending more time around Moynaq and nearby landscapes."
     },
-    "image": "/assets/service/sections/hotels.svg",
+    "image": "/assets/service/sections/hotels.jpg",
     "gallery": [
-      "/assets/service/sections/hotels.svg"
+      "/assets/service/sections/hotels.jpg"
     ],
     "address": "Moynaq center",
     "city": "Moynaq",
@@ -1129,9 +1129,9 @@
       "ru": "A strong museum visit for travelers who want a broader understanding of Karakalpakstan before heading out on longer routes.",
       "en": "A strong museum visit for travelers who want a broader understanding of Karakalpakstan before heading out on longer routes."
     },
-    "image": "/assets/service/sections/museums-and-exhibitions.svg",
+    "image": "/assets/service/sections/museums-and-exhibitions.webp",
     "gallery": [
-      "/assets/service/sections/museums-and-exhibitions.svg"
+      "/assets/service/sections/museums-and-exhibitions.webp"
     ],
     "address": "Nukus city center",
     "city": "Nukus",

@@ -2,8 +2,12 @@ import {
   CROSS_CITY_TRAVEL_SPEED_KMH,
   TRANSFER_BUFFER_MINUTES,
 } from "../constants/tourism.constants";
-import type { CategoryId, Coordinates, Language, Place } from "../types/tourism.types";
-import { getCategoryLabel, localize, normalizeText } from "./text-helpers";
+import type { Coordinates, Language, Place, RecommendationPreferenceId } from "../types/tourism.types";
+import {
+  getPrimaryMatchingPreference,
+  getRecommendationPreferenceLabel,
+} from "./recommendation-preferences";
+import { localize, normalizeText } from "./text-helpers";
 
 export const timeToMinutes = (time: string): number => {
   const [hours, minutes] = time.split(":").map(Number);
@@ -52,7 +56,7 @@ export const estimateTransferMinutes = (
 
 interface RouteReasonInput {
   place: Place;
-  interests: CategoryId[];
+  preferences: RecommendationPreferenceId[];
   language: Language;
   requestedCity: string;
   transferMinutes: number;
@@ -60,55 +64,57 @@ interface RouteReasonInput {
 
 export const buildRouteReason = ({
   place,
-  interests,
+  preferences,
   language,
   requestedCity,
   transferMinutes,
 }: RouteReasonInput): string => {
-  const matchesInterest = interests.includes(place.category);
   const isSameCity = normalizeText(place.city) === normalizeText(requestedCity);
-  const categoryLabel = getCategoryLabel(place.category, language);
+  const matchingPreference = getPrimaryMatchingPreference(place, preferences, requestedCity);
+  const preferenceLabel = matchingPreference
+    ? getRecommendationPreferenceLabel(matchingPreference, language)
+    : null;
 
-  if (matchesInterest && isSameCity) {
+  if (matchingPreference && isSameCity) {
     return localize(language, {
-      kaa: `${place.name} ${categoryLabel} qızıǵıwıńızǵa say keledi hám ${place.city} ishinde qolay stop boladı.`,
-      uz: `${place.name} ${categoryLabel} qiziqishingizga mos va ${place.city} ichida qulay stop bo'ladi.`,
-      ru: `${place.name} хорошо подходит по теме ${categoryLabel} и удобно ложится в маршрут по ${place.city}.`,
-      en: `${place.name} matches your ${categoryLabel} interest and fits naturally inside ${place.city}.`,
+      kaa: `${place.name} ${preferenceLabel} qalawıńızǵa mas keledi hám ${place.city} ishinde qolay variant boladı.`,
+      uz: `${place.name} ${preferenceLabel} afzalligingizga mos va ${place.city} ichida qulay variant bo'ladi.`,
+      ru: `${place.name} хорошо подходит под ваш запрос на ${preferenceLabel} и удобно расположен в ${place.city}.`,
+      en: `${place.name} matches your preference for ${preferenceLabel} and sits conveniently inside ${place.city}.`,
     });
   }
 
-  if (matchesInterest) {
+  if (matchingPreference) {
     return localize(language, {
-      kaa: `${place.name} ${categoryLabel} boyınsha kúshli tańlaw hám marshrutti bayıtadı.`,
-      uz: `${place.name} ${categoryLabel} bo'yicha kuchli tanlov va marshrutni boyitadi.`,
-      ru: `${place.name} хорошо подходит по теме ${categoryLabel} и усиливает маршрут.`,
-      en: `${place.name} is a strong ${categoryLabel} match and adds more value to the route.`,
+      kaa: `${place.name} ${preferenceLabel} ushın kúshli tavsiya bolıp, tańlawıńızdı bayıtadı.`,
+      uz: `${place.name} ${preferenceLabel} uchun kuchli tavsiya bo'lib, tanlovingizni boyitadi.`,
+      ru: `${place.name} — сильная рекомендация под запрос на ${preferenceLabel}.`,
+      en: `${place.name} is a strong match for your preference for ${preferenceLabel}.`,
     });
   }
 
   if (!isSameCity) {
     return localize(language, {
-      kaa: `${place.name} basqa qalada, biraq shamamen ${transferMinutes} minutlıq ótis penen barıwǵa arziydıǵan stop.`,
-      uz: `${place.name} boshqa shaharda, lekin taxminan ${transferMinutes} daqiqalik o'tish bilan borishga arziydigan stop.`,
-      ru: `${place.name} находится не в ${requestedCity}, но стоит поездки, если вас устраивает переезд примерно в ${transferMinutes} минут.`,
-      en: `${place.name} is outside ${requestedCity}, but it is worthwhile if you are comfortable with about ${transferMinutes} minutes of transfer time.`,
+      kaa: `${place.name} ${requestedCity} sırtında, biraq shamamen ${transferMinutes} minutlıq jól menen barıwǵa arziydı.`,
+      uz: `${place.name} ${requestedCity} tashqarisida, lekin taxminan ${transferMinutes} daqiqalik yo'l bilan borishga arziydi.`,
+      ru: `${place.name} находится не в ${requestedCity}, но туда стоит поехать, если вас устраивает дорога примерно на ${transferMinutes} минут.`,
+      en: `${place.name} sits outside ${requestedCity}, but it is still worth considering if you are comfortable with about ${transferMinutes} minutes of travel.`,
     });
   }
 
   if (place.featured) {
     return localize(language, {
-      kaa: `${place.name} tanılǵan highlight bolıp, marshruttı isenimli etedi.`,
-      uz: `${place.name} taniqli highlight bo'lib, marshrutni ishonchli qiladi.`,
-      ru: `${place.name} является заметной ключевой точкой и укрепляет маршрут.`,
-      en: `${place.name} is a featured highlight, so it keeps the itinerary strong and easy to present.`,
+      kaa: `${place.name} tanılǵan highlight bolıp, sizge isenimli tańlaw beredi.`,
+      uz: `${place.name} taniqli highlight bo'lib, sizga ishonchli tanlov beradi.`,
+      ru: `${place.name} — заметный городской highlight и надежная рекомендация.`,
+      en: `${place.name} is a featured highlight and an easy place to recommend with confidence.`,
     });
   }
 
   return localize(language, {
-    kaa: `${place.name} qalıp qalǵan waqıtqa say keledi hám marshruttı teńsalmaqlı etedi.`,
-    uz: `${place.name} qolgan vaqtga mos keladi va marshrutni muvozanatli qiladi.`,
-    ru: `${place.name} хорошо вписывается по времени и делает маршрут более сбалансированным.`,
-    en: `${place.name} fits the remaining time well and keeps the route balanced.`,
+    kaa: `${place.name} osı qala ushın jaqsı tavsiya bolıp, sapar tańlawıńızdı toltıradı.`,
+    uz: `${place.name} shu shahar uchun yaxshi tavsiya bo'lib, tanlovingizni to'ldiradi.`,
+    ru: `${place.name} хорошо дополняет подборку мест по этому городу.`,
+    en: `${place.name} rounds out the recommendation set for this city nicely.`,
   });
 };

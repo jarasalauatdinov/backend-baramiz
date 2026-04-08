@@ -1,51 +1,29 @@
-import { ROUTE_START_TIME } from "../constants/tourism.constants";
-import type { GeneratedRoute, Language, RouteDuration } from "../types/tourism.types";
-import { buildRouteReason, timeToMinutes } from "../utils/route-helpers";
+import type { GeneratedRoute, Language } from "../types/tourism.types";
+import { buildRouteReason } from "../utils/route-helpers";
 import { localize, normalizeText } from "../utils/text-helpers";
 import { toRouteStop } from "./places.service";
 import type { PlannedRoute } from "./route-planner.service";
 
-const formatClockTime = (minutes: number): string => {
-  return `${Math.floor(minutes / 60).toString().padStart(2, "0")}:${String(minutes % 60).padStart(2, "0")}`;
-};
-
-const getLocalizedDurationLabel = (language: Language, duration: RouteDuration): string => {
+const buildLocalizedTitle = (language: Language, resolvedCity: string): string => {
   return localize(language, {
-    kaa: duration === "3_hours" ? "3 saatliq" : duration === "half_day" ? "jarim kunlik" : "1 kunlik",
-    uz: duration === "3_hours" ? "3 soatlik" : duration === "half_day" ? "yarim kunlik" : "1 kunlik",
-    ru: duration === "3_hours" ? "3 часа" : duration === "half_day" ? "полдня" : "1 день",
-    en: duration === "3_hours" ? "3-hour" : duration === "half_day" ? "half-day" : "1-day",
-  });
-};
-
-const buildLocalizedTitle = (
-  language: Language,
-  resolvedCity: string,
-  duration: RouteDuration,
-): string => {
-  const formattedDuration = getLocalizedDurationLabel(language, duration);
-
-  return localize(language, {
-    kaa: `${resolvedCity} ushin ${formattedDuration} marshrut`,
-    uz: `${resolvedCity} uchun ${formattedDuration} marshrut`,
-    ru: `Маршрут по ${resolvedCity} на ${formattedDuration}`,
-    en: `${resolvedCity} ${formattedDuration} itinerary`,
+    kaa: `${resolvedCity} ushın tavsiya etilgen orınlar`,
+    uz: `${resolvedCity} uchun tavsiya etilgan joylar`,
+    ru: `Рекомендованные места в ${resolvedCity}`,
+    en: `Recommended places in ${resolvedCity}`,
   });
 };
 
 const buildLocalizedSummary = (
   language: Language,
+  resolvedCity: string,
   stopCount: number,
-  totalDurationMinutes: number,
+  preferenceCount: number,
 ): string => {
-  const endMinutes = timeToMinutes(ROUTE_START_TIME) + totalDurationMinutes;
-  const formattedEndTime = formatClockTime(endMinutes);
-
   return localize(language, {
-    kaa: `${stopCount} stop ${ROUTE_START_TIME} de baslanip, shamamen ${formattedEndTime} da juwmaqlanadi.`,
-    uz: `${stopCount} ta stop ${ROUTE_START_TIME} da boshlanib taxminan ${formattedEndTime} da yakunlanadi.`,
-    ru: `${stopCount} остановки, старт в ${ROUTE_START_TIME} и завершение примерно в ${formattedEndTime}.`,
-    en: `${stopCount} stops starting at ${ROUTE_START_TIME} and ending around ${formattedEndTime}.`,
+    kaa: `${resolvedCity} ushın ${stopCount} tavsiya etilgen orın. ${preferenceCount} ta saylanǵan filtr esapqa alındı.`,
+    uz: `${resolvedCity} uchun ${stopCount} ta tavsiya etilgan joy. ${preferenceCount} ta tanlangan filtr hisobga olindi.`,
+    ru: `${stopCount} рекомендаций по ${resolvedCity}. Учтено ${preferenceCount} выбранных фильтра.`,
+    en: `${stopCount} recommended places in ${resolvedCity}, matched to ${preferenceCount} selected filters.`,
   });
 };
 
@@ -59,36 +37,36 @@ const buildFallbackTips = (plannedRoute: PlannedRoute): string[] => {
 
   return [
     localize(plannedRoute.language, {
-      kaa: `${ROUTE_START_TIME} da baslaw marshruttı jedel etedi.`,
-      uz: `${ROUTE_START_TIME} da boshlash marshrutni silliq olib boradi.`,
-      ru: `Старт около ${ROUTE_START_TIME} поможет пройти маршрут без спешки.`,
-      en: `Starting around ${ROUTE_START_TIME} keeps the route comfortable.`,
+      kaa: `Eń kúshli birinshi varianttan baslap, qalǵanların ornında qarap tańlań.`,
+      uz: `Avval eng kuchli birinchi variantni ko'rib, qolganlarini joyida tanlang.`,
+      ru: `Начните с самого сильного первого варианта, а остальные выберите уже на месте.`,
+      en: `Start with the strongest first pick, then decide the rest on the spot.`,
     }),
     longestStop
       ? localize(plannedRoute.language, {
-          kaa: `${longestStop.name} ushın kóbirek waqıt ajıratıń.`,
-          uz: `${longestStop.name} uchun ko'proq vaqt ajrating.`,
-          ru: `Заложите больше времени на ${longestStop.name}.`,
-          en: `Set aside extra time for ${longestStop.name}.`,
+          kaa: `${longestStop.name} ushın kóbirek waqıt ajıratqan maqul.`,
+          uz: `${longestStop.name} uchun ko'proq vaqt ajratsangiz yaxshi bo'ladi.`,
+          ru: `На ${longestStop.name} лучше заложить побольше времени.`,
+          en: `It is worth setting aside extra time for ${longestStop.name}.`,
         })
       : localize(plannedRoute.language, {
-          kaa: `Har bir stop ushin qısqa demalıs waqtın esepteń.`,
-          uz: `Har bir stop uchun qisqa tanaffus vaqtini hisoblang.`,
-          ru: `Оставьте короткий запас времени между остановками.`,
-          en: `Leave a short buffer between stops.`,
+          kaa: `Qısqa dem alıw hám foto úshin azraq bos waqıt qaldırıń.`,
+          uz: `Qisqa tanaffus va suratlar uchun ozroq bo'sh vaqt qoldiring.`,
+          ru: `Оставьте немного свободного времени на паузу и фото.`,
+          en: `Leave a little buffer for a short pause and photos.`,
         }),
     hasCrossCityStop
       ? localize(plannedRoute.language, {
-          kaa: `Qala aralıǵındaǵı ótis ushin aldınnan transport kelisip alıń.`,
-          uz: `Shaharlar orasidagi o'tish uchun transportni oldindan kelishib oling.`,
-          ru: `Для межгородского переезда лучше заранее договориться о транспорте.`,
-          en: `Arrange transport in advance for the cross-city segment.`,
+          kaa: `Qala sırtına shıǵatuǵın orınlar ushın transporttı aldınnan kelisip alıń.`,
+          uz: `Shahar tashqarisidagi joylar uchun transportni oldindan kelishib oling.`,
+          ru: `Для мест за пределами города лучше заранее договориться о транспорте.`,
+          en: `For places outside the city, it is better to arrange transport in advance.`,
         })
       : localize(plannedRoute.language, {
-          kaa: `Suw hám telefon quwatın dayınlap júriń.`,
-          uz: `Suv va telefon quvvatini tayyorlab yuring.`,
-          ru: `Возьмите воду и держите телефон заряженным.`,
-          en: `Carry water and keep your phone charged.`,
+          kaa: `Jaqın servisler sapardı jeńillestiredi, kerek bolsa olardı da ashıp kóriń.`,
+          uz: `Yaqin servislar sayohatni yengillashtiradi, kerak bo'lsa ularni ham ko'rib chiqing.`,
+          ru: `Ближайшие сервисы могут упростить поездку, если они вам понадобятся.`,
+          en: `Nearby services can make the visit easier if you need them along the way.`,
         }),
   ];
 };
@@ -98,7 +76,7 @@ export const presentRoute = (plannedRoute: PlannedRoute): GeneratedRoute => {
     ...toRouteStop(stop.place, index + 1),
     description: buildRouteReason({
       place: stop.place,
-      interests: plannedRoute.interests,
+      preferences: plannedRoute.preferences,
       language: plannedRoute.language,
       requestedCity: plannedRoute.resolvedCity,
       transferMinutes: stop.transferMinutes,
@@ -110,8 +88,13 @@ export const presentRoute = (plannedRoute: PlannedRoute): GeneratedRoute => {
     language: plannedRoute.language,
     duration: plannedRoute.duration,
     mode: "deterministic",
-    title: buildLocalizedTitle(plannedRoute.language, plannedRoute.resolvedCity, plannedRoute.duration),
-    summary: buildLocalizedSummary(plannedRoute.language, stops.length, plannedRoute.totalDurationMinutes),
+    title: buildLocalizedTitle(plannedRoute.language, plannedRoute.resolvedCity),
+    summary: buildLocalizedSummary(
+      plannedRoute.language,
+      plannedRoute.resolvedCity,
+      stops.length,
+      plannedRoute.preferences.length,
+    ),
     tips: buildFallbackTips(plannedRoute),
     totalDurationMinutes: plannedRoute.totalDurationMinutes,
     stops,

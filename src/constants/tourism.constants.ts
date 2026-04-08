@@ -7,6 +7,17 @@ export const CATEGORY_IDS = [
   "food",
 ] as const;
 
+export const RECOMMENDATION_PREFERENCE_IDS = [
+  "popular_places",
+  "hidden_gems",
+  "easy_to_reach",
+  "family_friendly",
+  "solo_friendly",
+  "scenic_views",
+  "quiet_places",
+  "cultural_spots",
+] as const;
+
 export const LANGUAGE_CODES = ["kaa", "uz", "en", "ru"] as const;
 
 export const ROUTE_DURATION_MINUTES = {

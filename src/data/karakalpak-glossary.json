@@ -1,0 +1,269 @@
+{
+  "terms": [
+    {
+      "key": "pharmacy",
+      "translations": {
+        "uz": "dorixona",
+        "ru": "аптека",
+        "en": "pharmacy",
+        "tr": "eczane",
+        "kaa_latn": "darixana",
+        "kaa_cyrl": "дәрихана"
+      },
+      "synonyms": {
+        "en": ["drugstore"],
+        "ru": ["аптеку", "аптеке", "аптекой"],
+        "uz": ["dorixonani", "dorixonaga"],
+        "tr": ["eczaneyi", "eczaneye"]
+      }
+    },
+    {
+      "key": "hospital",
+      "translations": {
+        "uz": "shifoxona",
+        "ru": "больница",
+        "en": "hospital",
+        "tr": "hastane",
+        "kaa_latn": "awruxana",
+        "kaa_cyrl": "аурухана"
+      }
+    },
+    {
+      "key": "taxi",
+      "translations": {
+        "uz": "taksi",
+        "ru": "такси",
+        "en": "taxi",
+        "tr": "taksi",
+        "kaa_latn": "taksi",
+        "kaa_cyrl": "такси"
+      }
+    },
+    {
+      "key": "hotel",
+      "translations": {
+        "uz": "mehmonxona",
+        "ru": "отель",
+        "en": "hotel",
+        "tr": "otel",
+        "kaa_latn": "meymanxana",
+        "kaa_cyrl": "мейманхана"
+      }
+    },
+    {
+      "key": "restaurant",
+      "translations": {
+        "uz": "restoran",
+        "ru": "ресторан",
+        "en": "restaurant",
+        "tr": "restoran",
+        "kaa_latn": "restoran",
+        "kaa_cyrl": "ресторан"
+      }
+    },
+    {
+      "key": "museum",
+      "translations": {
+        "uz": "muzey",
+        "ru": "музей",
+        "en": "museum",
+        "tr": "müze",
+        "kaa_latn": "muzey",
+        "kaa_cyrl": "музей"
+      }
+    },
+    {
+      "key": "help",
+      "translations": {
+        "uz": "yordam",
+        "ru": "помощь",
+        "en": "help",
+        "tr": "yardım",
+        "kaa_latn": "járdem",
+        "kaa_cyrl": "жәрдем"
+      }
+    },
+    {
+      "key": "where",
+      "translations": {
+        "uz": "qayerda",
+        "ru": "где",
+        "en": "where",
+        "tr": "nerede",
+        "kaa_latn": "qay jerde",
+        "kaa_cyrl": "қай жерде"
+      }
+    },
+    {
+      "key": "how_much",
+      "translations": {
+        "uz": "qancha",
+        "ru": "сколько",
+        "en": "how much",
+        "tr": "ne kadar",
+        "kaa_latn": "qansha",
+        "kaa_cyrl": "қанша"
+      }
+    },
+    {
+      "key": "nearest",
+      "translations": {
+        "uz": "eng yaqin",
+        "ru": "ближайший",
+        "en": "nearest",
+        "tr": "en yakın",
+        "kaa_latn": "eń jaqın",
+        "kaa_cyrl": "ең жақын"
+      }
+    },
+    {
+      "key": "map",
+      "translations": {
+        "uz": "xarita",
+        "ru": "карта",
+        "en": "map",
+        "tr": "harita",
+        "kaa_latn": "karta",
+        "kaa_cyrl": "карта"
+      }
+    },
+    {
+      "key": "open",
+      "translations": {
+        "uz": "ochiq",
+        "ru": "открыто",
+        "en": "open",
+        "tr": "açık",
+        "kaa_latn": "ashıq",
+        "kaa_cyrl": "ашық"
+      }
+    },
+    {
+      "key": "closed",
+      "translations": {
+        "uz": "yopiq",
+        "ru": "закрыто",
+        "en": "closed",
+        "tr": "kapalı",
+        "kaa_latn": "jabıq",
+        "kaa_cyrl": "жабық"
+      }
+    }
+  ],
+  "seedExamples": [
+    {
+      "sourceLanguage": "en",
+      "targetLanguage": "kaa_latn",
+      "sourceText": "Where is the nearest pharmacy?",
+      "translatedText": "Jaqın dorixana qay jerde?"
+    },
+    {
+      "sourceLanguage": "en",
+      "targetLanguage": "kaa_cyrl",
+      "sourceText": "Where is the nearest pharmacy?",
+      "translatedText": "Жақын дорихана қай жерде?"
+    },
+    {
+      "sourceLanguage": "en",
+      "targetLanguage": "kaa_latn",
+      "sourceText": "Call a taxi please.",
+      "translatedText": "Iltimas, taksi shaqırıp beriń."
+    },
+    {
+      "sourceLanguage": "en",
+      "targetLanguage": "kaa_cyrl",
+      "sourceText": "Call a taxi please.",
+      "translatedText": "Илтимас, такси шақырып бериń."
+    },
+    {
+      "sourceLanguage": "ru",
+      "targetLanguage": "kaa_latn",
+      "sourceText": "Где ближайшая аптека?",
+      "translatedText": "Eń jaqın darixana qay jerde?"
+    },
+    {
+      "sourceLanguage": "ru",
+      "targetLanguage": "kaa_cyrl",
+      "sourceText": "Где ближайшая аптека?",
+      "translatedText": "Ең жақын дәрихана қай жерде?"
+    },
+    {
+      "sourceLanguage": "ru",
+      "targetLanguage": "kaa_latn",
+      "sourceText": "Вызовите такси, пожалуйста.",
+      "translatedText": "Iltimas, taksi shaqırıp beriń."
+    },
+    {
+      "sourceLanguage": "uz",
+      "targetLanguage": "kaa_latn",
+      "sourceText": "Eng yaqin dorixona qayerda?",
+      "translatedText": "Eń jaqın darixana qay jerde?"
+    },
+    {
+      "sourceLanguage": "tr",
+      "targetLanguage": "kaa_latn",
+      "sourceText": "En yakın eczane nerede?",
+      "translatedText": "Eń jaqın darixana qay jerde?"
+    },
+    {
+      "sourceLanguage": "en",
+      "targetLanguage": "kaa_latn",
+      "sourceText": "Do you know where Feep up is?",
+      "translatedText": "Feep up qay jerde ekenin bilesizbe?"
+    },
+    {
+      "sourceLanguage": "en",
+      "targetLanguage": "kaa_cyrl",
+      "sourceText": "Do you know where Feep up is?",
+      "translatedText": "Фееп up қай жерде екенин билесизбе?"
+    },
+    {
+      "sourceLanguage": "kaa_latn",
+      "targetLanguage": "en",
+      "sourceText": "Jaqın dorixana anaw kósheniń basında.",
+      "translatedText": "The nearest pharmacy is at the beginning of that street."
+    },
+    {
+      "sourceLanguage": "kaa_cyrl",
+      "targetLanguage": "en",
+      "sourceText": "Жақын дорихана анаў көшениң басында.",
+      "translatedText": "The nearest pharmacy is at the beginning of that street."
+    },
+    {
+      "sourceLanguage": "kaa_latn",
+      "targetLanguage": "ru",
+      "sourceText": "Men taksi shaqırıp beremen.",
+      "translatedText": "Я вызову вам такси."
+    },
+    {
+      "sourceLanguage": "kaa_cyrl",
+      "targetLanguage": "ru",
+      "sourceText": "Мен такси шақырып беремен.",
+      "translatedText": "Я вызову вам такси."
+    },
+    {
+      "sourceLanguage": "kaa_latn",
+      "targetLanguage": "uz",
+      "sourceText": "Bul jerde emes, alǵa barıń.",
+      "translatedText": "Bu yerda emas, oldinga boring."
+    },
+    {
+      "sourceLanguage": "kaa_cyrl",
+      "targetLanguage": "uz",
+      "sourceText": "Бул жерде емес, алға барың.",
+      "translatedText": "Bu yerda emas, oldinga boring."
+    },
+    {
+      "sourceLanguage": "kaa_latn",
+      "targetLanguage": "tr",
+      "sourceText": "Jaqın meymanxana anaw jerde.",
+      "translatedText": "En yakın otel şuradadır."
+    },
+    {
+      "sourceLanguage": "kaa_cyrl",
+      "targetLanguage": "tr",
+      "sourceText": "Жақын мейманхана анаў жерде.",
+      "translatedText": "En yakın otel şuradadır."
+    }
+  ]
+}

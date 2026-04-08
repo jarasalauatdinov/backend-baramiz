@@ -1,7 +1,8 @@
-import { CATEGORY_IDS, LANGUAGE_CODES, ROUTE_DURATION_MINUTES } from "../constants/tourism.constants";
+import { CATEGORY_IDS, LANGUAGE_CODES, RECOMMENDATION_PREFERENCE_IDS, ROUTE_DURATION_MINUTES } from "../constants/tourism.constants";
 
 export type CategoryId = (typeof CATEGORY_IDS)[number];
 export type Language = (typeof LANGUAGE_CODES)[number];
+export type RecommendationPreferenceId = (typeof RECOMMENDATION_PREFERENCE_IDS)[number];
 export type RouteDuration = keyof typeof ROUTE_DURATION_MINUTES;
 export type RouteGenerationMode = "ai_enriched" | "deterministic";
 
@@ -395,8 +396,7 @@ export interface GeneratedRoute {
 
 export interface RouteGenerationInput {
   city: string;
-  duration: RouteDuration;
-  interests: CategoryId[];
+  preferences: RecommendationPreferenceId[];
   language: Language;
 }
 
